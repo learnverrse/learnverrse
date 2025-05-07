@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="src/index.css">
+    <link rel="stylesheet" href="src/Sign-up.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <style>
+        .custom-input::placeholder {
+          color: #6b6b6b;
+        }
+    </style>
+</head>
+<body class="h-screen">
+    <div class="flex">
+        <div class="w-1/2 h-screen">
+            <img src="src/assets/Sign-up Images/banner.png" alt="Signup banner" class="banner">
+        </div>
+
+        <div class="w-1/2 flex flex-col justify-center items-center py-10">
+            <div class="flex flex-col justify-center items-center gap-[52px] mb-20">
+                <img src="src/assets/Sign-up Images/Frame 5.svg" alt="Learnverrse Logo">
+                <div class="bg-[#F5F7FA] flex p-2 rounded-4xl">
+                    <p class="text-base font-medium bg-[#6D28D2] px-5 py-2.5 rounded-3xl text-white cursor-default">Register as a Student</p>
+                    <p class="text-base font-medium px-5 py-2.5 hover:text-[#6D28D2] hover:bg-[#E2D4F6] hover:rounded-3xl cursor-pointer">Register as an Educator</p>
+                </div>
+            </div>
+
+            <div>
+                <h1 class="text-[40px] font-medium mb-10 flex justify-center">Sign Up with Email</h1>
+                <form action="" id="sign-up-form">
+                    <div class="mb-5">
+                        <label for="name" class="text-base font-normal leading-6 mb-2 text-[#121212]">Name</label>
+                        <br />
+                        <input type="text" class="form-field w-[430px] bg-[#F5F7FA] px-4 py-3.5 rounded-xl text-sm leading-5 custom-input text-[#121212] focus:outline-[#6D28D2] focus:bg-[#f5f7fa]" name="Name" placeholder="Enter your Name" required />
+                        <p id="errorNameText" class="hidden text-xs text-[#C82828] leading-[18px] mt-2">This name has been taken</p>
+                    </div>
+                    <div class="mb-5">
+                        <label for="email" class="text-base font-normal leading-6 mb-2 text-[#121212]">Email</label>
+                        <br />
+                        <input type="email" class="form-field w-[430px] bg-[#F5F7FA] px-4 py-3.5 rounded-xl text-sm leading-5 custom-input text-[#121212] focus:outline-[#6D28D2] focus:bg-[#f5f7fa]" name="Email" placeholder="Enter your email" required />
+                        <p id="errorEmailText" class="hidden text-xs text-[#C82828] leading-[18px] mt-2">Please enter a valid Email</p>
+                        <p id="emailUsedText" class="hidden text-xs text-[#C82828] leading-[18px] mt-2">This email has already been registered</p>
+                    </div>
+                    <div>
+                        <label for="password" class="text-base font-normal leading-6 mb-2 text-[#121212]">Password</label>
+                        <br />
+                        <div class="relative flex items-center">
+                            <input type="password" class="form-field w-[430px] bg-[#F5F7FA] px-4 py-3.5 rounded-xl text-sm leading-5 custom-input text-[#121212] focus:outline-[#6D28D2] focus:bg-[#f5f7fa]" name="Password" placeholder="Enter your password" required />
+                            <img src="src/assets/Sign-up Images/eye.svg" alt="" class="absolute right-4 cursor-pointer" id="show-icon">
+                        </div>
+                        <p id="weakPassword" class="hidden text-xs text-[#C82828] leading-[18px] mt-2">Weak password</p>
+                    </div>
+
+                    <div class="flex flex-row gap-1.5 mt-3">
+                        <input type="checkbox" name="" class="cursor-pointer" id="remember-me">
+                        <p class="text-[#6B6B6B] text-sm leading-5">Remember me</p>
+                    </div>
+                    <button class="bg-[#6D28D2] w-[430px] px-4 py-3 rounded-xl mt-10 text-white text-base font-semibold leading-6 cursor-pointer disabled:bg-[#CEB7F0] disabled:cursor-not-allowed" disabled>Sign Up</button>
+                    <div class="flex items-center justify-center gap-6 mt-3">
+                        <img src="src/assets/Sign-up Images/Line 1.svg" alt="">
+                        <p>OR</p>
+                        <img src="src/assets/Sign-up Images/Line 1.svg" alt="">
+                    </div>
+                    <button class="border border-[#6B6B6B] w-[430px] px-4 py-3 rounded-xl mt-3 text-[#121212] text-base font-semibold leading-6 flex gap-2 items-center justify-center cursor-pointer">
+                        <img src="src/assets/Sign-up Images/flat-color-icons_google.svg" alt="" class="w-[5%] px-0 py-0">
+                        Sign Up with Google
+                    </button>
+                </form>
+
+                <div class="mt-20 flex items-center justify-center">
+                    <p class="text-[#3E3E3E] text-base font-medium leading-6">Already have an account? <a href="#"><span class="text-[#6D28D2]">Sign In</span></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('sign-up-form');
+        const button = form.querySelector('button');
+      
+        form.addEventListener('input', () => {
+          button.disabled = !form.checkValidity();
+        });
+      </script>
+</body>
+</html>
