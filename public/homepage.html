@@ -4,17 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
-    <link rel="stylesheet" href="/src/index.css">
+    <link rel="stylesheet" href="src/index.css">
+    <link rel="stylesheet" href="src/homepage.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
-<body>
-    <header>
-        <nav class="bg-red-500 text-white p-4 flex justify-between items-center">
-            <ul class="">
-                <li><a href="/home">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contact</a></li>
-            </ul>
+<body class="">
+   <div class="min-h-screen bg-white">
+        <!-- Navbar -->
+        <nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
+            <div class="flex items-center gap-x-2">
+                <!-- logo -->
+                <div>
+                    <img src="/src/assets/homepage-images/logo.png" alt="Logo">
+                </div>
+                <!-- nav links -->
+                <div id="nav-menu" class=" md:ml-4 absolute top-16 md:top-0 left-[-100%] w-full bg-white transition-all duration-300 ease-in-out z-50 md:static md:flex">
+                    <a href="#" class="nav-link block px-6 py-4 md:px-4 md:py-0  text-gray-700 hover:text-purple-700 md:inline">Explore</a>
+                    <a href="#" class="nav-link block px-6 py-4 md:px-4 md:py-0 text-gray-700 hover:text-purple-700 md:inline">About</a>
+                    <div class="flex flex-col space-y-4 mb-4 px-6">
+                        <a class="nav-link md:hidden px-6 py-2 text-purple-700 border border-purple-700 rounded-xl hover:bg-purple-700 hover:text-white font-semibold">Sign In</a>
+                        <a class="nav-link md:hidden px-6 py-2 bg-purple-700 text-white rounded-xl hover:bg-purple-900 ">Join Us Now</a>   
+                    </div>
+                   
+                  </div>
+            </div>
+            <!-- search input -->
+            <div class="w-full max-w-md relative mx-4">
+                <input type="text" placeholder="Discover Courses To Learn" class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-700">
+                <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
+                    <img src="/src/assets/homepage-images/Search Icon.png" alt="Search">
+                </div>
+            </div>
+            
+            <!-- buttons -->
+            <div class="flex items-center space-x-4">
+                <button class="px-6 py-2 text-purple-700 border border-purple-700 rounded-xl hover:bg-purple-700 hover:text-white font-semibold hidden md:flex">Sign In</button>
+                <button class="px-2 py-2 md:px-6 md:py-2 bg-purple-700 text-white rounded-xl hover:bg-purple-900 hidden md:flex">Join Us Now</button>   
+                <button class="md:hidden flex items-center justify-center w-10 h-10 bg-purple-200 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-700">
+                    <img src="/src/assets/homepage-images/hamburger.png" alt="Menu" id="hamburger">       
+                </button>
+            </div>
         </nav>
-    </header>
+
+        <!-- hero Section  -->
+
+        <div class="flex-grow max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+
+                <!-- hero text -->
+                <div class="md:w-1/2 mb-6 md:mb-0">
+                    <h1 class="text-5xl md:text-7xl font-bold mb-4 capitalize">Where curious minds meet <span class="text-purple-700">expert</span> guides.</h1> 
+                    <p class="text-lg text-black mb-8 max-w-lg mt-8"> Fuel your curiosity with guidance from experts who’ve walked the path—learn deeply, grow confidently, and turn potential into progress.</p>
+
+                    <div class="flex space-x-4">
+                        <button class="px-4 py-2 md:px-8 md:py-3 bg-purple-700 text-white rounded-xl hover:bg-purple-900 font-medium">See Plans</button>
+                        <button class="px-4 py-2 md:px-8 md:py-3 text-purple-700 border border-purple-700  rounded-xl hover:bg-purple-700 hover:text-white font-medium "> Access your course</button>
+                    </div>
+                </div>
+
+                <!-- image section -->
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="src/assets/homepage-images/hero-image.png" alt="" class="w-full max-w-md">
+                </div>
+            </div>
+        </div>
+
+        <!-- blur section -->
+        <div class="fixed bottom-0 -mb-24 w-full">
+            <img src="/src/assets/homepage-images/Ellipse 1.png" alt="" class="w-full object-contain">
+        </div>
+   </div>
+<script>
+   const navMenu = document.getElementById("nav-menu");
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.querySelectorAll(".nav-link");
+
+hamburger.addEventListener("click", () => {
+    navMenu.classList.toggle("left-[0]");
+
+    // Toggle the hamburger icon
+    if (hamburger.src.includes("hamburger.png")) {
+        hamburger.src = "/src/assets/homepage-images/menu-cancel.png";
+    } else {
+        hamburger.src = "/src/assets/homepage-images/hamburger.png";
+    }
+});
+
+navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+        navMenu.classList.remove("left-[0]");
+        hamburger.src = "/src/assets/homepage-images/hamburger.png"; // Reset icon
+    });
+});
+
+</script>
 </body>
 </html>
