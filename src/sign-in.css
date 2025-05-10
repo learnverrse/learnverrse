@@ -1,0 +1,19 @@
+.activeBtn {
+  background-color: #6d28d2;
+  color: white;
+}
+
+button,
+input {
+  cursor: pointer;
+}
+
+.scroll-container {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
