@@ -1,8 +1,12 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 .container {
   margin: 0 auto;
 }
 .nav-links {
-  @apply block cursor-pointer px-6 py-4 md:px-4 md:py-0  text-gray-700 hover:text-purple-700 md:inline;
+  @apply block cursor-pointer px-6 py-4 text-gray-700 hover:text-purple-700 md:inline md:px-4 md:py-0;
+}
+
+.scrollbarnone::-webkit-scrollbar {
+  display: none;
 }

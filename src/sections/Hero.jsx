@@ -6,11 +6,12 @@ import {
   radialGradient,
   search,
 } from '../components/details';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Button from '../components/UI/Button';
 import { FaBars } from 'react-icons/fa';
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <header className="container min-h-screen bg-white">
       {/* navbar */}
@@ -47,8 +48,20 @@ const Hero = () => {
         {/* buttons */}
         <div className="gap-4 md:flex">
           <div className="hidden items-center space-x-4 md:flex">
-            <Button active={false} label={'sign in'} fun={() => {}} />
-            <Button active={true} label={'join us now'} fun={() => {}} />
+            <Button
+              active={false}
+              label={'sign in'}
+              fun={() => {
+                navigate('/SignIn');
+              }}
+            />
+            <Button
+              active={true}
+              label={'join us now'}
+              fun={() => {
+                navigate('/Sign-up');
+              }}
+            />
           </div>
           <button className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-200 hover:bg-gray-300 focus:ring-2 focus:ring-purple-700 focus:outline-none lg:hidden">
             <FaBars />
@@ -93,7 +106,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="fixed bottom-0 -mb-24 w-full">
+      <div className="pointer-events-none fixed bottom-0 -mb-24 w-full">
         <img
           src={radialGradient}
           alt="purple gradient"

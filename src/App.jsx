@@ -1,4 +1,6 @@
-import Hero from "./sections/Hero";
+import ResetPassword from './pages/ResetPassword';
+import SignUp from './pages/SignUp';
+import Hero from './sections/Hero';
 
 function App() {
   return (
@@ -23,7 +25,9 @@ function App() {
     //   </div>
     // </>
 
-    <Hero />
+    // <Hero />
+    // <ResetPassword />
+    <SignUp />
   );
 }
 
