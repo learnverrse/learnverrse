@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sign-in</title>
+    <link rel="stylesheet" href="../src/sign-in.css" />
+  </head>
+
+  <body class="h-screen flex overflow-hidden">
+    <div class="mr-24">
+      <img
+        class="h-full object-contain"
+        src="../src/assets/sign-in-imgs/banner.png"
+        alt="Illustration of students studying"
+      />
+    </div>
+
+    <div
+      class="w-full lg:w-1/2 flex flex-col justify-center items-center px-6 lg:px-24"
+    >
+      <div
+        class="w-full max-w-md space-y-8 overflow-y-auto scroll-container px-2.5 py-7"
+      >
+        <div class="flex justify-center">
+          <a href="/" aria-label="Go to Learnverrse homepage">
+            <img
+              src="../src/assets/sign-in-imgs/Frame 5.png"
+              alt="Learnverrse logo"
+            />
+          </a>
+        </div>
+
+        <div>
+          <h2 class="text-4xl text-[#121212] font-medium text-center">
+            Welcome Back
+          </h2>
+          <p class="text-center leading-6 mt-1 text-[#3D3D3D]">
+            Enter your email and password to access your account
+          </p>
+        </div>
+
+        <div class="flex bg-[#F5F7FA] rounded-md p-1.5 mt-2.5">
+          <button
+            class="flex-1 py-2 px-4 text-base activeBtn font-medium rounded-md"
+          >
+            As a student
+          </button>
+          <button class="rounded-md py-2 px-4 font-medium text-base flex-1">
+            As an Educator
+          </button>
+        </div>
+
+        <form class="space-y-4">
+          <div>
+            <label class="block text-[#121212]">Email</label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="w-full border-none bg-[#F5F7FA] mt-1 px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#6D28D2]"
+            />
+          </div>
+
+          <div class="relative">
+            <label class="block text-[#121212]">Password</label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              class="w-full border-none bg-[#F5F7FA] mt-1 px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#6D28D2]"
+            />
+            <button class="absolute bottom-3 right-3">
+              <img
+                src="../src/assets/sign-in-imgs/eye.png"
+                alt="toggle password visibility"
+              />
+            </button>
+          </div>
+
+          <div class="flex items-center justify-between text-sm">
+            <label class="flex items-center space-x-2 text-[#121212]">
+              <input type="checkbox" />
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="text-[#6D28D2] hover:underline"
+              >Forgot Password</a
+            >
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-2 bg-[#6D28D2] text-white rounded-md hover:bg-purple-700"
+          >
+            Sign In
+          </button>
+
+          <button
+            type="button"
+            class="w-full py-2 border rounded-md flex items-center justify-center space-x-2"
+          >
+            <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              class="w-5 h-5"
+              alt="Google"
+            />
+            <span>Sign In with Google</span>
+          </button>
+        </form>
+
+        <p class="text-center text-sm mt-4">
+          Don’t have an account?
+          <a href="#" class="text-[#6D28D2] font-semibold hover:underline"
+            >Sign Up</a
+          >
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
