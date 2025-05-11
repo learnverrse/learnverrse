@@ -1,9 +1,55 @@
-import React from 'react';
-import { logo, resetFrame } from '../components/details';
-import { FaEye } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { resetFrame } from '../components/details';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { FaCircleCheck } from 'react-icons/fa6';
+import HomeLogo from '../components/UI/HomeLogo';
+import { useForm } from 'react-hook-form';
+import { toggleState } from '../components/helperFunctions';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Link } from 'react-router';
 
 const ResetPassword = () => {
+  // toggling password and text
+  const [showPassword, setShowPassword] = useState(true);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(true);
+
+  const schema = yup.object().shape({
+    password: yup
+      .string()
+      .min(6, 'Password must be at least 6 characters')
+      .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+      .matches(
+        /[@$!%*?&]/,
+        'Password must contain at least one special character @$!%*?&'
+      )
+      .required('password is required'),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password'), null], 'Password must match')
+      .required('please confirm password'),
+  });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const passwordValue = watch('password');
+  const isPasswordValid = passwordValue && !errors.password;
+  // function to send form to backend
+  const onSubmit = (data) => {
+    const dataTobackend = {
+      newPassword: data.confirmPassword,
+    };
+    const sub = JSON.stringify({
+      dataTobackend,
+    });
+    alert(`data to be sent to backend : ${sub}`);
+  };
+
   return (
     <div className="flex h-dvh max-h-screen">
       {/* <!-- Leftside  --> */}
@@ -20,7 +66,7 @@ const ResetPassword = () => {
         <div className="w-full max-w-md">
           {/* <!-- logo --> */}
           <div className="mb-16 flex flex-col items-center justify-center">
-            <img src={logo} alt="Learnverrse Logo" />
+            <HomeLogo />
           </div>
           {/* <!-- form heading --> */}
           <div className="w-full">
@@ -32,7 +78,10 @@ const ResetPassword = () => {
             </p>
 
             {/* <!-- form fields --> */}
-            <form className="flex flex-col gap-4">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col gap-4"
+            >
               <div className="mb-5 w-full">
                 <label
                   for="password"
@@ -42,17 +91,35 @@ const ResetPassword = () => {
                 </label>
                 <div className="relative">
                   <input
-                    type="password"
-                    className="form-field custom-input w-full rounded-xl bg-[#F5F7FA] px-4 py-3.5 text-sm leading-5 text-[#121212] focus:bg-[#f5f7fa] focus:outline-[#6D28D2]"
+                    type={showPassword ? 'password' : 'text'}
+                    className="form-field custom-input h-full w-full rounded-xl bg-[#F5F7FA] px-4 py-3.5 text-sm leading-5 text-[#121212] focus:bg-[#f5f7fa] focus:outline-[#6D28D2]"
                     name="Password"
                     placeholder="***************"
-                    required
+                    {...register('password')}
                   />
-                  <FaEye
-                    size={20}
-                    className="absolute top-1/2 right-3 -translate-1/2 cursor-pointer text-gray-400"
-                  />
+                  {showPassword ? (
+                    <FaEye
+                      size={20}
+                      onClick={() => {
+                        toggleState(setShowPassword);
+                      }}
+                      className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-400"
+                    />
+                  ) : (
+                    <FaEyeSlash
+                      size={20}
+                      onClick={() => {
+                        toggleState(setShowPassword);
+                      }}
+                      className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-400"
+                    />
+                  )}
                 </div>
+                {errors.password && (
+                  <p className="mt-2 text-xs leading-[18px] text-[#C82828]">
+                    {errors.password?.message}
+                  </p>
+                )}
               </div>
               <div className="mb-5 w-full">
                 <label
@@ -63,34 +130,52 @@ const ResetPassword = () => {
                 </label>
                 <div className="relative">
                   <input
-                    type="password"
+                    type={showConfirmPassword ? 'password' : 'text'}
                     className="form-field custom-input w-full rounded-xl bg-[#F5F7FA] px-4 py-3.5 text-sm leading-5 text-[#121212] focus:bg-[#f5f7fa] focus:outline-[#6D28D2]"
                     name="ConfirmPassword"
                     placeholder="***************"
-                    required
+                    {...register('confirmPassword')}
                   />
-                  <FaEye
-                    size={20}
-                    className="absolute top-1/2 right-3 -translate-1/2 cursor-pointer text-gray-400"
-                  />
+                  {showConfirmPassword ? (
+                    <FaEye
+                      size={20}
+                      onClick={() => {
+                        toggleState(setShowConfirmPassword);
+                      }}
+                      className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-400"
+                    />
+                  ) : (
+                    <FaEyeSlash
+                      size={20}
+                      onClick={() => {
+                        toggleState(setShowConfirmPassword);
+                      }}
+                      className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-400"
+                    />
+                  )}
                 </div>
+                {errors.confirmPassword && (
+                  <p className="mt-2 text-xs leading-[18px] text-[#C82828]">
+                    {errors.confirmPassword?.message}
+                  </p>
+                )}
               </div>
-              <div className="mb-4">
+              <div
+                className={`mb-4 ${isPasswordValid ? 'text-green-500' : 'text-gray-400'} `}
+              >
                 <div className="mb-2 flex items-center">
-                  <FaCircleCheck className="text-green-500" />
-                  <span className="ml-2 text-sm text-green-500">
-                    Must be 8 characters long
+                  <FaCircleCheck className="" />
+                  <span className="ml-2 text-sm">
+                    Must be at least 6 digits long
                   </span>
                 </div>
                 <div className="mb-2 flex items-center">
-                  <FaCircleCheck className="text-green-500" />
-                  <span className="ml-2 text-sm text-green-500">
-                    Must have 1 uppercase and 1 lowercase
-                  </span>
+                  <FaCircleCheck className="" />
+                  <span className="ml-2 text-sm">Must have 1 uppercase</span>
                 </div>
                 <div className="mb-2 flex items-center">
-                  <FaCircleCheck className="text-green-500" />
-                  <span className="ml-2 text-sm text-green-500">
+                  <FaCircleCheck className="" />
+                  <span className="ml-2 text-sm">
                     Must have at least one special symbol
                   </span>
                 </div>
@@ -103,12 +188,9 @@ const ResetPassword = () => {
               </button>
               <div className="text-center">
                 <span className="text-gray-600">Remember your password? </span>
-                <a
-                  href="#"
-                  className="font-medium text-purple-700 hover:text-purple-900"
-                >
+                <Link className="text-[#6D28D2]" to={'/SignIn'}>
                   Sign In
-                </a>
+                </Link>
               </div>
             </form>
           </div>

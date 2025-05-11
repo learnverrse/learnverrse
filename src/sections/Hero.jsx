@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   heroImg,
-  logo,
   navLinks,
   radialGradient,
   search,
@@ -9,6 +8,7 @@ import {
 import { Link, useNavigate } from 'react-router';
 import Button from '../components/UI/Button';
 import { FaBars } from 'react-icons/fa';
+import HomeLogo from '../components/UI/HomeLogo';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -18,15 +18,15 @@ const Hero = () => {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <div className="flex items-center gap-x-2">
           {/* logo */}
-          <img src={logo} alt="Learnverrse's Logo" />
+          <HomeLogo />
 
           {/* navlinks */}
-          <div className="flex w-full bg-white md:ml-4">
-            {navLinks.map(({ name, path }, index) => {
+          <div className="hidden md:ml-4 lg:flex">
+            {navLinks.map(({ name, path }, index) => (
               <Link className="nav-links" to={`${path}`} key={index}>
                 {name}
-              </Link>;
-            })}
+              </Link>
+            ))}
           </div>
         </div>
 

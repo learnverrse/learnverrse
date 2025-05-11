@@ -1,23 +1,74 @@
 import React, { useState } from 'react';
-import { logo } from '../components/details';
-import { FaEye } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router';
+import HomeLogo from '../components/UI/HomeLogo';
+import { banner } from '../components/details';
+import { toggleState } from '../components/helperFunctions';
+
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const SignUp = () => {
   const [regAs, setRegAs] = useState('student');
+  // for password vissibility
+  const [showPassword, setShowPassword] = useState(true);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(true);
+
+  // form validation and handling
+
+  const schema = yup.object().shape({
+    fullName: yup.string().required('Your full name is required'),
+    email: yup
+      .string()
+      .email('please provide a valid email ')
+      .required('email is required'),
+    password: yup
+      .string()
+      .min(6, 'Password must be at least 6 characters')
+      .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+      .matches(
+        /[@$!%*?&]/,
+        'Password must contain at least one special character @$!%*?&'
+      )
+      .required('password is required'),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password'), null], 'Password must match')
+      .required('please confirm password'),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  // function to send data to backend
+  const onSubmit = (data) => {
+    const dataTobackend = {
+      role: regAs,
+      fullName: data.fullname,
+      email: data.email,
+      password: data.confirmPassword,
+    };
+    const sub = JSON.stringify({
+      dataTobackend,
+    });
+    alert(`data to be sent to backend : ${sub}`);
+  };
+
   return (
-    <div className="flex h-screen max-h-screen items-center justify-between overflow-hidden">
+    <div className="flex h-screen justify-between overflow-hidden">
       <div className="hidden basis-[44%] overflow-hidden rounded-r-3xl lg:block">
-        <img
-          src="src/assets/Sign-up Images/banner.png"
-          alt="Signup banner image"
-          className="h-full w-full"
-        />
+        <img src={banner} alt="Signup banner image" className="h-full w-full" />
       </div>
 
-      <div className="scrollbarnone flex h-dvh min-h-screen basis-full flex-col items-center justify-center overflow-y-auto pt-16 lg:basis-[52%]">
-        <div className="flex flex-col items-center justify-center gap-4 pt-16">
-          <img src={logo} alt="Learnverrse Logo" />
+      <div className="scroll-container flex h-screen basis-full flex-col items-center justify-center overflow-y-auto pt-20 lg:basis-[52%]">
+        <div className="mt-40 flex flex-col items-center justify-center gap-4 pt-16">
+          <HomeLogo />
           <div className="flex rounded-4xl bg-[#F5F7FA] p-2">
             <button
               className={` ${regAs === 'student' ? 'bg-[#6D28D2] text-white' : ''} cursor-pointer rounded-3xl px-3 py-1.5 text-base font-medium md:px-5 md:py-2.5`}
@@ -42,13 +93,16 @@ const SignUp = () => {
         </div>
 
         <div>
-          <form action="" className="flex w-full flex-col gap-4 md:gap-6">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex w-full flex-col gap-4 md:gap-6"
+          >
             <div className="w-[90vw] md:w-[430px]!">
               <label
-                htmlFor="name"
+                htmlFor="Fullname"
                 className="mb-2 text-base leading-6 font-normal text-[#121212]"
               >
-                Name
+                Full name
               </label>
               <br />
               <input
@@ -56,15 +110,14 @@ const SignUp = () => {
                 id="name"
                 className="form-field custom-input w-full rounded-xl bg-[#F5F7FA] px-4 py-3.5 text-sm leading-5 text-[#121212] focus:bg-[#f5f7fa] focus:outline-[#6D28D2]"
                 name="Name"
-                placeholder="Enter your Name"
-                required
+                placeholder="Timi Ola"
+                {...register('fullName')}
               />
-              <p
-                id="errorNameText"
-                className="mt-2 hidden text-xs leading-[18px] text-[#C82828]"
-              >
-                This name has been taken
-              </p>
+              {errors.fullName && (
+                <p className="mt-2 text-xs leading-[18px] text-[#C82828]">
+                  {errors.fullName.message}
+                </p>
+              )}
             </div>
             <div className="">
               <label
@@ -78,15 +131,15 @@ const SignUp = () => {
                 type="email"
                 className="form-field custom-input w-full rounded-xl bg-[#F5F7FA] px-4 py-3.5 text-sm leading-5 text-[#121212] focus:bg-[#f5f7fa] focus:outline-[#6D28D2] md:w-[430px]"
                 name="Email"
-                placeholder="Enter your email"
-                required
+                placeholder="mustaphaoge@gmail.com"
+                {...register('email')}
               />
-              <p
-                id="errorEmailText"
-                className="mt-2 hidden text-xs leading-[18px] text-[#C82828]"
-              >
-                Please enter a valid Email
-              </p>
+              {errors.email && (
+                <p className="mt-2 text-xs leading-[18px] text-[#C82828]">
+                  {errors.email?.message}
+                </p>
+              )}
+              {/* field for checking the if email exists */}
               <p
                 id="emailUsedText"
                 className="mt-2 hidden text-xs leading-[18px] text-[#C82828]"
@@ -94,6 +147,7 @@ const SignUp = () => {
                 This email has already been registered
               </p>
             </div>
+            {/* password */}
             <div>
               <label
                 htmlFor="password"
@@ -104,23 +158,77 @@ const SignUp = () => {
               <br />
               <div className="relative flex items-center">
                 <input
-                  type="password"
+                  type={showPassword ? 'password' : 'text'}
                   className="form-field custom-input w-full rounded-xl bg-[#F5F7FA] px-4 py-3.5 text-sm leading-5 text-[#121212] focus:bg-[#f5f7fa] focus:outline-[#6D28D2] md:w-[430px]"
                   name="Password"
                   placeholder="Enter your password"
-                  required
+                  {...register('password')}
                 />
-                <FaEye
-                  size={20}
-                  className="absolute top-1/2 right-3 -translate-1/2 cursor-pointer text-gray-400"
-                />
+                {showPassword ? (
+                  <FaEye
+                    size={20}
+                    onClick={() => {
+                      toggleState(setShowPassword);
+                    }}
+                    className="absolute top-1/2 right-3 -translate-1/2 cursor-pointer text-gray-400"
+                  />
+                ) : (
+                  <FaEyeSlash
+                    size={20}
+                    onClick={() => {
+                      toggleState(setShowPassword);
+                    }}
+                    className="absolute top-1/2 right-3 -translate-1/2 cursor-pointer text-gray-400"
+                  />
+                )}
               </div>
-              <p
-                id="weakPassword"
-                className="mt-2 hidden text-xs leading-[18px] text-[#C82828]"
+              {errors.password && (
+                <p className="mt-2 text-xs leading-[18px] text-[#C82828]">
+                  {errors.password?.message}
+                </p>
+              )}
+            </div>
+            {/* confirm password */}
+            <div>
+              <label
+                htmlFor="confirm"
+                className="mb-2 text-base leading-6 font-normal text-[#121212]"
               >
-                Weak password
-              </p>
+                Confirm Password
+              </label>
+              <br />
+              <div className="relative flex items-center">
+                <input
+                  type={showConfirmPassword ? 'password' : 'text'}
+                  className="form-field custom-input w-full rounded-xl bg-[#F5F7FA] px-4 py-3.5 text-sm leading-5 text-[#121212] focus:bg-[#f5f7fa] focus:outline-[#6D28D2] md:w-[430px]"
+                  name="Password"
+                  placeholder="Enter your password"
+                  {...register('confirmPassword')}
+                />
+                {showConfirmPassword ? (
+                  <FaEye
+                    size={20}
+                    onClick={() => {
+                      toggleState(setShowConfirmPassword);
+                    }}
+                    className="absolute top-1/2 right-3 -translate-1/2 cursor-pointer text-gray-400"
+                  />
+                ) : (
+                  <FaEyeSlash
+                    size={20}
+                    onClick={() => {
+                      toggleState(setShowConfirmPassword);
+                    }}
+                    className="absolute top-1/2 right-3 -translate-1/2 cursor-pointer text-gray-400"
+                  />
+                )}
+              </div>
+
+              {errors.confirmPassword && (
+                <p className="mt-2 text-xs leading-[18px] text-[#C82828]">
+                  {errors.confirmPassword?.message}
+                </p>
+              )}
             </div>
 
             <div className="mt-3 flex flex-row gap-1.5">
@@ -133,34 +241,33 @@ const SignUp = () => {
               <p className="text-sm leading-5 text-[#6B6B6B]">Remember me</p>
             </div>
 
-            <button
+            <input
+              type="Submit"
               className="mt-5 w-full cursor-pointer rounded-xl bg-[#6D28D2] px-4 py-3 text-base leading-6 font-semibold text-white disabled:cursor-not-allowed disabled:bg-[#CEB7F0] md:w-[430px]"
-              disabled
-            >
-              Sign Up
-            </button>
-            <div className="flex items-center justify-center gap-6">
-              <img
-                src="src/assets/Sign-up Images/Line 1.svg"
-                className="hidden md:block"
-                alt=""
-              />
-              <p>OR</p>
-              <img
-                src="src/assets/Sign-up Images/Line 1.svg"
-                className="hidden md:block"
-                alt=""
-              />
-            </div>
-            <button className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#6B6B6B] px-4 py-3 text-base leading-6 font-semibold text-[#121212] md:w-[430px]">
-              <img
-                src="src/assets/Sign-up Images/flat-color-icons_google.svg"
-                alt=""
-                className="w-[5%] px-0 py-0"
-              />
-              Sign Up with Google
-            </button>
+              value="Sign Up"
+            />
           </form>
+          <div className="my-6 flex items-center justify-center gap-6">
+            <img
+              src="src/assets/Sign-up Images/Line 1.svg"
+              className="hidden md:block"
+              alt=""
+            />
+            <p>OR</p>
+            <img
+              src="src/assets/Sign-up Images/Line 1.svg"
+              className="hidden md:block"
+              alt=""
+            />
+          </div>
+          <button className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#6B6B6B] px-4 py-3 text-base leading-6 font-semibold text-[#121212] md:w-[430px]">
+            <img
+              src="src/assets/Sign-up Images/flat-color-icons_google.svg"
+              alt=""
+              className="w-[5%] px-0 py-0"
+            />
+            Sign Up with Google
+          </button>
 
           <div className="mt-4 flex items-center justify-center">
             <p className="text-base leading-6 font-medium text-[#3E3E3E]">

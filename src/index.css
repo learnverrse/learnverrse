@@ -1,12 +1,36 @@
 @import 'tailwindcss';
 
+/* extending tailwind classes  */
+@theme {
+  --font-inter: 'Inter', sans-serif;
+}
 .container {
   margin: 0 auto;
 }
-.nav-links {
-  @apply block cursor-pointer px-6 py-4 text-gray-700 hover:text-purple-700 md:inline md:px-4 md:py-0;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  @apply font-inter;
 }
 
+/* custom calsses */
+.nav-links {
+  @apply cursor-pointer px-6 py-4 font-semibold text-gray-700 capitalize hover:text-purple-700 md:inline md:px-4 md:py-0;
+}
 .scrollbarnone::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-container {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
   display: none;
 }

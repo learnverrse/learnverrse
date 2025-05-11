@@ -6,6 +6,8 @@ export const search = baseUrl + '/assets/search-icon.png';
 export const radialGradient = baseUrl + '/assets/raidial-gradient.png';
 export const resetFrame = baseUrl + '/assets/Reset-frame.png';
 
+export const banner = baseUrl + './assets/banner.png';
+
 export const navLinks = [
   {
     name: 'explore',
