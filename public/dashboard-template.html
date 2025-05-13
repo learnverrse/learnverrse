@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dashboard template</title>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Extend Tailwind with your custom theme -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              primary: {
+                DEFAULT: '#6d28d2',
+                100: '#e2d4f6',
+                200: '#ceb7f0',
+                300: '#b693e8',
+                400: '#9e70e1',
+                500: '#6d28d2',
+                600: '#5b21af',
+                700: '#491b86',
+                800: '#361469',
+              },
+              heading: '#1a1a1a',
+              paragraph: '#bdbdbd',
+              error: '#c82828',
+              ourGray: 'rgba(189, 189, 189, 1)',
+            },
+          },
+          container: {
+            center: true,
+            padding: '1rem',
+          },
+        },
+      };
+    </script>
+  </head>
+  <body>
+    <section class="h-screen w-screen overflow-hidden">
+      <header class="container flex items-center justify-between py-4">
+        <img src="assets/logo.png" alt="logo" />
+
+        <div class="flex items-center gap-4">
+          <p>icon</p>
+
+          <p>icon</p>
+
+          <h3>John Smith</h3>
+        </div>
+      </header>
+
+      <!-- {/*========== sidebar ========== */} -->
+
+      <main class="grid w-screen grid-cols-12 justify-between gap-2">
+        <aside class="col-span-2 flex h-screen flex-col overflow-auto">
+          <!-- you can edit this part for your own preference , i mainly need the next div -->
+          <a
+            class="border-primary hover:bg-primary-500 border capitalize transition-all duration-150 hover:text-white"
+          >
+            <div class="flex items-center gap-2 p-4 text-sm">
+              <!-- {icon} -->
+              <!-- <p>{name}</p> -->
+              <p>linkS</p>
+              <p>linkS</p>
+              <p>linkS</p>
+              <p>linkS</p>
+              <p>linkS</p>
+              <p>linkS</p>
+              <p>linkS</p>
+            </div>
+          </a>
+        </aside>
+
+        <!-- {/*============= main content =================*/} -->
+        <div
+          class="border-primary-300 col-span-10 mx-auto h-screen w-full overflow-y-auto border px-10"
+        >
+          <!-- edit here -->
+
+          <h1>edit here</h1>
+        </div>
+      </main>
+    </section>
+  </body>
+</html>

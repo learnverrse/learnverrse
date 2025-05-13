@@ -51,17 +51,17 @@ const SignIn = () => {
   };
 
   return (
-    <section className="flex h-screen overflow-hidden">
-      <div className="hidden basis-[44%] overflow-hidden rounded-r-3xl lg:block">
+    <section className="flex h-screen w-full gap-20 overflow-hidden">
+      <div className="hidden lg:block">
         <img
-          className="h-full w-full"
+          className="h-full object-contain"
           src={banner}
           alt="Illustration of students studying"
         />
       </div>
 
       <div className="flex w-full flex-col items-center justify-center px-6 lg:w-1/2 lg:px-24">
-        <div className="scroll-container w-full max-w-md space-y-8 overflow-y-auto px-2.5 py-7">
+        <div className="scroll-container w-full max-w-lg space-y-8 overflow-y-auto px-2.5 py-7">
           <div className="flex justify-center">
             <HomeLogo />
           </div>
@@ -137,7 +137,7 @@ const SignIn = () => {
                 <span>Remember me</span>
               </label>
               <Link
-                to="/Reset-password"
+                to="/ForgotPassword"
                 className="text-[#6D28D2] hover:underline"
               >
                 Forgot Password

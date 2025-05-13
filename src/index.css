@@ -3,6 +3,19 @@
 /* extending tailwind classes  */
 @theme {
   --font-inter: 'Inter', sans-serif;
+  --color-primary: #6d28d2;
+  --color-primary-100: #e2d4f6;
+  --color-primary-200: #ceb7f0;
+  --color-primary-300: #b693e8;
+  --color-primary-400: #9e70e1;
+  --color-primary-500: #6d28d2;
+  --color-primary-600: #5b21af;
+  --color-primary-700: #491b86;
+  --color-primary-800: #361469;
+  --color-heading: #1a1a1a;
+  --color-paragraph: #bdbdbd;
+  --color-error: #c82828;
+  --color-ourGray: rgba(189, 189, 189, 1);
 }
 .container {
   margin: 0 auto;
@@ -33,19 +46,4 @@ p {
 
 .scroll-container::-webkit-scrollbar {
   display: none;
-}
-
-@theme {
-    --color-primary: #6D28D2;
-    --color-primary-100: #E2D4F6;
-    --color-primary-200: #CEB7F0;
-    --color-primary-300: #B693E8;
-    --color-primary-400: #9E70E1;
-    --color-primary-500: #6D28D2;
-    --color-primary-600: #5B21AF;
-    --color-primary-700: #491B86;
-    --color-primary-800: #361469;
-    --color-heading: #1A1A1A;
-    --color-paragraph: #BDBDBD;
-    --color-error: #C82828;
 }

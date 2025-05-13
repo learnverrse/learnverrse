@@ -61,12 +61,16 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex h-screen justify-between overflow-hidden">
-      <div className="hidden basis-[44%] overflow-hidden rounded-r-3xl lg:block">
-        <img src={banner} alt="Signup banner image" className="h-full w-full" />
+    <div className="flex h-screen w-full overflow-hidden">
+      <div className="mr-24 hidden lg:block">
+        <img
+          src={banner}
+          alt="Signup banner image"
+          className="h-full object-contain"
+        />
       </div>
 
-      <div className="scroll-container flex h-screen basis-full flex-col items-center justify-center overflow-y-auto pt-20 lg:basis-[52%]">
+      <div className="scroll-container flex flex-col items-center justify-center px-6 lg:w-1/2 lg:px-24">
         <div className="mt-40 flex flex-col items-center justify-center gap-4 pt-16">
           <HomeLogo />
           <div className="flex rounded-4xl bg-[#F5F7FA] p-2">
