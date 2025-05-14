@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Courses</title>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- jersey font -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../src/index.css">
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Extend Tailwind with your custom theme -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ['Inter', 'sans-serif'],
+              jersey: ['Jersey 25', 'sans-serif'],
+            },
+            colors: {
+              primary: {
+                DEFAULT: '#6d28d2',
+                100: '#e2d4f6',
+                200: '#ceb7f0',
+                300: '#b693e8',
+                400: '#9e70e1',
+                500: '#6d28d2',
+                600: '#5b21af',
+                700: '#491b86',
+                800: '#361469',
+              },
+              heading: '#1a1a1a',
+              paragraph: '#bdbdbd',
+              error: '#c82828',
+              ourGray: 'rgba(189, 189, 189, 1)',
+            },
+          },
+          container: {
+            center: true,
+            padding: '1rem',
+          },
+        },
+      };
+    </script>
+  </head>
+  <body>
+    <section class="h-screen w-screen overflow-hidden">
+      <header class="container flex items-center justify-between py-4">
+        <img src="assets/logo.png" alt="logo" />
+
+        <a href="#" target="_blank" rel="noopener noreferrer" class="font-medium text-heading">Home</a>
+
+        <div class="bg-gray-100 basis-2/4 border py-2.5 flex justify-center rounded-lg relative" >
+            <input type="search" name="search" id="search" placeholder="Search courses" class="outline-none bg-inherit pl-14 placeholder:font-medium">
+            <img src="../src/assets/my-courses-imgs/material-symbols-light_search.svg" alt="" class="absolute left-48">
+        </div>
+        <div class="flex items-center gap-4">
+          <img src="../src/assets/my-courses-imgs/notification-icon.svg" alt="notification icon">
+
+          <span class="w-1/6">
+            <img src="../src/assets/my-courses-imgs/Ellipse 194.svg" alt="profile icon">
+          </span>
+          <p class="text-lg font-medium text-heading">User Name</p>
+
+        </div>
+      </header>
+
+      <!-- {/*========== sidebar ========== */} -->
+
+      <main class="grid w-screen grid-cols-12 justify-between gap-2">
+        <aside class="col-span-2 flex h-screen flex-col">
+           <div class="flex flex-col text-sm pb-20  overflow-y-auto scroll-container">
+              <a href="/" class="dashboardLinks">
+                <img src="../src/assets/my-courses-imgs/material-symbols_dashboard.svg" alt="">
+                Dashboard
+              </a>
+              <a href="/" class="dashboardLinks">
+                <img src="../src/assets/my-courses-imgs/ion_create.svg" alt="">
+                Create Courses
+              </a>
+              <a href="/" class="bg-primary text-white dashboardLinks">
+                <img src="../src/assets/my-courses-imgs/_ui-book-open-01.svg" alt="">
+                My Courses
+              </a>
+              <a href="/" class="dashboardLinks">
+                <img src="../src/assets/my-courses-imgs/student.svg" alt="">
+                Students
+              </a>
+              <a href="/" class="dashboardLinks">
+                <img src="../src/assets/my-courses-imgs/_ui-bar-chart-01.svg" alt="">
+                Analytics
+              </a>
+              <a href="/" class="dashboardLinks">
+                <img src="../src/assets/my-courses-imgs/_ui-currency-dollar-circle.svg" alt="">
+                Earnings
+              </a>
+              <a href="/" class="dashboardLinks">
+                <img src="../src/assets/my-courses-imgs/_ui-message-notification-circle.svg" alt="">
+                Messages
+              </a>
+              <a href="/" class="dashboardLinks">
+                <img src="../src/assets/my-courses-imgs/_ui-settings-02.svg" alt="">
+                Settings
+              </a>
+              <a href="/" class="dashboardLinks">
+                <img src="../src/assets/my-courses-imgs/_ui-log-in-02.svg" alt="">
+                Sign Out
+              </a>
+            </div>
+        </aside>
+
+        <!-- {/*============= main content =================*/} -->
+        <div
+          class="col-span-10 w-full px-10"
+        >
+          <h1 class="font-bold text-2xl text-center mb-1.5">My courses</h1>
+          <div class="h-screen">
+            <div class="grid grid-cols-2 h-full pb-40 gap-5 overflow-y-auto scroll-container">
+              <div class="relative">
+                <img class="w-full" src="../src/assets/my-courses-imgs/web-programming.svg" alt="">
+                <p class="text-sm text-heading">Programming and Software Development</p>
+                <p class="jerseyFont">Web Programming; HTML, CSS, Javascript..... </p>
+                <button class="bg-gray-300 p-1.5 font-medium text-heading absolute right-0 bottom-2">Edit</button>
+              </div>
+
+              <div class="relative">
+                <img class="w-full" src="../src/assets/my-courses-imgs/security.svg" alt="">
+                <p class="text-sm text-heading">Cyber security</p>
+                <p class="jerseyFont">Cybersecurity Essentials; Ethnical Hacking.....</p>
+                <button class="bg-gray-300 p-1.5 font-medium text-heading absolute right-0 bottom-2">Edit</button>
+              </div>
+
+              <div class="relative">
+                <img class="w-full" src="../src/assets/my-courses-imgs/SQl.svg" alt="">
+                <p class="text-sm text-heading">Data Science and Analytics</p>
+                <p class="jerseyFont">SQL for Data Analytics</p>
+                <button class="bg-gray-300 p-1.5 font-medium text-heading absolute right-0 bottom-2">Edit</button>
+              </div>
+
+              <div class="relative">
+                <img class="w-full" src="../src/assets/my-courses-imgs/NLP.svg" alt="">
+                <p class="text-sm text-heading">Artificial Intelligence</p>
+                <p class="jerseyFont">Natural  Language Processing (NLP)</p>
+                <button class="bg-gray-300 p-1.5 font-medium text-heading absolute right-0 bottom-2">Edit</button>
+              </div>
+
+              <div class="relative">
+                <img class="w-full" src="../src/assets/my-courses-imgs/UI.svg" alt="">
+                <p class="text-sm text-heading">UI/UX Design</p>
+                <p class="jerseyFont">UI Design with Figma  and Adobe XD</p>
+                <button class="bg-gray-300 p-1.5 font-medium text-heading absolute right-0 bottom-2">Edit</button>
+              </div>
+
+              <div class="relative">
+                <img class="w-full" src="../src/assets/my-courses-imgs/IT.svg" alt="">
+                <p class="text-sm text-heading">IT and Networking</p>
+                <p class="jerseyFont">IT Support Fundamentals</p>
+                <button class="bg-gray-300 p-1.5 font-medium text-heading absolute right-0 bottom-2">Edit</button>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </section>
+  </body>
+</html>
