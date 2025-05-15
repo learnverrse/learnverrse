@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router';
 import HomeLogo from '../components/UI/HomeLogo';
@@ -46,18 +46,40 @@ const SignUp = () => {
     resolver: yupResolver(schema),
   });
 
+  const signUpBtnRef = useRef(null);
   // function to send data to backend
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const dataTobackend = {
       role: regAs,
       fullName: data.fullname,
       email: data.email,
       password: data.confirmPassword,
     };
-    const sub = JSON.stringify({
-      dataTobackend,
-    });
-    alert(`data to be sent to backend : ${sub}`);
+    // const sub = JSON.stringify({
+    //   dataTobackend,
+    // });
+
+    try {
+      signUpBtnRef.current.innerHTML = 'Singing Up';
+      const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        headers: {
+          'content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataTobackend),
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to submit data');
+      }
+
+      const responseData = await res.json();
+      console.log(responseData);
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      signUpBtnRef.current.innerHTML = 'Sing up';
+    }
   };
 
   return (
@@ -245,11 +267,13 @@ const SignUp = () => {
               <p className="text-sm leading-5 text-[#6B6B6B]">Remember me</p>
             </div>
 
-            <input
+            <button
               type="Submit"
+              ref={signUpBtnRef}
               className="mt-5 w-full cursor-pointer rounded-xl bg-[#6D28D2] px-4 py-3 text-base leading-6 font-semibold text-white disabled:cursor-not-allowed disabled:bg-[#CEB7F0] md:w-[430px]"
-              value="Sign Up"
-            />
+            >
+              Sign Up
+            </button>
           </form>
           <div className="my-6 flex items-center justify-center gap-6">
             <img
