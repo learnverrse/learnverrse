@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Upload</title>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"/>
+    <!-- Load Tailwind CSS -->
+    <link rel="stylesheet" href="src/index.css">
+
+    <!-- Extend Tailwind with your custom theme -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              primary: {
+                DEFAULT: '#6d28d2',
+                100: '#e2d4f6',
+                200: '#ceb7f0',
+                300: '#b693e8',
+                400: '#9e70e1',
+                500: '#6d28d2',
+                600: '#5b21af',
+                700: '#491b86',
+                800: '#361469',
+              },
+              heading: '#1a1a1a',
+              paragraph: '#bdbdbd',
+              error: '#c82828',
+              ourGray: 'rgba(189, 189, 189, 1)',
+            },
+          },
+          container: {
+            center: true,
+            padding: '1rem',
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="min-h-screen">
+      <header>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8"> 
+            <div class="flex items-center justify-between h-16">
+
+              <div class="flex items-center">
+                  <img src="src/assets/homepage-images/logo.png" alt="logo here">
+                  <nav class="ml-6 hidden md:flex">
+                      <a href="#" class="px-3 py-2 text-sm font-medium text-heading">Home</a>
+                      <a href="#" class="px-3 py-2 text-sm font-medium text-heading">My Courses</a>
+                  </nav>
+              </div>
+
+              <div class="hidden md:flex">
+                <div class="w-full max-w-full relative mx-4 items-center">
+                  <input type="text" placeholder="Search Courses" class="w-full py-2 pl-36 pr-4 border border-ourGray bg-ourGray rounded-md focus:outline-none focus:ring-2 focus:ring-purple-700">
+                  <div class=" pointer-events-none absolute left-3 top-1/2 transform -translate-y-1/2">
+                    <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                      </svg>            
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center justify-between py-3">
+                <div class="relative flex-1 mx-4">
+                    <input type="text" placeholder="Search courses" class="block w-full rounded-md border-gray-300 bg-gray-100 py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:border-primary-500 focus:ring-primary-500">
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-ourGray hover:text-gray-500 hover:bg-gray-100">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+
+            </div>
+
+              <div class="flex">
+                <button class="ml-4 p-2 rounded-full text-gray-500 hover:text-gray-700 border-2 border-ourGray">
+                  <svg class=" h-4 w-4 md:h-6 md:w-6 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                  </svg>
+                </button>
+              </div>
+
+              
+        </div>
+      </header>
+
+      <main class="max-w-6xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+           <h1 class="text-2xl font-semibold text-center text-heading">Course Upload</h1>
+
+           <form class="max-w-7xl mx-auto">
+            <div class="form-grid mt-6 flex flex-col md:flex-row gap-8">
+              
+              <!-- left side -->
+               <div class="space-y-6">
+
+                <div class="mb-6">
+                <label for="course-name" class="text-sm font-medium text-heading">Course Name <span class="text-error">*</span></label>
+                <input type="text" id="course-name" placeholder="Type course name" class="mt-1 w-full rounded-md border-gray-300 bg-gray-100 py-3 px-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-700">
+                </div>
+
+                <div class="mb-6">
+                <label for="topic" class="text-sm font-medium text-heading">Topic<span class="text-error">*</span></label>
+                <input type="text" id="topic" placeholder="Type Topic" class="mt-1 w-full rounded-md border-gray-300 bg-gray-100 py-3 px-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-700">
+                </div>
+
+                <div class="mb-6">
+                <label for="topic" class="text-sm font-medium text-heading">Body<span class="text-error">*</span></label>
+                <textarea id="body" rows="12" placeholder="Discuss the topic" class="mt-1 w-full rounded-md border-gray-300 bg-gray-100 py-3 px-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-700"></textarea>
+                </div>
+               </div>
+
+              <!-- Right Side -->
+               <div class="space-y-6">
+                  <div>
+                    <label for="topic" class="text-sm font-medium text-heading">Add Attachment<span class="text-error">*</span>(supporting images, PDF files, etc.)</label>
+
+                    <div class="mt-1 flex justify-center px-6 py-5 border-2 border-gray-300 bg-gray-100 h-40 rounded-md">
+                      <div class="space-y-1 text-center">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                          <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div>
+                    <label for="topic" class="text-sm font-medium text-heading">Add Video Content<span class="text-error">*</span></label>
+                    <div class="mt-1 flex justify-center px-6 py-5 border-2 border-gray-300 bg-gray-100 h-40 rounded-md">
+                      <div class="space-y-1 text-center">
+                       
+                      </div>
+
+                    </div>
+                  </div>
+               </div>
+
+
+
+            </div>
+           </form>
+        </div>
+      </main>
+  </body>
+</html>
