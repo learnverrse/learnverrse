@@ -2,14 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
-
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
@@ -17,45 +16,40 @@
     <title>Email Verification</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-gray-900 flex justify-center items-center min-h-screen pt-1 pb-1 sm:pt-0 sm:pb-0">
-    <div
-      class="bg-white w-[90%] max-w-5xl flex flex-col md:flex-row rounded-lg overflow-hidden shadow-2xl"
-    >
-      <!-- Left Side Panel with Purple Background -->
+  <body class="bg-gray-900 p-4 h-screen overflow-hidden">
+    <div class="flex w-full h-full">
+      <!-- Left side image panel -->
       <div
-      class="hidden md:flex bg-purple-600 md:w-1/2 w-full items-center justify-center p-8 h-[650px] md:rounded-tr-[40px] md:rounded-br-[40px]"
-    >
-      <img
-        src="assets/Hand holding mobile phone with check mark.svg"
-        alt="Phone Image"
-        class="w-80 h-80 object-contain"
-      />
-    </div>
-
-      <div
-        class="md:w-1/2 w-full p-10 h-[650px] flex flex-col justify-center items-center text-center space-y-6"
+        class="hidden md:flex w-1/2 bg-purple-600 items-center justify-center h-full rounded-tr-[40px] rounded-br-[40px]"
       >
-        <div class="flex flex-row justify-center align-middle items-center">
-          <!-- <img src="Email-Images/Vector.svg" class="w-[25px] h-[20px]" alt="" />
-          <h3 class="text-center text-xl font-extrabold text-[24px] ">LEARN <span class="text-red-500">VERSSE</span></h3> -->
+        <img
+          src="assets/Hand holding mobile phone with check mark.svg"
+          alt="Phone Image"
+          class="w-80 h-80 object-contain"
+        />
+      </div>
 
-          <a href="homepage.html"><img src="assets/Frame 1597879301.svg" alt=""  class="h-[10%] " /></a>
+      <!-- Right side form panel -->
+      <div
+        class="w-full md:w-1/2 bg-white p-10 flex flex-col justify-center items-center text-center h-full"
+      >
+        <div class="flex justify-center items-center mb-8">
+          <a href="homepage.html">
+            <img src="assets/Frame 1597879301.svg" alt="Logo" />
+          </a>
         </div>
 
-        <!-- Right Side - Form -->
-        <div
-          class="h-[90%] flex flex-col justify-center items-center text-center space-y-6"
-        >
-          <h2 class="text-3xl font-semibold text-gray-800  font-inter">
+        <div class="h-[90%] flex flex-col justify-center items-center text-center space-y-6">
+          <h2 class="text-3xl font-semibold text-gray-800 font-inter mb-4">
             Verify your Email
           </h2>
-          <p class="text-[#6B6B6B] font-normal text-base font-inter">
+          <p class="text-[#6B6B6B] font-normal text-base font-inter mb-6 px-4">
             Enter the 6 digit code we sent to your email to complete reset your
             password
           </p>
 
           <!-- Code Inputs -->
-          <div class="flex space-x-2 justify-center">
+          <div class="flex space-x-2 justify-center mb-6">
             <input
               type="text"
               maxlength="1"
@@ -90,22 +84,25 @@
 
           <!-- Continue Button -->
           <a
-          href="email-verify.html"
-          class="sm:w-3/4 flex items-center justify-center mt-4 gap-3 bg-[#CEB7F0] text-white px-10 py-3 rounded-[12px] hover:bg-purple-700"
-        >
-          Continue
-          <i class="fa fa-long-arrow-right text-white text-[16px]" aria-hidden="true"></i>
-        </a>
-        
+            href="email-verify.html"
+            class="w-[100%] sm:w-[57%] flex items-center justify-center mt-4 gap-3 bg-[#CEB7F0] text-white px-10 py-3 rounded-[12px] hover:bg-purple-700"
+          >
+            Continue
+            <i
+              class="fa fa-long-arrow-right text-white text-[16px]"
+              aria-hidden="true"
+            ></i>
+          </a>
 
           <!-- Resend Text -->
-          <p class="text-sm text-gray-500  font-inter">
+          <p class="text-sm text-gray-500 font-inter mt-6">
             Didn't receive code?
-            <a href="#" class="text-purple-600 hover:underline  font-inter">Resend code</a>
+            <a href="#" class="text-purple-600 hover:underline font-inter"
+              >Resend code</a
+            >
           </p>
         </div>
       </div>
     </div>
-
   </body>
 </html>
