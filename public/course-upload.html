@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Upload</title>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"/>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Extend Tailwind with your custom theme -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              primary: {
+                DEFAULT: '#6d28d2',
+                100: '#e2d4f6',
+                200: '#ceb7f0',
+                300: '#b693e8',
+                400: '#9e70e1',
+                500: '#6d28d2',
+                600: '#5b21af',
+                700: '#491b86',
+                800: '#361469',
+              },
+              heading: '#1a1a1a',
+              paragraph: '#bdbdbd',
+              error: '#c82828',
+              ourGray: 'rgba(189, 189, 189, 1)',
+            },
+          },
+          container: {
+            center: true,
+            padding: '1rem',
+          },
+        },
+      };
+    </script>
+  </head>
+  <body>
+    <section class="h-screen w-screen overflow-hidden">
+      <!-- Header -->
+      <header class="container flex items-center justify-between py-4 px-8">
+        <img src="assets/logo.png" alt="logo" />
+
+        <div class="hidden md:flex">
+                <div class="w-full max-w-full relative mx-4 items-center">
+                  <input type="text" placeholder="Search Courses" class="w-full py-2 pl-36 pr-4 border border-gray-300 bg-gray-100 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-700">
+                  <div class=" pointer-events-none absolute left-3 top-1/2 transform -translate-y-1/2">
+                    <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                      </svg>            
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <button class="ml-4 p-2 rounded-full text-gray-500 hover:text-gray-700 border-2 border-ourGray">
+                  <svg class=" h-4 w-4 md:h-6 md:w-6 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                  </svg>
+                </button>
+                <h2 class="hidden md:flex font-medium text-gray-800">John Smith</h2>
+              </div>
+
+              <!-- Mobile menu button -->
+           <div class="md:hidden flex items-center justify-between py-3">
+                    <button id="mobileMenuButton" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-ourGray hover:text-gray-500 hover:bg-gray-100">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+            </div>
+      </header>
+
+      <!-- {/*========== sidebar ========== */} -->
+
+      <main class="grid w-full grid-cols-12 justify-between gap-2">
+        <!-- aside  -->
+        <aside id="sidebar" class="fixed top-0 right-0 z-50 bg-white translate-x-full transition-transform duration-300 ease-in-out w-3/4 h-full flex-col overflow-auto md:translate-x-0 md:relative md:flex md:col-span-2 md:h-screen hidden">
+          <!-- you can edit this part for your own preference , i mainly need the next div -->
+          <a class=" block border-ourGray hover:bg-primary-500 border capitalize transition-all duration-150 hover:text-white">
+            <div class="flex flex-row items-center gap-2 p-4 text-sm">
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+              </svg>
+              <p>Create Courses</p>
+            </div>
+            
+          </a>
+          <a class="block border-ourGray hover:bg-primary-500 border capitalize transition-all duration-150 hover:text-white">
+            <div class="flex flex-row items-center gap-2 p-4 text-sm">
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+              </svg>
+              <p>My Courses</p>
+            </div>
+            
+          </a>
+          <a class="block border-ourGray hover:bg-primary-500 border capitalize transition-all duration-150 hover:text-white">
+            <div class="flex flex-row items-center gap-2 p-4 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+              </svg>
+              <p>Students</p>
+            </div>
+            
+          </a>
+          <a class="block border-ourGray hover:bg-primary-500 border capitalize transition-all duration-150 hover:text-white">
+            <div class="flex flex-row items-center gap-2 p-4 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <p>Analytics</p>
+            </div>
+            
+          </a>
+          <a class="block border-ourGray hover:bg-primary-500 border capitalize transition-all duration-150 hover:text-white">
+            <div class="flex flex-row items-center gap-2 p-4 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+              </svg>
+              <p>Earnings</p>
+            </div>
+            
+          </a>
+          <a class="block border-ourGray hover:bg-primary-500 border capitalize transition-all duration-150 hover:text-white">
+            <div class="flex flex-row items-center gap-2 p-4 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
+                <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
+              </svg>
+              <p>Messages</p>
+            </div>
+            
+          </a>
+          <a class="block border-ourGray hover:bg-primary-500 border capitalize transition-all duration-150 hover:text-white">
+            <div class="flex flex-row items-center gap-2 p-4 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+              </svg>
+              <p>Settings</p>
+            </div>
+            
+          </a>
+          <a class="block border-ourGray hover:bg-primary-500 border capitalize transition-all duration-150 hover:text-white">
+            <div class="flex flex-row items-center gap-2 p-4 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
+              </svg>
+              <p>Sign out</p>
+            </div>
+            
+          </a>
+        </aside>
+
+        <!-- {/*============= main content =================*/} -->
+        <div class="col-span-10 mx-auto h-screen w-full overflow-y-auto  px-10">
+
+          <!-- search mobile view -->
+          <div class="relative flex-1 mx-4 mt-2 md:hidden">
+                    <input type="text" placeholder="Search courses" class=" w-full text-center rounded-md border-gray-300 bg-gray-100 py-2.5 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-700">
+                    <div class="pointer-events-none absolute justify-center inset-y-0 left-5  flex items-center ">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+          </div>
+          <div class="px-4 py-6 sm:px-0 mb-12">
+
+            <!-- Form  -->
+           <form class="max-w-7xl mx-auto">
+            <div class="form-grid my-8 ">
+               <div class="space-y-6">
+
+                  <!--Course Name  -->
+                  <div class="mb-6 max-w-3xl">
+                  <label for="course-name" class="text-sm font-medium text-heading">Course Name <span class="text-error">*</span></label>
+                  <input type="text" id="course-name" placeholder="Type course name" class=" mt-1 w-full rounded-md border-gray-300 bg-gray-100 py-3 px-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-700">
+                  </div>
+
+                  <!-- Topic -->
+                  <div class="mb-6 max-w-3xl">
+                  <label for="topic" class="text-sm font-medium text-heading">Topic<span class="text-error">*</span></label>
+                  <input type="text" id="topic" placeholder="Type Topic" class="mt-1 w-full rounded-md border-gray-300 bg-gray-100 py-3 px-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-700">
+                  </div>
+
+                  <!-- Body -->
+                  <div class="mb-6 max-w-3xl">
+                  <label for="topic" class="text-sm font-medium text-heading">Body<span class="text-error">*</span></label>
+                  <textarea id="body" rows="12" placeholder="Discuss the topic" class="mt-1 w-full rounded-md border-gray-300 bg-gray-100 py-3 px-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-700"></textarea>
+                  </div>
+
+                  <!-- Add Attachment  -->
+                  <div class="max-w-3xl mb-6">
+                      <label for="topic" class="text-sm font-medium text-heading">Add Attachment<span class="text-error">*</span>(supporting images, PDF files, etc.)</label>
+
+                      <div class="mt-1 flex justify-center px-6 py-5 border-2 border-gray-300 bg-gray-100 h-40 rounded-md">
+                          <button type="button" class="flex items-center justify-center w-8 h-8 rounded-full bg-primary-500 text-white hover:bg-primary-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                          </button>
+                      </div>
+
+                  </div>
+
+                  <!-- add video content -->
+                  <div class="max-w-3xl mb-6">
+                      <label for="topic" class="text-sm font-medium text-heading">Add Video Content<span class="text-error">*</span></label>
+                      <div class="mt-1 flex justify-center px-6 py-5 border-2 border-gray-300 bg-gray-100 h-40 rounded-md">
+                          <button type="button" class="flex items-center justify-center w-8 h-8 rounded-full bg-primary-500 text-white hover:bg-primary-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                          </button>
+                      </div>
+                  </div>
+
+               </div>
+            </div>
+           </form>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const sidebar = document.getElementById('sidebar');
+
+    // Toggle sidebar visibility on mobile button click
+      mobileMenuButton.addEventListener("click", () => {
+        sidebar.classList.toggle("hidden");
+        sidebar.classList.toggle("translate-x-full");
+        sidebar.classList.toggle("translate-x-0");
+      });
+
+    // Close menu when clicking outside on mobile
+  document.addEventListener('click', (event) => {
+    const isClickInsideSidebar = sidebar.contains(event.target);
+    const isClickOnMenuButton = mobileMenuButton.contains(event.target);
+
+    if (
+      !isClickInsideSidebar &&
+      !isClickOnMenuButton &&
+      !sidebar.classList.contains('hidden') &&
+      window.innerWidth < 1024
+    ) {
+      sidebar.classList.add('hidden');
+      sidebar.classList.remove('translate-x-0');
+      sidebar.classList.add('translate-x-full');
+    }
+  });
+    </script>
+  </body>
+</html>

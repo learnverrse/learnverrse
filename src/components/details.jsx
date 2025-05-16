@@ -5,6 +5,8 @@ import { GiReceiveMoney } from 'react-icons/gi';
 import { IoBookOutline, IoCreate } from 'react-icons/io5';
 import { MdDashboard } from 'react-icons/md';
 import { SiSimpleanalytics } from 'react-icons/si';
+import { GrRadialSelected } from 'react-icons/gr';
+import { GoMultiSelect } from 'react-icons/go';
 
 const baseUrl = import.meta.env.BASE_URL;
 
@@ -63,5 +65,18 @@ export const dashboardAsideMenu = [
   {
     name: 'logout',
     icon: <CiLogout size={24} />,
+  },
+];
+
+export const questionIcons = [
+  {
+    name: 'short answer',
+    icon: <GoMultiSelect />,
+    type: 'mcqs',
+  },
+  {
+    name: 'options',
+    icon: <GrRadialSelected />,
+    type: 'essay',
   },
 ];

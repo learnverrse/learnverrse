@@ -51,6 +51,20 @@ p {
   display: none;
 }
 
+.jerseyFont {
+  font-family: "Jersey 25", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.dashboardLinks {
+  border: 1px solid #DEDEDE;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /* ---break---  */
 
 @theme inline {
