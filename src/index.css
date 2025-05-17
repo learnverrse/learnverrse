@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 /* ---break---  */
 @custom-variant dark (&:is(.dark *));
 
@@ -19,6 +19,7 @@
   --color-paragraph: #bdbdbd;
   --color-error: #c82828;
   --color-ourGray: rgba(189, 189, 189, 1);
+  --color-ourGray-100: rgba(236, 234, 234, 1);
 }
 .container {
   margin: 0 auto;
@@ -52,13 +53,13 @@ p {
 }
 
 .jerseyFont {
-  font-family: "Jersey 25", sans-serif;
+  font-family: 'Jersey 25', sans-serif;
   font-size: 1.5rem;
   font-weight: 500;
 }
 
 .dashboardLinks {
-  border: 1px solid #DEDEDE;
+  border: 1px solid #dedede;
   padding: 1rem;
   display: flex;
   align-items: center;

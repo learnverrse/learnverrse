@@ -3,9 +3,9 @@ import { Link } from 'react-router';
 const SideBar = () => {
   return (
     <aside className="col-span-3 flex h-screen flex-col overflow-auto">
-      {dashboardAsideMenu.map(({ icon, name }, index) => (
+      {dashboardAsideMenu.map(({ icon, path, name }, index) => (
         <Link
-          to={'/'}
+          to={`${path}`}
           key={index}
           className="border-ourGray hover:bg-primary-500 border capitalize transition-all duration-150 hover:text-white"
         >

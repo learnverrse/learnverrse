@@ -1,9 +1,8 @@
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
 import HomeLogo from '../components/UI/HomeLogo';
 import { banner } from '../components/details';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 const ForgotPassword = () => {
+  const navigate = useNavigate();
   return (
     <div class="flex h-screen w-full overflow-hidden">
       <div class="mr-24 hidden lg:block">
@@ -44,7 +43,10 @@ const ForgotPassword = () => {
             </div>
 
             <button
-              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/otp');
+              }}
               class="w-full rounded-md bg-[#6D28D2] py-2 text-white hover:bg-purple-700"
             >
               Continue

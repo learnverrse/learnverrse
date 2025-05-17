@@ -2,10 +2,13 @@ import HomePage from '../pages/HomePage';
 import SignUp from '../pages/SignUp';
 import ResetPassword from '../pages/ResetPassword';
 import SignIn from '../pages/SignIn';
+import OtpPage from '../pages/OtpPage';
 import ForgotPassword from '../pages/ForgotPassword';
 import Dashboard from '../layouts/Dashboard';
 import Student from '@/pages/tutotorPage/Student';
-import QuizProvider from "../contexts/QuizProvider"
+import QuizProvider from '../contexts/QuizProvider';
+import MyCourses from '@/pages/tutotorPage/MyCourses';
+import UploadCourse from '@/pages/tutotorPage/UploadCourse';
 
 export const routes = [
   {
@@ -29,6 +32,10 @@ export const routes = [
     element: <ResetPassword />,
   },
   {
+    path: '/otp',
+    element: <OtpPage />,
+  },
+  {
     path: '/dashboard',
     element: <Dashboard />,
     children: [
@@ -39,6 +46,14 @@ export const routes = [
             <Student />
           </QuizProvider>
         ),
+      },
+      {
+        path: '/dashboard/my-courses',
+        element: <MyCourses />,
+      },
+      {
+        path: '/dashboard/upload-course',
+        element: <UploadCourse />,
       },
     ],
   },

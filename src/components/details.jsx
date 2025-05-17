@@ -10,8 +10,8 @@ import { GoMultiSelect } from 'react-icons/go';
 
 const baseUrl = import.meta.env.BASE_URL;
 
-export const logo = baseUrl + '/assets/logo.png';
-export const heroImg = baseUrl + '/assets/hero-image.png';
+export const logo = baseUrl + '/assets/logo.svg';
+export const heroImg = baseUrl + '/assets/heroImg.jpg';
 export const search = baseUrl + '/assets/search-icon.png';
 export const radialGradient = baseUrl + '/assets/raidial-gradient.png';
 export const resetFrame = baseUrl + '/assets/Reset-frame.png';
@@ -32,38 +32,47 @@ export const navLinks = [
 export const dashboardAsideMenu = [
   {
     name: 'dashboard',
+    path: '/dashboard',
     icon: <MdDashboard size={24} />,
   },
   {
     name: 'create course',
+    path: '/dashboard/upload-course',
     icon: <IoCreate size={24} />,
   },
   {
     name: 'my courses',
+    path: '/dashboard/my-courses',
     icon: <IoBookOutline size={24} />,
   },
   {
     name: 'student',
+    path: '/dashboard',
     icon: <FaGraduationCap size={24} />,
   },
   {
     name: 'analytics ',
+    path: '/dashboard',
     icon: <SiSimpleanalytics size={24} />,
   },
   {
     name: 'earnings',
+    path: '/dashboard',
     icon: <GiReceiveMoney size={24} />,
   },
   {
     name: 'message',
+    path: '/dashboard',
     icon: <FiMessageCircle size={24} />,
   },
   {
     name: 'settings',
+    path: '/dashboard',
     icon: <CiSettings size={24} />,
   },
   {
     name: 'logout',
+    path: '/dashboard',
     icon: <CiLogout size={24} />,
   },
 ];
@@ -78,5 +87,44 @@ export const questionIcons = [
     name: 'options',
     icon: <GrRadialSelected />,
     type: 'essay',
+  },
+];
+
+export const myCourses = [
+  {
+    id: Math.random(),
+    heading: 'Web Programming; HTML, CSS, Javascript.....',
+    text: 'Programming and Software Development',
+    src: '/learnverrse/src/assets/my-courses-imgs/web-programming.svg',
+  },
+  {
+    id: Math.random(),
+    heading: 'Cybersecurity',
+    text: 'Cybersecurity Essentials; Ethnical Hacking.....',
+    src: '/learnverrse/src/assets/my-courses-imgs/security.svg',
+  },
+  {
+    id: Math.random(),
+    heading: 'SQL for Data Analytics',
+    text: 'Data Science and Analytics',
+    src: '/learnverrse/src/assets/my-courses-imgs/SQl.svg',
+  },
+  {
+    id: Math.random(),
+    heading: 'Natural Language Processing (NLP)',
+    text: 'Artificial Intelligence',
+    src: '/learnverrse/src/assets/my-courses-imgs/NLP.svg',
+  },
+  {
+    id: Math.random(),
+    heading: 'UI Design with Figma and Adobe XD',
+    text: 'UI/UX Design',
+    src: '/learnverrse/src/assets/my-courses-imgs/UI.svg',
+  },
+  {
+    id: Math.random(),
+    heading: 'IT Support Fundamentals',
+    text: 'IT and Networking',
+    src: '/learnverrse/src/assets/my-courses-imgs/IT.svg',
   },
 ];
