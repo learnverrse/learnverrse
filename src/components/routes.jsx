@@ -9,6 +9,9 @@ import Student from '@/pages/tutotorPage/Student';
 import QuizProvider from '../contexts/QuizProvider';
 import MyCourses from '@/pages/tutotorPage/MyCourses';
 import UploadCourse from '@/pages/tutotorPage/UploadCourse';
+import LearnersDashboard from '@/pages/learnerspage/LearnersDashboard';
+import StudentDashboard from '@/layouts/StudentDashboard';
+import { Children } from 'react';
 
 export const routes = [
   {
@@ -57,4 +60,15 @@ export const routes = [
       },
     ],
   },
+
+  {
+    path: '/learners',
+    element: <StudentDashboard />,
+    children: [
+      {
+        path: '/learners/learners-dashboard',
+        element: <LearnersDashboard />
+      },
+    ]
+  }
 ];
