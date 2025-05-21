@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 
-const OtpPage = () => {
+const OtpResetPassword = () => {
   const inputRefs = useRef([]);
   const btnRef = useRef(null);
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
@@ -39,11 +39,11 @@ const OtpPage = () => {
       code: codes.join(''),
     };
 
-    console.log(codes.join(''));
+    console.log(codes.join(''), email);
     try {
       btnRef.current.innerHTML = 'Verifying...';
       const response = await axiosInstance.post(
-        import.meta.env.VITE_VERIFY_REG,
+        import.meta.env.VITE_VERIFY_RESET_PASSWORD,
         payload,
         {
           headers: { 'Content-Type': 'application/json' },
@@ -52,7 +52,7 @@ const OtpPage = () => {
 
       toast.success(response.data.message);
       console.log(response.data);
-      navigate('/SignIn');
+      navigate('/set-new-password');
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
@@ -130,4 +130,4 @@ const OtpPage = () => {
   );
 };
 
-export default OtpPage;
+export default OtpResetPassword;

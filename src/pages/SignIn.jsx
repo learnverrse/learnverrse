@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { banner } from '../components/details';
 import HomeLogo from '../components/UI/HomeLogo';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -7,8 +7,12 @@ import { toggleState } from '../components/helperFunctions';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { axiosInstance } from '@/apis/axios';
+import { toast } from 'react-toastify';
+import useAuthProvider from '@/hooks/useAuthProvider';
 
 const SignIn = () => {
+  const { setAuth } = useAuthProvider();
   // toggle password state
   const [showPassword, setShowPassword] = useState(true);
 
@@ -39,15 +43,46 @@ const SignIn = () => {
 
   // data to be sent to backend
 
-  const onSubmit = (data) => {
-    const dataTobackend = {
+  const buttonRef = useRef(null);
+  const onSubmit = async (data) => {
+    const payload = {
       email: data.email,
       password: data.password,
     };
-    const sub = JSON.stringify({
-      dataTobackend,
-    });
-    alert(`data to be sent to backend : ${sub}`);
+
+    try {
+      buttonRef.current.innerHTML = 'Please wait';
+
+      console.log(
+        `endpoint: ${import.meta.env.VITE_API_URL + import.meta.env.VITE_LOGIN}`
+      );
+      const response = await axiosInstance.post(
+        `${import.meta.env.VITE_API_URL + import.meta.env.VITE_LOGIN}`,
+        payload,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+
+      console.log(response.data);
+      // setting global auth state
+      setAuth({
+        user: response.data.data,
+        token: response.data.token,
+      });
+      toast.success('Login successful');
+
+      toast(response.data.message);
+    } catch (error) {
+      console.log(error.response.data);
+      if (error.response.data) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error('An error occurred, please try again');
+      }
+    } finally {
+      buttonRef.current.innerHTML = 'Login';
+    }
   };
 
   return (
@@ -145,6 +180,7 @@ const SignIn = () => {
             </div>
 
             <button
+              ref={buttonRef}
               type="submit"
               className="w-full cursor-pointer rounded-md bg-[#6D28D2] py-2 text-white hover:bg-purple-700"
             >

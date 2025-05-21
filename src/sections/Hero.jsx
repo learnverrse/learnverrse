@@ -50,7 +50,7 @@ const Hero = () => {
           <div className="hidden items-center space-x-4 md:flex">
             <Button
               active={false}
-              label={'sign in'}
+              label={'login'}
               fun={() => {
                 navigate('/SignIn');
               }}
