@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import HomeLogo from '../components/UI/HomeLogo';
 import { banner } from '../components/details';
 import { toggleState } from '../components/helperFunctions';
@@ -8,6 +8,9 @@ import { toggleState } from '../components/helperFunctions';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+
+import { axiosInstance } from '@/apis/axios';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
   const [regAs, setRegAs] = useState('student');
@@ -48,35 +51,57 @@ const SignUp = () => {
 
   const signUpBtnRef = useRef(null);
   // function to send data to backend
+
+  const registerURL =
+    regAs === 'student'
+      ? import.meta.env.VITE_lEARNERS_ENDPOINT
+      : import.meta.env.VITE_EDUCATORS_ENDPOINT;
+
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
-    const dataTobackend = {
-      role: regAs,
-      fullName: data.fullname,
+    const name = data.fullName.trim().split(' ');
+    console.log(name);
+    const firstName = name[0];
+    const lastName = name[1];
+    /*  fullName: data.fullname, */
+    const payload = JSON.stringify({
+      firstName,
+      lastName,
       email: data.email,
       password: data.confirmPassword,
-    };
-    // const sub = JSON.stringify({
-    //   dataTobackend,
-    // });
+    });
 
     try {
-      signUpBtnRef.current.innerHTML = 'Singing Up';
-      const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        headers: {
-          'content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataTobackend),
+      signUpBtnRef.current.innerHTML = 'Signing Up';
+
+      localStorage.setItem('learnVerrse-email', data.email);
+
+      const response = await axiosInstance.post(registerURL, payload, {
+        headers: { 'Content-Type': 'application/json' },
       });
 
-      if (!res.ok) {
-        throw new Error('Failed to submit data');
-      }
+      /*  const response = await fetch(
+        `${import.meta.env.VITE_API_URL + registerURL}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        }
+        ); */
+      // console.log(await response.json());
 
-      const responseData = await res.json();
-      console.log(responseData);
+      console.log(response.data);
+      toast('account created successfully');
+      navigate('/otp');
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
+      if (error.response) {
+        // Show the actual server-side error message:
+        console.error('Server Error:', error.response.data);
+        toast(error.response.data.message); // or show a toast, etc.
+      }
     } finally {
       signUpBtnRef.current.innerHTML = 'Sing up';
     }

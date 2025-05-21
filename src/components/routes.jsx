@@ -3,6 +3,8 @@ import SignUp from '../pages/SignUp';
 import ResetPassword from '../pages/ResetPassword';
 import SignIn from '../pages/SignIn';
 import OtpPage from '../pages/OtpPage';
+import OtpResetPassword from '../pages/OtpResetPassword';
+import SetNewPassword from '../pages/SetNewPassword';
 import ForgotPassword from '../pages/ForgotPassword';
 import Dashboard from '../layouts/Dashboard';
 import Student from '@/pages/tutotorPage/Student';
@@ -37,6 +39,14 @@ export const routes = [
   {
     path: '/otp',
     element: <OtpPage />,
+  },
+  {
+    path: '/otp-reset-password',
+    element: <OtpResetPassword />,
+  },
+  {
+    path: '/set-new-password',
+    element: <SetNewPassword />,
   },
   {
     path: '/dashboard',
