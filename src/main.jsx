@@ -3,7 +3,11 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import { routes } from './components/routes.jsx';
+import { routes } from './routes/routes.jsx';
+
+import { Toaster } from './components/UI/sonner';
+import { ToastContainer } from 'react-toastify';
+import AuthProvider from './contexts/AuthProvider';
 
 const router = createBrowserRouter(routes, {
   basename: import.meta.env.BASE_URL,
@@ -11,6 +15,10 @@ const router = createBrowserRouter(routes, {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <Toaster />
+      <ToastContainer />
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );

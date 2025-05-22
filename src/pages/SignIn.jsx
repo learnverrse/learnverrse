@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { banner } from '../components/details';
 import HomeLogo from '../components/UI/HomeLogo';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+
 import { toggleState } from '../components/helperFunctions';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { axiosInstance } from '@/apis/axios';
+import { toast } from 'react-toastify';
+import useAuthProvider from '@/hooks/useAuthProvider';
 
 const SignIn = () => {
+
   const [showPassword, setShowPassword] = useState(true);
 
   // Yup validation schema
@@ -29,11 +33,8 @@ const SignIn = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  // This is now just for form validation, no login request
-  const onSubmit = (data) => {
-    console.log('Form submitted:', data);
-    alert('Form submitted successfully!');
-  };
+
+    
 
   return (
     <section className="flex h-screen w-full gap-20 overflow-hidden">
@@ -129,6 +130,7 @@ const SignIn = () => {
 
             {/* Buttons */}
             <button
+              ref={buttonRef}
               type="submit"
               className="w-full rounded-md bg-[#6D28D2] py-2 text-white hover:bg-purple-700"
             >
