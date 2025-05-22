@@ -11,6 +11,8 @@ import MyCourses from '@/pages/tutotorPage/MyCourses';
 import UploadCourse from '@/pages/tutotorPage/UploadCourse';
 import LearnersDashboard from '@/pages/learnerspage/LearnersDashboard';
 import StudentDashboard from '@/layouts/StudentDashboard';
+import ProtectedRoute from './ProtectedRoute';
+import EducatorDashboard from '@/layouts/EducatorDashboard';
 
 export const routes = [
   {
