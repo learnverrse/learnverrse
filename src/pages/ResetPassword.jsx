@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { resetFrame } from '../components/details';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { FaCircleCheck } from 'react-icons/fa6';
@@ -8,6 +8,8 @@ import { toggleState } from '../components/helperFunctions';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from 'react-router';
+import { axiosInstance } from '@/apis/axios';
+import { toast } from 'react-toastify';
 
 const ResetPassword = () => {
   // toggling password and text
@@ -39,15 +41,32 @@ const ResetPassword = () => {
   });
   const passwordValue = watch('password');
   const isPasswordValid = passwordValue && !errors.password;
+
+  const btnRef = useRef(null);
   // function to send form to backend
-  const onSubmit = (data) => {
-    const dataTobackend = {
-      newPassword: data.confirmPassword,
+  const onSubmit = async (data) => {
+    const email = localStorage.getItem('learnVerrse-email') || '';
+    const payload = {
+      password: data.confirmPassword,
+      email,
     };
-    const sub = JSON.stringify({
-      dataTobackend,
-    });
-    alert(`data to be sent to backend : ${sub}`);
+
+    try {
+      btnRef.current.innerHTML = 'Resetting...';
+
+      const response = await axiosInstance.post(
+        import.meta.env.VITE_SET_NEW_PASSWORD,
+        payload
+      );
+
+      toast.success(response.data.message);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message || 'An error occurred');
+    } finally {
+      btnRef.current.innerHTML = 'Reset Password';
+    }
   };
 
   return (

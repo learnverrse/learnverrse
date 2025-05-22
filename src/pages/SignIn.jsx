@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { banner } from '../components/details';
 import HomeLogo from '../components/UI/HomeLogo';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { toggleState } from '../components/helperFunctions';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -13,6 +13,7 @@ import useAuthProvider from '@/hooks/useAuthProvider';
 
 const SignIn = () => {
   const { setAuth } = useAuthProvider();
+  const navigate = useNavigate();
   // toggle password state
   const [showPassword, setShowPassword] = useState(true);
 
@@ -64,7 +65,7 @@ const SignIn = () => {
         }
       );
 
-      console.log(response.data);
+      console.log(response.data, response.data.token);
       // setting global auth state
       setAuth({
         user: response.data.data,
@@ -73,8 +74,15 @@ const SignIn = () => {
       toast.success('Login successful');
 
       toast(response.data.message);
+
+      if (response.data.data.role === 'EDUCATOR') {
+        navigate('/educator-dashboard');
+      }
+      if (response.data.data.role === 'LEARNER') {
+        navigate('/learner-dashboard');
+      }
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.response.data || error);
       if (error.response.data) {
         toast.error(error.response.data.message);
       } else {

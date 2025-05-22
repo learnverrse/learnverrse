@@ -4,7 +4,7 @@ import { CgProfile } from 'react-icons/cg';
 import SideBar from '../components/UI/SideBar';
 import { Outlet } from 'react-router';
 
-const Dashboard = () => {
+const StudentDashboard = () => {
   return (
     <section className="h-screen w-screen overflow-hidden">
       {/* header */}
@@ -33,4 +33,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default StudentDashboard;
