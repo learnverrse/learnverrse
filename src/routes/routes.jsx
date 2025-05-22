@@ -4,16 +4,13 @@ import ResetPassword from '../pages/ResetPassword';
 import SignIn from '../pages/SignIn';
 import OtpPage from '../pages/OtpPage';
 import OtpResetPassword from '../pages/OtpResetPassword';
-import SetNewPassword from '../pages/SetNewPassword';
 import ForgotPassword from '../pages/ForgotPassword';
-import Dashboard from '../layouts/Dashboard';
 import Student from '@/pages/tutotorPage/Student';
 import QuizProvider from '../contexts/QuizProvider';
 import MyCourses from '@/pages/tutotorPage/MyCourses';
 import UploadCourse from '@/pages/tutotorPage/UploadCourse';
 import LearnersDashboard from '@/pages/learnerspage/LearnersDashboard';
 import StudentDashboard from '@/layouts/StudentDashboard';
-import { Children } from 'react';
 
 export const routes = [
   {
@@ -44,29 +41,51 @@ export const routes = [
     path: '/otp-reset-password',
     element: <OtpResetPassword />,
   },
+
+  // 👨‍🏫 Educator Routes
   {
-    path: '/set-new-password',
-    element: <SetNewPassword />,
-  },
-  {
-    path: '/dashboard',
-    element: <Dashboard />,
+    path: '/educator-dashboard',
+    element: <ProtectedRoute role="EDUCATOR" />,
     children: [
       {
-        path: '/dashboard',
-        element: (
-          <QuizProvider>
-            <Student />
-          </QuizProvider>
-        ),
+        path: '',
+        element: <EducatorDashboard />,
+        children: [
+          {
+            path: 'upload-course',
+            element: <UploadCourse />,
+          },
+          /* {
+            path: 'manage-courses',
+            element: <ManageCourses />,
+          }, */
+        ],
       },
+    ],
+  },
+
+  // 🎓 Student Routes
+  {
+    path: '/learner-dashboard',
+    element: <ProtectedRoute role="LEARNER" />,
+    children: [
       {
-        path: '/dashboard/my-courses',
-        element: <MyCourses />,
-      },
-      {
-        path: '/dashboard/upload-course',
-        element: <UploadCourse />,
+        path: '',
+        element: <StudentDashboard />,
+        children: [
+          {
+            index: true,
+            element: (
+              <QuizProvider>
+                <Student />
+              </QuizProvider>
+            ),
+          },
+          {
+            path: 'my-courses',
+            element: <MyCourses />,
+          },
+        ],
       },
     ],
   },
@@ -77,8 +96,8 @@ export const routes = [
     children: [
       {
         path: '/learners/learners-dashboard',
-        element: <LearnersDashboard />
+        element: <LearnersDashboard />,
       },
-    ]
-  }
+    ],
+  },
 ];
