@@ -9,9 +9,8 @@ import Student from '@/pages/tutotorPage/Student';
 import QuizProvider from '../contexts/QuizProvider';
 import MyCourses from '@/pages/tutotorPage/MyCourses';
 import UploadCourse from '@/pages/tutotorPage/UploadCourse';
-import ProtectedRoute from './ProtectedRoute';
-import StudentDashboard from '../layouts/StudentDashboard';
-import EducatorDashboard from '@/layouts/EducatorDashboard';
+import LearnersDashboard from '@/pages/learnerspage/LearnersDashboard';
+import StudentDashboard from '@/layouts/StudentDashboard';
 
 export const routes = [
   {
@@ -87,6 +86,17 @@ export const routes = [
             element: <MyCourses />,
           },
         ],
+      },
+    ],
+  },
+
+  {
+    path: '/learners',
+    element: <StudentDashboard />,
+    children: [
+      {
+        path: '/learners/learners-dashboard',
+        element: <LearnersDashboard />,
       },
     ],
   },

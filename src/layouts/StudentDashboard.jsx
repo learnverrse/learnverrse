@@ -1,3 +1,4 @@
+import React from 'react';
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import HomeLogo from '../components/UI/HomeLogo';
 import { CgProfile } from 'react-icons/cg';
@@ -6,8 +7,7 @@ import { Outlet } from 'react-router';
 
 const StudentDashboard = () => {
   return (
-    <section className="h-screen w-screen overflow-hidden">
-      {/* header */}
+    <>
       <header className="container flex items-center justify-between py-4">
         <HomeLogo />
 
@@ -22,14 +22,18 @@ const StudentDashboard = () => {
 
       <main className="grid w-screen grid-cols-12 gap-8">
         {/* sidebar  */}
-        <SideBar />
+        <SideBar isTutor={false} />
 
         {/* main content */}
-        <div className="border-primary col-span-9">
+        <div className="border-primary col-span-6">
           <Outlet />
         </div>
+
+        {/* calendar Path */}
+
+        <div className="col-span-3 bg-black"></div>
       </main>
-    </section>
+    </>
   );
 };
 
