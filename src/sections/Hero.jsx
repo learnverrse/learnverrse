@@ -55,6 +55,7 @@ const Hero = () => {
                 navigate('/SignIn');
               }}
             />
+
             <Button
               active={true}
               label={'join us now'}
@@ -87,10 +88,11 @@ const Hero = () => {
 
             <div className="z-20 flex justify-center space-x-4 lg:justify-start">
               <Button label={'see plans'} active={true} fun={() => {}} />
+
               <Button
-                label={' Access your course'}
+                label="Access your course"
                 active={false}
-                fun={() => {}}
+                fun={() => navigate('/learning')}
               />
             </div>
           </div>

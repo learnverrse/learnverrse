@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { banner } from '../components/details';
 import HomeLogo from '../components/UI/HomeLogo';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router';
+
 import { toggleState } from '../components/helperFunctions';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -12,86 +12,29 @@ import { toast } from 'react-toastify';
 import useAuthProvider from '@/hooks/useAuthProvider';
 
 const SignIn = () => {
-  const { setAuth } = useAuthProvider();
-  const navigate = useNavigate();
-  // toggle password state
+
   const [showPassword, setShowPassword] = useState(true);
 
-  // form validation logic
+  // Yup validation schema
   const schema = yup.object().shape({
     email: yup
       .string()
-      .email('please provide a valid email ')
-      .required('email is required'),
+      .email('Please provide a valid email')
+      .required('Email is required'),
     password: yup
       .string()
-      .min(6)
       .min(6, 'Password must be at least 6 characters')
-      .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
-      .matches(
-        /[@$!%*?&]/,
-        'Password must contain at least one special character @$!%*?&'
-      )
-      .required('password is required'),
+      .required('Password is required'),
   });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  } = useForm({ resolver: yupResolver(schema) });
 
-  // data to be sent to backend
 
-  const buttonRef = useRef(null);
-  const onSubmit = async (data) => {
-    const payload = {
-      email: data.email,
-      password: data.password,
-    };
-
-    try {
-      buttonRef.current.innerHTML = 'Please wait';
-
-      console.log(
-        `endpoint: ${import.meta.env.VITE_API_URL + import.meta.env.VITE_LOGIN}`
-      );
-      const response = await axiosInstance.post(
-        `${import.meta.env.VITE_API_URL + import.meta.env.VITE_LOGIN}`,
-        payload,
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-
-      console.log(response.data, response.data.token);
-      // setting global auth state
-      setAuth({
-        user: response.data.data,
-        token: response.data.token,
-      });
-      toast.success('Login successful');
-
-      toast(response.data.message);
-
-      if (response.data.data.role === 'EDUCATOR') {
-        navigate('/educator-dashboard');
-      }
-      if (response.data.data.role === 'LEARNER') {
-        navigate('/learner-dashboard');
-      }
-    } catch (error) {
-      console.log(error.response.data || error);
-      if (error.response.data) {
-        toast.error(error.response.data.message);
-      } else {
-        toast.error('An error occurred, please try again');
-      }
-    } finally {
-      buttonRef.current.innerHTML = 'Login';
-    }
-  };
+    
 
   return (
     <section className="flex h-screen w-full gap-20 overflow-hidden">
@@ -108,7 +51,6 @@ const SignIn = () => {
           <div className="flex justify-center">
             <HomeLogo />
           </div>
-
           <div>
             <h2 className="text-center text-4xl font-medium text-[#121212]">
               Welcome Back
@@ -119,6 +61,7 @@ const SignIn = () => {
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {/* Email */}
             <div>
               <label className="block text-[#121212]" htmlFor="email">
                 Email
@@ -128,76 +71,74 @@ const SignIn = () => {
                 id="email"
                 {...register('email')}
                 placeholder="azzez@emmanuel.com"
-                className="mt-1 w-full rounded-md border border-none bg-[#F5F7FA] px-4 py-3 focus:ring-2 focus:ring-[#6D28D2] focus:outline-none"
+                className="mt-1 w-full rounded-md bg-[#F5F7FA] px-4 py-3 focus:ring-2 focus:ring-[#6D28D2] focus:outline-none"
               />
               {errors.email && (
-                <p className="mt-2 text-xs leading-[18px] text-[#C82828]">
-                  {errors.email?.message}
+                <p className="mt-2 text-xs text-[#C82828]">
+                  {errors.email.message}
                 </p>
               )}
             </div>
 
-            <div className="">
+            {/* Password */}
+            <div>
               <label className="block text-[#121212]" htmlFor="password">
                 Password
               </label>
               <div className="relative">
                 <input
                   type={showPassword ? 'password' : 'text'}
-                  {...register('password')}
                   id="password"
+                  {...register('password')}
                   placeholder="Enter your password"
-                  className="mt-1 w-full rounded-md border border-none bg-[#F5F7FA] px-4 py-3 focus:ring-2 focus:ring-[#6D28D2] focus:outline-none"
+                  className="mt-1 w-full rounded-md bg-[#F5F7FA] px-4 py-3 focus:ring-2 focus:ring-[#6D28D2] focus:outline-none"
                 />
                 {showPassword ? (
                   <FaEye
-                    onClick={() => {
-                      toggleState(setShowPassword);
-                    }}
+                    onClick={() => toggleState(setShowPassword)}
                     size={20}
-                    className="absolute top-1/2 right-3 -translate-1/2 cursor-pointer text-gray-400"
+                    className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-400"
                   />
                 ) : (
                   <FaEyeSlash
-                    onClick={() => {
-                      toggleState(setShowPassword);
-                    }}
+                    onClick={() => toggleState(setShowPassword)}
                     size={20}
-                    className="absolute top-1/2 right-3 -translate-1/2 cursor-pointer text-gray-400"
+                    className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-gray-400"
                   />
                 )}
                 {errors.password && (
-                  <p className="mt-2 text-xs leading-[18px] text-[#C82828]">
-                    {errors.password?.message}
+                  <p className="mt-2 text-xs text-[#C82828]">
+                    {errors.password.message}
                   </p>
                 )}
               </div>
             </div>
 
+            {/* Remember / Forgot */}
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center space-x-2 text-[#121212]">
                 <input type="checkbox" className="cursor-pointer" />
                 <span>Remember me</span>
               </label>
               <Link
-                to="/ForgotPassword"
+                to="/forgotpassword"
                 className="text-[#6D28D2] hover:underline"
               >
                 Forgot Password
               </Link>
             </div>
 
+            {/* Buttons */}
             <button
               ref={buttonRef}
               type="submit"
-              className="w-full cursor-pointer rounded-md bg-[#6D28D2] py-2 text-white hover:bg-purple-700"
+              className="w-full rounded-md bg-[#6D28D2] py-2 text-white hover:bg-purple-700"
             >
               Sign In
             </button>
-
             <button
               type="button"
-              className="flex w-full cursor-pointer items-center justify-center space-x-2 rounded-md border py-2"
+              className="flex w-full items-center justify-center space-x-2 rounded-md border py-2"
             >
               <img
                 src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -209,13 +150,12 @@ const SignIn = () => {
           </form>
 
           <p className="mt-4 text-center text-sm">
-            Don’t have an account?
+            Don’t have an account?{' '}
             <Link
               className="font-semibold text-[#6D28D2] hover:underline"
               to="/Sign-up"
             >
-              {' '}
-              Sign Up{' '}
+              Sign Up
             </Link>
           </p>
         </div>
