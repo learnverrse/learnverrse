@@ -5,7 +5,8 @@ import SignIn from '../pages/SignIn';
 import ForgotPassword from '../pages/ForgotPassword';
 import Dashboard from '../layouts/Dashboard';
 import Student from '@/pages/tutotorPage/Student';
-import QuizProvider from "../contexts/QuizProvider"
+import QuizProvider from '../contexts/QuizProvider';
+import LearningPage from '@/pages/StudentCourse/LearningPage';
 
 export const routes = [
   {
@@ -21,7 +22,7 @@ export const routes = [
     element: <SignIn />,
   },
   {
-    path: '/ForgotPassword',
+    path: '/forgotpassword',
     element: <ForgotPassword />,
   },
   {
@@ -41,5 +42,9 @@ export const routes = [
         ),
       },
     ],
+  },
+  {
+    path: '/learning',
+    element: <LearningPage />,
   },
 ];
