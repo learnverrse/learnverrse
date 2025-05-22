@@ -1,3 +1,5 @@
+
+
 import ResetPassword from './pages/ResetPassword';
 import SignUp from './pages/SignUp';
 import Hero from './sections/Hero';
@@ -32,3 +34,29 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import ResetPassword from './pages/ResetPassword';
+// import SignUp from './pages/SignUp';
+// import Hero from './sections/Hero';
+// import LearningPage from './StudentCourse/LearningPage';
+
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<Hero />} />
+//         <Route path="/learning" element={<LearningPage />} />
+//         <Route path="/signup" element={<SignUp />} />
+//         <Route path="/reset-password" element={<ResetPassword />} />
+//       </Routes>
+//     </Router>
+//   );
+// }
+
+// export default App;
+
