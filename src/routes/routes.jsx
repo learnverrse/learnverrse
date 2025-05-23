@@ -45,10 +45,10 @@ export const routes = [
   },
   // tests
 
-  /* {
-    path: 'test-student',
-    element: <StudentLayout />,
-  }, */
+  {
+    path: 'test',
+    element: <LearnersDashboard />,
+  },
 
   // 👨‍🏫 Educator Routes
   {
@@ -96,7 +96,12 @@ export const routes = [
       {
         path: '',
         element: <StudentLayout />,
-        children: [],
+        children: [
+          {
+            index: true,
+            element: <LearnersDashboard />,
+          },
+        ],
       },
     ],
   },

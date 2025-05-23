@@ -25,10 +25,9 @@ const StudentLayout = () => {
         <SideBar isTutor={false} />
 
         {/* main content */}
-        <div className="border-primary col-span-6 overflow-y-auto">
+        <div className="border-primary col-span-9 overflow-y-auto">
           <Outlet />
         </div>
-        <div className="border-primary col-span-3 h-screen overflow-y-auto bg-black"></div>
       </main>
     </div>
   );
