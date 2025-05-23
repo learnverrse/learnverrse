@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router';
-import HomeLogo from '../components/UI/HomeLogo';
-import { banner } from '../components/details';
-import { toggleState } from '../components/helperFunctions';
+import HomeLogo from '../../components/UI/HomeLogo';
+import { banner } from '../../components/details';
+import { toggleState } from '../../components/helperFunctions';
 
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';

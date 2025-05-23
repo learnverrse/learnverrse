@@ -1,7 +1,7 @@
 import { axiosInstance } from '@/apis/axios';
 import { useRef } from 'react';
-import HomeLogo from '../components/UI/HomeLogo';
-import { banner } from '../components/details';
+import HomeLogo from '@/components/UI/HomeLogo';
+import { banner } from '@/components/details';
 import { Link, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 const ForgotPassword = () => {

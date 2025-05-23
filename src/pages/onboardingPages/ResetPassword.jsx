@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { resetFrame } from '../components/details';
+import { resetFrame } from '../../components/details';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { FaCircleCheck } from 'react-icons/fa6';
-import HomeLogo from '../components/UI/HomeLogo';
+import HomeLogo from '../../components/UI/HomeLogo';
 import { useForm } from 'react-hook-form';
-import { toggleState } from '../components/helperFunctions';
+import { toggleState } from '@/components/helperFunctions';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from 'react-router';

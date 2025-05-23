@@ -5,9 +5,9 @@ import { CgProfile } from 'react-icons/cg';
 import SideBar from '../components/UI/SideBar';
 import { Outlet } from 'react-router';
 
-const StudentDashboard = () => {
+const EducatorLayout = () => {
   return (
-    <>
+    <div className="flex h-screen flex-col">
       <header className="container flex items-center justify-between py-4">
         <HomeLogo />
 
@@ -20,21 +20,17 @@ const StudentDashboard = () => {
         </div>
       </header>
 
-      <main className="grid w-screen grid-cols-12 gap-8">
+      <main className="grid h-screen w-screen grid-cols-12 gap-8 overflow-hidden">
         {/* sidebar  */}
-        <SideBar isTutor={false} />
+        <SideBar />
 
         {/* main content */}
-        <div className="border-primary col-span-6">
+        <div className="border-primary col-span-9 overflow-y-auto">
           <Outlet />
         </div>
-
-        {/* calendar Path */}
-
-        <div className="col-span-3 bg-black"></div>
       </main>
-    </>
+    </div>
   );
 };
 
-export default StudentDashboard;
+export default EducatorLayout;

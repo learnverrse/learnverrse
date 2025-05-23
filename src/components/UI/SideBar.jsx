@@ -1,8 +1,7 @@
 import { dashboardAsideMenu, learnersSidebar } from '../details';
 import { Link } from 'react-router';
-const SideBar = ({isTutor=true}) => {
-
-  const asideMenu = isTutor ? (dashboardAsideMenu) : (learnersSidebar)
+const SideBar = ({ isTutor = true }) => {
+  const asideMenu = isTutor ? dashboardAsideMenu : learnersSidebar;
   return (
     <aside className="col-span-3 flex h-screen flex-col overflow-auto">
       {asideMenu.map(({ icon, path, name }, index) => (

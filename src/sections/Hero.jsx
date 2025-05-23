@@ -72,7 +72,7 @@ const Hero = () => {
       {/* hero section */}
 
       <div className="container mx-auto px-6">
-        <div className="flex w-full flex-col items-center justify-between text-center lg:flex-row lg:text-start">
+        <div className="flex w-full flex-col items-center justify-between pt-10 text-center lg:flex-row lg:text-start">
           <div className="mb-6 md:mb-0 md:w-1/2">
             <h1 className="mb-4 text-5xl font-bold capitalize md:text-7xl">
               Where curious minds meet{' '}

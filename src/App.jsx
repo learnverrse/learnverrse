@@ -1,5 +1,5 @@
-import ResetPassword from './pages/ResetPassword';
-import SignUp from './pages/SignUp';
+import ResetPassword from './pages/onboardingPages/ResetPassword';
+import SignUp from './pages/onboardingPages/SignUp';
 import Hero from './sections/Hero';
 
 function App() {

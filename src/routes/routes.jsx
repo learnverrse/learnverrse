@@ -1,18 +1,18 @@
-import HomePage from '../pages/HomePage';
-import SignUp from '../pages/SignUp';
-import ResetPassword from '../pages/ResetPassword';
-import SignIn from '../pages/SignIn';
-import OtpPage from '../pages/OtpPage';
-import OtpResetPassword from '../pages/OtpResetPassword';
-import ForgotPassword from '../pages/ForgotPassword';
+import HomePage from '../pages/home/HomePage';
+import SignUp from '../pages/onboardingPages/SignUp';
+import ResetPassword from '../pages/onboardingPages/ResetPassword';
+import SignIn from '../pages/onboardingPages/SignIn';
+import OtpPage from '../pages/onboardingPages/OtpPage';
+import OtpResetPassword from '../pages/onboardingPages/OtpResetPassword';
+import ForgotPassword from '../pages/onboardingPages/ForgotPassword';
 import Student from '@/pages/tutotorPage/Student';
 import QuizProvider from '../contexts/QuizProvider';
 import MyCourses from '@/pages/tutotorPage/MyCourses';
 import UploadCourse from '@/pages/tutotorPage/UploadCourse';
 import LearnersDashboard from '@/pages/learnerspage/LearnersDashboard';
-import StudentDashboard from '@/layouts/StudentDashboard';
+import StudentLayout from '@/layouts/StudentLayout';
 import ProtectedRoute from './ProtectedRoute';
-import EducatorDashboard from '@/layouts/EducatorDashboard';
+import Educatorlayout from '@/layouts/EducatorLayout';
 
 export const routes = [
   {
@@ -43,6 +43,12 @@ export const routes = [
     path: '/otp-reset-password',
     element: <OtpResetPassword />,
   },
+  // tests
+
+  /* {
+    path: 'test-student',
+    element: <StudentLayout />,
+  }, */
 
   // 👨‍🏫 Educator Routes
   {
@@ -51,8 +57,24 @@ export const routes = [
     children: [
       {
         path: '',
-        element: <EducatorDashboard />,
+        element: <Educatorlayout />,
         children: [
+          {
+            index: true,
+            element: (
+              <QuizProvider>
+                <Student />
+              </QuizProvider>
+            ),
+          },
+          {
+            path: 'upload-course',
+            element: <UploadCourse />,
+          },
+          {
+            path: 'my-courses',
+            element: <MyCourses />,
+          },
           {
             path: 'upload-course',
             element: <UploadCourse />,
@@ -73,26 +95,13 @@ export const routes = [
     children: [
       {
         path: '',
-        element: <StudentDashboard />,
-        children: [
-          {
-            index: true,
-            element: (
-              <QuizProvider>
-                <Student />
-              </QuizProvider>
-            ),
-          },
-          {
-            path: 'my-courses',
-            element: <MyCourses />,
-          },
-        ],
+        element: <StudentLayout />,
+        children: [],
       },
     ],
   },
 
-  {
+  /*   {
     path: '/learners',
     element: <StudentDashboard />,
     children: [
@@ -101,5 +110,5 @@ export const routes = [
         element: <LearnersDashboard />,
       },
     ],
-  },
+  }, */
 ];

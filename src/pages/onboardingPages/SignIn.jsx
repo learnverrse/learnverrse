@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { banner } from '../components/details';
-import HomeLogo from '../components/UI/HomeLogo';
+import { banner } from '@/components/details';
+import HomeLogo from '@/components/UI/HomeLogo';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router';
-import { toggleState } from '../components/helperFunctions';
+import { toggleState } from '@/components/helperFunctions';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -58,7 +58,7 @@ const SignIn = () => {
         `endpoint: ${import.meta.env.VITE_API_URL + import.meta.env.VITE_LOGIN}`
       );
       const response = await axiosInstance.post(
-        `${import.meta.env.VITE_API_URL + import.meta.env.VITE_LOGIN}`,
+        import.meta.env.VITE_LOGIN,
         payload,
         {
           headers: { 'Content-Type': 'application/json' },
@@ -82,7 +82,7 @@ const SignIn = () => {
         navigate('/learner-dashboard');
       }
     } catch (error) {
-      console.log(error.response.data || error);
+      console.log(error.response?.data || error);
       if (error.response.data) {
         toast.error(error.response.data.message);
       } else {
