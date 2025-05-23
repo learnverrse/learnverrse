@@ -55,6 +55,7 @@ const Hero = () => {
                 navigate('/SignIn');
               }}
             />
+
             <Button
               active={true}
               label={'join us now'}
@@ -72,7 +73,7 @@ const Hero = () => {
       {/* hero section */}
 
       <div className="container mx-auto px-6">
-        <div className="flex w-full flex-col items-center justify-between text-center lg:flex-row lg:text-start">
+        <div className="flex w-full flex-col items-center justify-between pt-10 text-center lg:flex-row lg:text-start">
           <div className="mb-6 md:mb-0 md:w-1/2">
             <h1 className="mb-4 text-5xl font-bold capitalize md:text-7xl">
               Where curious minds meet{' '}
@@ -87,10 +88,11 @@ const Hero = () => {
 
             <div className="z-20 flex justify-center space-x-4 lg:justify-start">
               <Button label={'see plans'} active={true} fun={() => {}} />
+
               <Button
-                label={' Access your course'}
+                label="Access your course"
                 active={false}
-                fun={() => {}}
+                fun={() => navigate('/learning')}
               />
             </div>
           </div>

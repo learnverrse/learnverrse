@@ -7,8 +7,7 @@ import { MdDashboard } from 'react-icons/md';
 import { SiSimpleanalytics } from 'react-icons/si';
 import { GrRadialSelected } from 'react-icons/gr';
 import { GoMultiSelect } from 'react-icons/go';
-import { PiCertificateFill } from "react-icons/pi";
-
+import { PiCertificateFill } from 'react-icons/pi';
 
 const baseUrl = import.meta.env.BASE_URL;
 
@@ -39,12 +38,12 @@ export const dashboardAsideMenu = [
   },
   {
     name: 'create course',
-    path: '/dashboard/upload-course',
+    path: 'upload-course',
     icon: <IoCreate size={24} />,
   },
   {
     name: 'my courses',
-    path: '/dashboard/my-courses',
+    path: 'my-courses',
     icon: <IoBookOutline size={24} />,
   },
   {
@@ -80,7 +79,6 @@ export const dashboardAsideMenu = [
 ];
 
 export const learnersSidebar = [
-
   {
     name: 'dashboard',
     path: '/dashboard',
@@ -95,7 +93,6 @@ export const learnersSidebar = [
     name: 'certificate',
     path: '/',
     icon: <PiCertificateFill size={24} />,
-
   },
   {
     name: 'message',
@@ -112,8 +109,7 @@ export const learnersSidebar = [
     path: '/dashboard',
     icon: <CiLogout size={24} />,
   },
-
-]
+];
 
 export const questionIcons = [
   {
