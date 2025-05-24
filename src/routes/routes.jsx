@@ -13,6 +13,7 @@ import LearnersDashboard from '@/pages/learnerspage/LearnersDashboard';
 import StudentLayout from '@/layouts/StudentLayout';
 import ProtectedRoute from './ProtectedRoute';
 import Educatorlayout from '@/layouts/EducatorLayout';
+import TutorsDashboard from '@/pages/tutotorPage/TutorsDashboard';
 
 export const routes = [
   {
@@ -45,22 +46,26 @@ export const routes = [
   },
   // tests
 
-  {
-    path: 'test',
-    element: <LearnersDashboard />,
-  },
+  // {
+  //   path: 'test',
+  //   element: <TutorsDashboard />,
+  // },
 
   // 👨‍🏫 Educator Routes
   {
     path: '/educator-dashboard',
     element: <ProtectedRoute role="EDUCATOR" />,
-    children: [
+   children: [
       {
         path: '',
         element: <Educatorlayout />,
         children: [
           {
             index: true,
+            element: <TutorsDashboard />,
+          },
+          {
+            path: "student",
             element: (
               <QuizProvider>
                 <Student />
@@ -75,14 +80,6 @@ export const routes = [
             path: 'my-courses',
             element: <MyCourses />,
           },
-          {
-            path: 'upload-course',
-            element: <UploadCourse />,
-          },
-          /* {
-            path: 'manage-courses',
-            element: <ManageCourses />,
-          }, */
         ],
       },
     ],
