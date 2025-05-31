@@ -16,7 +16,7 @@ import Educatorlayout from '@/layouts/EducatorLayout';
 import TutorsDashboard from '@/pages/tutotorPage/TutorsDashboard';
 import CourseContent from '@/pages/tutotorPage/CreateCourse/CourseContent';
 import CourseInformation from '@/pages/tutotorPage/CreateCourse/CourseInformation';
-
+import Quiz from '@/pages/tutotorPage/CreateCourse/Quiz';
 import CoursePricing from '@/pages/tutotorPage/CreateCourse/CoursePricing';
 
 
@@ -54,7 +54,7 @@ export const routes = [
   {
     path: 'test',
  
-    element: <CoursePricing />,
+    element: <CourseContent />,
 
   },
 
