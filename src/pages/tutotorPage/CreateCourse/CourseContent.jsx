@@ -1,10 +1,16 @@
 import React from 'react'
-import CreateCourseNav from '@/components/UI/CreateCourseNav'
+import CreateCourseNav from '@/components/UI/CreateCourseNav';
+import { FaCirclePlus } from "react-icons/fa6";
+
 
 const CourseContent = () => {
   return (
     <div className='min-h-screen bg-gray-50 flex flex-col px-6 py-2'>
         <CreateCourseNav />
+
+        <label htmlFor="fileUpload" className="flex items-center gap-4 w-full px-4 py-2 border border-gray-400 rounded-full text-purple-700 cursor-pointer mb-6">
+            <FaCirclePlus className='w-6 h-6 text-purple' />  Add Chapter
+        </label>
 
         <form className='space-y-6'>
             <div>
