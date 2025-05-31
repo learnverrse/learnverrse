@@ -44,101 +44,99 @@ import { TbCertificate } from 'react-icons/tb';
 const Hero = () => {
   const navigate = useNavigate();
   return (
-    <header className="container mx-auto min-h-screen bg-white">
-      {/* navbar */}
-      <nav className="flex w-full items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-x-2">
-          {/* logo */}
-          <HomeLogo />
+    <React.Fragment>
+      <header className="container mx-auto min-h-screen bg-white">
+        {/* navbar */}
+        <nav className="flex w-full max-w-7xl m-auto items-center justify-between px-6 py-4">
+          <div className="flex items-center gap-x-2">
+            {/* logo */}
+            <HomeLogo />
 
             {/* navlinks */}
             <div className="hidden md:ml-4 lg:flex">
-              {navLinks.map(({ name, path }, index) => (
-                <Link className="nav-links" to={`${path}`} key={index}>
-                  {name}
-                </Link>
-              ))}
+                {navLinks.map(({ name, path }, index) => (
+                  <Link className="nav-links" to={`${path}`} key={index}>
+                    {name}
+                  </Link>
+                ))}
             </div>
           </div>
 
-          {/* search input */}
-          <div className="relative mx-4 hidden w-full max-w-md lg:block">
-            <input
-              type="text"
-              placeholder="Discover Courses To Learn"
-              className="w-full rounded-full border border-gray-300 px-4 py-2 pl-10 focus:ring-2 focus:ring-purple-700 focus:outline-none"
-            />
-
-            <img
-              src={search}
-              alt="Search icon"
-              className="absolute top-1/2 left-3 -translate-y-1/2 transform cursor-pointer"
-            />
-          </div>
-
-          {/* buttons */}
-          <div className="gap-4 md:flex">
-            <div className="hidden items-center space-x-4 md:flex">
-              <Button
-                active={false}
-                label={'login'}
-                fun={() => {
-                  navigate('/SignIn');
-                }}
+            {/* search input */}
+            <div className="relative mx-4 hidden w-full max-w-md lg:block">
+              <input
+                type="text"
+                placeholder="Discover Courses To Learn"
+                className="w-full rounded-full border border-gray-300 px-4 py-2 pl-10 focus:ring-2 focus:ring-purple-700 focus:outline-none"
               />
 
-              <Button
-                active={true}
-                label={'join us now'}
-                fun={() => {
-                  navigate('/Sign-up');
-                }}
+              <img
+                src={search}
+                alt="Search icon"
+                className="absolute top-1/2 left-3 -translate-y-1/2 transform cursor-pointer"
               />
             </div>
-            <button className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-200 hover:bg-gray-300 focus:ring-2 focus:ring-purple-700 focus:outline-none lg:hidden">
-              <FaBars />
-            </button>
-          </div>
-        </nav>
 
-        {/* hero section */}
-
-      <div className="px-6">
-        <div className="flex w-full flex-col items-center justify-between pt-10 text-center lg:flex-row lg:text-start">
-          <div className="mb-6 md:mb-0 md:w-2/3">
-            <h1 className="mb-4 text-5xl font-bold capitalize md:text-7xl">
-              Where curious minds meet
-              <span className="text-purple-700">expert</span> guides.
-            </h1>
-
-              <p className="mt-8 mb-8 flex max-w-lg text-lg text-black">
-                Fuel your curiosity with guidance from experts who’ve walked the
-                path—learn deeply, grow confidently, and turn potential into
-                progress.
-              </p>
-
-              <div className="z-20 flex justify-center space-x-4 lg:justify-start">
-                <Button label={'see plans'} active={true} fun={() => {}} />
+            {/* buttons */}
+            <div className="gap-4 md:flex">
+              <div className="hidden items-center space-x-4 md:flex">
+                <Button
+                  active={false}
+                  label={'login'}
+                  fun={() => {
+                    navigate('/SignIn');
+                  }}
+                />
 
                 <Button
-                  label="Access your course"
-                  active={false}
-                  fun={() => navigate('/learning')}
+                  active={true}
+                  label={'join us now'}
+                  fun={() => {
+                    navigate('/Sign-up');
+                  }}
                 />
               </div>
+              <button className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-200 hover:bg-gray-300 focus:ring-2 focus:ring-purple-700 focus:outline-none lg:hidden">
+                <FaBars />
+              </button>
+            </div>
+        </nav>
+        {/* hero section */}
+        <div className="px-6">
+          <div className="flex w-full flex-col items-center justify-between pt-10 text-center lg:flex-row lg:text-start">
+            <div className="mb-6 max-w-7xl md:mb-0 md:w-1/2 m-auto">
+              <h1 className="mb-4 text-5xl font-bold capitalize md:text-7xl">
+                Where curious minds meet
+                <span className="text-purple-700">expert</span> guides.
+              </h1>
+
+                <p className="mt-8 mb-8 flex max-w-lg text-lg text-black">
+                  Fuel your curiosity with guidance from experts who’ve walked the
+                  path—learn deeply, grow confidently, and turn potential into
+                  progress.
+                </p>
+
+                <div className="z-20 flex justify-center space-x-4 lg:justify-start">
+                  <Button label={'see plans'} active={true} fun={() => {}} />
+
+                  <Button
+                    label="Access your course"
+                    active={false}
+                    fun={() => navigate('/learning')}
+                  />
+                </div>
             </div>
 
-          {/* img */}
-          <div className="pointer-events-none flex justify-center md:w-1/3">
-            <img
-              src={heroImg}
-              alt="register now!!!"
-              className="w-full max-w-md"
-            />
+            {/* img */}
+            <div className="pointer-events-none flex justify-center">
+              <img
+                src={heroImg}
+                alt="register now!!!"
+                className="w-full max-w-md"
+              />
+            </div>
           </div>
         </div>
-      </div>
-
         <div className="pointer-events-none mt-5 w-full">
           <img
             src={radialGradient}
@@ -148,7 +146,7 @@ const Hero = () => {
         </div>
       </header>
 
-      {/* hero-footer section */}
+      {/* hero-footer-section */}
       <div className='container flex-grow px-6 py-5 max-w-7xl mt-10 mx-auto'>
         <div className="flex items-center justify-between">
           <img src={payStack} alt="" />
@@ -226,24 +224,24 @@ const Hero = () => {
         <div className='bg-[#F0E5FF] w-[70%] mt-8 m-auto px-10 py-12'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
             <div className='flex flex-col bg-white rounded-[17px] text-center'>
-                <img src={dataAnalytics} alt="" className='' />
-                <p className='text-[#121212] text-lg font-medium py-5'>
-                  Data Analytics: Transforming Data into Actionable Insights
-                </p>
+              <img src={dataAnalytics} alt="" className='' />
+              <p className='text-[#121212] text-lg font-medium py-5 px-3'>
+                Data Analytics: Transforming Data into Actionable Insights
+              </p>
             </div>
 
             <div className='flex flex-col bg-white rounded-[17px] text-center'>
-                <img src={cyberSecurity} alt="" />
-                <p className='text-[#121212] text-lg font-medium py-5'>
-                  Cybersecurity Fundamentals: Protecting Digital Frontiers
-                </p>
+              <img src={cyberSecurity} alt="" />
+              <p className='text-[#121212] text-lg font-medium py-5'>
+                Cybersecurity Fundamentals: Protecting Digital Frontiers
+              </p>
             </div>
 
             <div className='flex flex-col bg-white rounded-[17px] text-center'>
-                <img src={uiUx} alt="" />
-                <p className='text-[#121212] text-lg font-medium py-5'>
-                  UI/UX Design Masterclass: Design with Users in Mind
-                </p>
+              <img src={uiUx} alt="" />
+              <p className='text-[#121212] text-lg font-medium py-5'>
+                UI/UX Design Masterclass: Design with Users in Mind
+              </p>
             </div>
           </div>
           <button className='border border-primary-500 text-primary-500 font-semibold rounded-[15px] px-6 py-1.5 mt-10'><a href="#">Show more</a></button>
@@ -264,7 +262,7 @@ const Hero = () => {
               <blockquote className='leading-[25px]'>
                 "The Data Analytics course made complex concepts easy. 
                 the quizzes and hands-on exercises helped me truly understand python and excel. 
-                i even used my certificate to secure an internship.""
+                i even used my certificate to secure an internship."
               </blockquote>
             </p>
             <div className='flex justify-end mt-4'>
@@ -303,140 +301,140 @@ const Hero = () => {
             <div className='flex justify-end mt-4'>
               <img src={fiveStar} alt="" />
             </div>
-            
+              
           </div>
         </div>
       </div>
 
       {/* payment plans section */}
       <div className='container bg-primary-50 py-20 flex flex-col items-center justify-center w-full mt-10'>
-          <h2 className='font-medium text-5xl mb-4 text-[#121212]'>Plans For You</h2>
-          <p className='text-2xl'>Choose the plan that fits your needs</p>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-10 py-8'>
-            <div className='bg-white rounded-2xl px-10 py-16 flex flex-col'>
-              <h2 className='text-2xl font-bold'>Starter</h2>
-              <p className='text-sm mt-5'>Perfect for getting started</p>
-              <div className='flex gap-x-1 mt-10'>
-                <div className='flex'>
-                  <img src={naira} alt="" />
-                  <p className='font-montserrat font-bold text-4xl leading-5'>0</p>
-                </div>
-                <p className='text-sm leading-5'>per month</p>
+        <h2 className='font-medium text-5xl mb-4 text-[#121212]'>Plans For You</h2>
+        <p className='text-2xl'>Choose the plan that fits your needs</p>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-10 py-8'>
+          <div className='bg-white rounded-2xl px-10 py-16 flex flex-col'>
+            <h2 className='text-2xl font-bold'>Starter</h2>
+            <p className='text-sm mt-5'>Perfect for getting started</p>
+            <div className='flex gap-x-1 mt-10'>
+              <div className='flex'>
+                <img src={naira} alt="" />
+                <p className='font-montserrat font-bold text-4xl leading-5'>0</p>
               </div>
-              <button className='bg-primary-500 text-white text-sm leading-5 px-20 py-2.5 mt-7 hover:bg-purple-700 cursor-pointer'>Start free trial</button>
-              <div className='mt-7 space-y-4'>
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt="" />
-                  <p>No payment</p>
-                </div>
-
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt="" />
-                  <p>3 free courses</p>
-                </div>
-
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt="" />
-                  <p>Basic access</p>
-                </div>
-
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt="" />
-                  <p>Join student community forum</p>
-                </div>
-
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt="" />
-                  <p>Progress tracking dashboard</p>
-                </div>
-              </div>
+              <p className='text-sm leading-5'>per month</p>
             </div>
-
-            <div className='bg-white rounded-2xl px-10 py-16 flex flex-col'>
-              <h2 className='text-2xl font-bold'>Learner</h2>
-              <p className='text-sm mt-5'>For learners serious about leveling up</p>
-              <div className='flex gap-x-1 mt-10'>
-                <div className='flex'>
-                  <img src={naira} alt="" />
-                  <p className='font-montserrat font-bold text-4xl leading-5'>5,000</p>
-                </div>
-                <p className='text-sm leading-5'>per month</p>
+            <button className='bg-primary-500 text-white text-sm leading-5 px-20 py-2.5 mt-7 hover:bg-purple-700 cursor-pointer'>Start free trial</button>
+            <div className='mt-7 space-y-4'>
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt="" />
+                <p>No payment</p>
               </div>
-              <button className='bg-primary-500 text-white text-sm leading-5 px-20 py-2.5 mt-7 hover:bg-purple-700 cursor-pointer'>Subscribe Now</button>
-              <div className='mt-7 space-y-4'>
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt="" />
-                  <p>Unlimited courses</p>
-                </div>
 
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt="" />
-                  <p>Completion Certificates</p>
-                </div>
-
-                <div class="flex gap-x-3">
-                  <img src={checkIcon} alt="" />
-                  <p>Quiz & assignment grading</p>
-                </div>
-
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt="" />
-                  <p>Priority learner support</p>
-                </div>
-
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt="" />
-                  <p>Access to private learning groups</p>
-                </div>
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt="" />
+                <p>3 free courses</p>
               </div>
-            </div>
 
-            <div className='bg-white rounded-2xl px-10 py-16 flex flex-col'>
-              <h2 className='text-2xl font-bold'>Educator</h2>
-              <p className='text-sm mt-5'>For educators ready to teach and earn</p>
-              <div className='flex gap-x-1 mt-10'>
-                <div className='flex'>
-                  <img src={naira} alt="" />
-                  <p className='font-montserrat font-bold text-4xl leading-5'>10,000</p>
-                </div>
-                <p className='text-sm leading-5'>per month</p>
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt="" />
+                <p>Basic access</p>
               </div>
-              <button className='bg-primary-500 text-white text-sm leading-5 px-20 py-2.5 mt-7 hover:bg-purple-700 cursor-pointer'>Start Teaching Today</button>
-              <div className='mt-7 space-y-4'>
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt="" />
-                  <p>Course creation tools</p>
-                </div>
 
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt=""></img>
-                  <p>Unlimited course publishing</p>
-                </div>
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt="" />
+                <p>Join student community forum</p>
+              </div>
 
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt=""></img>
-                  <p>Access to earnings dashboard</p>
-                </div>
-
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt=""></img>
-                  <p>Learner analytics & progress tracking</p>
-                </div>
-
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt=""></img>
-                  <p>Payouts and monetization tools</p>
-                </div>
-
-                <div className='flex gap-x-3'>
-                  <img src={checkIcon} alt=""></img>
-                  <p>Priority educator support</p>
-                </div>
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt="" />
+                <p>Progress tracking dashboard</p>
               </div>
             </div>
           </div>
+
+          <div className='bg-white rounded-2xl px-10 py-16 flex flex-col'>
+            <h2 className='text-2xl font-bold'>Learner</h2>
+            <p className='text-sm mt-5'>For learners serious about leveling up</p>
+            <div className='flex gap-x-1 mt-10'>
+              <div className='flex'>
+                <img src={naira} alt="" />
+                <p className='font-montserrat font-bold text-4xl leading-5'>5,000</p>
+              </div>
+              <p className='text-sm leading-5'>per month</p>
+            </div>
+            <button className='bg-primary-500 text-white text-sm leading-5 px-20 py-2.5 mt-7 hover:bg-purple-700 cursor-pointer'>Subscribe Now</button>
+            <div className='mt-7 space-y-4'>
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt="" />
+                <p>Unlimited courses</p>
+              </div>
+
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt="" />
+                <p>Completion Certificates</p>
+              </div>
+
+              <div className="flex gap-x-3">
+                <img src={checkIcon} alt="" />
+                <p>Quiz & assignment grading</p>
+              </div>
+
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt="" />
+                <p>Priority learner support</p>
+              </div>
+
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt="" />
+                <p>Access to private learning groups</p>
+              </div>
+            </div>
+          </div>
+
+          <div className='bg-white rounded-2xl px-10 py-16 flex flex-col'>
+            <h2 className='text-2xl font-bold'>Educator</h2>
+            <p className='text-sm mt-5'>For educators ready to teach and earn</p>
+            <div className='flex gap-x-1 mt-10'>
+              <div className='flex'>
+                <img src={naira} alt="" />
+                <p className='font-montserrat font-bold text-4xl leading-5'>10,000</p>
+              </div>
+              <p className='text-sm leading-5'>per month</p>
+            </div>
+            <button className='bg-primary-500 text-white text-sm leading-5 px-20 py-2.5 mt-7 hover:bg-purple-700 cursor-pointer'>Start Teaching Today</button>
+            <div className='mt-7 space-y-4'>
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt="" />
+                <p>Course creation tools</p>
+              </div>
+
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt=""></img>
+                <p>Unlimited course publishing</p>
+              </div>
+
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt=""></img>
+                <p>Access to earnings dashboard</p>
+              </div>
+
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt=""></img>
+                <p>Learner analytics & progress tracking</p>
+              </div>
+
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt=""></img>
+                <p>Payouts and monetization tools</p>
+              </div>
+
+              <div className='flex gap-x-3'>
+                <img src={checkIcon} alt=""></img>
+                <p>Priority educator support</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      
+        
       {/* faq section */}
       <div className='container flex flex-col items-center justify-center py-10'>
         <h2 className='font-bold text-[40px] mb-4 text-[#121212]'>Frequently Asked Questions</h2>
@@ -452,7 +450,7 @@ const Hero = () => {
               <p>How do I sign up</p>
               <img src={chevronRight} alt="" />
             </div>
-            
+              
             <div className='flex items-center justify-between py-3 px-10 bg-primary-50 rounded-4xl'>
               <p>What payment methods are accepted</p>
               <img src={chevronRight} alt="" />
@@ -559,8 +557,7 @@ const Hero = () => {
           </div>
         </div>
       </footer>
-
-    </div>
+    </React.Fragment>
   );
 };
 
