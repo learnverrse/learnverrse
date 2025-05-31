@@ -15,6 +15,7 @@ import ProtectedRoute from './ProtectedRoute';
 import Educatorlayout from '@/layouts/EducatorLayout';
 import TutorsDashboard from '@/pages/tutotorPage/TutorsDashboard';
 import CourseContent from '@/pages/tutotorPage/CreateCourse/CourseContent';
+import CourseInformation from '@/pages/tutotorPage/CreateCourse/CourseInformation';
 
 export const routes = [
   {
@@ -49,14 +50,14 @@ export const routes = [
 
   {
     path: 'test',
-    element: <CourseContent />,
+    element: <CourseInformation />,
   },
 
   // 👨‍🏫 Educator Routes
   {
     path: '/educator-dashboard',
     element: <ProtectedRoute role="EDUCATOR" />,
-   children: [
+    children: [
       {
         path: '',
         element: <Educatorlayout />,
@@ -66,7 +67,7 @@ export const routes = [
             element: <TutorsDashboard />,
           },
           {
-            path: "student",
+            path: 'student',
             element: (
               <QuizProvider>
                 <Student />

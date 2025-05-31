@@ -50,7 +50,8 @@ const OtpPage = () => {
         }
       );
 
-      toast.success(response.data.message);
+      toast.success(response.data.message + ' Redirecting to Sign In');
+      localStorage.removeItem('learnVerrse-email');
       console.log(response.data);
       navigate('/SignIn');
     } catch (error) {
@@ -116,12 +117,23 @@ const OtpPage = () => {
             {/*  <!-- Resend Text --> */}
             <p className="font-inter text-sm text-gray-500">
               Didn't receive code?
-              <a
-                href="#"
+              <button
                 className="font-inter text-purple-600 hover:underline"
+                onClick={() => {
+                  const email = localStorage.getItem('learnVerrse-email') || '';
+
+                  axiosInstance
+                    .post(import.meta.env.VITE_RESEND_OTP, { email })
+                    .then((response) => {
+                      toast.success(response.data.message);
+                    })
+                    .catch((error) => {
+                      toast.error(error.response.data.message);
+                    });
+                }}
               >
                 Resend code
-              </a>
+              </button>
             </p>
           </div>
         </div>
