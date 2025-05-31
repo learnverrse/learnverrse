@@ -18,6 +18,7 @@ export const radialGradient = baseUrl + '/assets/raidial-gradient.png';
 export const resetFrame = baseUrl + '/assets/Reset-frame.png';
 
 export const banner = baseUrl + './assets/banner.png';
+export const banners = baseUrl + './assets/banners.svg';
 
 export const navLinks = [
   {
@@ -29,6 +30,7 @@ export const navLinks = [
     path: '#',
   },
 ];
+console.log
 
 export const dashboardAsideMenu = [
   {
@@ -81,7 +83,7 @@ export const dashboardAsideMenu = [
 export const learnersSidebar = [
   {
     name: 'dashboard',
-    path: '/dashboard',
+    path: '',
     icon: <MdDashboard size={24} />,
   },
   {

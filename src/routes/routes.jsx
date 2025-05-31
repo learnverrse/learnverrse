@@ -14,6 +14,8 @@ import StudentLayout from '@/layouts/StudentLayout';
 import ProtectedRoute from './ProtectedRoute';
 import Educatorlayout from '@/layouts/EducatorLayout';
 import TutorsDashboard from '@/pages/tutotorPage/TutorsDashboard';
+import CourseContent from '@/pages/tutotorPage/CreateCourse/CourseContent';
+import CourseInformation from '@/pages/tutotorPage/CreateCourse/CourseInformation';
 
 export const routes = [
   {
@@ -46,10 +48,10 @@ export const routes = [
   },
   // tests
 
-  // {
-  //   path: 'test',
-  //   element: <TutorsDashboard />,
-  // },
+  {
+    path: 'test',
+    element: <CourseInformation />,
+  },
 
   // 👨‍🏫 Educator Routes
   {
