@@ -45,7 +45,7 @@ const Hero = () => {
   const navigate = useNavigate();
   return (
 
-    <React.Fragment>
+    <>
       <header className="container mx-auto min-h-screen bg-white">
         {/* navbar */}
         <nav className="flex w-full max-w-7xl m-auto items-center justify-between px-6 py-4">
@@ -437,39 +437,46 @@ const Hero = () => {
       </div>
         
       {/* faq section */}
-      <div className='container flex flex-col items-center justify-center py-10'>
-        <h2 className='font-bold text-[40px] mb-4 text-[#121212]'>Frequently Asked Questions</h2>
-        <p className='text-2xl'>What questions do you need answered?</p>
-        <div className='flex flex-col w-[70%] md:flex-row items-center justify-between m-auto px-4 md:p-6 mt-8'>
-          <div className='w-[50%] flex flex-col space-y-5'>
-            <div className='flex items-center justify-between py-3 px-10 bg-primary-50 rounded-4xl'>
-              <p>What is Learnverrse</p>
-              <img src={chevronRight} alt="" />
-            </div>
+    {/* faq section */}
+<div className='container flex flex-col items-center justify-center py-10'>
+  <h2 className='font-bold text-[40px] mb-4 text-[#121212]'>Frequently Asked Questions</h2>
+  <p className='text-2xl'>What questions do you need answered?</p>
 
-            <div className='flex items-center justify-between py-3 px-10 bg-primary-50 rounded-4xl'>
-              <p>How do I sign up</p>
-              <img src={chevronRight} alt="" />
-            </div>
-              
-            <div className='flex items-center justify-between py-3 px-10 bg-primary-50 rounded-4xl'>
-              <p>What payment methods are accepted</p>
-              <img src={chevronRight} alt="" />
-            </div>
+  <div className='flex flex-col w-[70%] md:flex-row items-center justify-between m-auto px-4 md:p-6 mt-8'>
+    <div className='w-[50%] flex flex-col space-y-5'>
+      <div className='flex items-center justify-between py-3 px-10 bg-primary-50 rounded-4xl'>
+        <p>What is Learnverrse</p>
+        <img src={chevronRight} alt="" />
+      </div>
 
-            <div className='flex items-center justify-between py-3 px-10 bg-primary-50 rounded-4xl'>
-              <p>Can I cancel my subscriptions at anytime</p>
-              <img src={chevronRight} alt="" />
-            </div>
+      <div className='flex items-center justify-between py-3 px-10 bg-primary-50 rounded-4xl'>
+        <p>How do I sign up</p>
+        <img src={chevronRight} alt="" />
+      </div>
 
-            <div className='flex items-center justify-between py-3 px-10 bg-primary-50 rounded-4xl'>
-              <p>How do i get paid as an educator</p>
-              <img src={chevronRight} alt="" />
-            </div>
-          </div>
+      <div className='flex items-center justify-between py-3 px-10 bg-primary-50 rounded-4xl'>
+        <p>What payment methods are accepted</p>
+        <img src={chevronRight} alt="" />
+      </div>
 
-          <div className='w-[30%]'>
-            <img src={faqHuman} alt="" />
+      <div className='flex items-center justify-between py-3 px-10 bg-primary-50 rounded-4xl'>
+        <p>Can I cancel my subscriptions at anytime</p>
+        <img src={chevronRight} alt="" />
+      </div>
+
+      <div className='flex items-center justify-between py-3 px-10 bg-primary-50 rounded-4xl'>
+        <p>How do I get paid as an educator</p>
+        <img src={chevronRight} alt="" />
+      </div>
+    </div>
+
+    {/* ✅ Properly closed this block */}
+    <div className='w-[30%]'>
+      <img src={faqHuman} alt="" />
+    </div>
+  </div>
+</div>
+
     <header className="container mx-auto min-h-screen bg-white">
       {/* navbar */}
       <nav className="flex w-full items-center justify-between px-6 py-4">
@@ -1011,10 +1018,7 @@ const Hero = () => {
         </div>
       </footer>
 
-    </React.Fragment>
-
-
-    </div>
+    </>
 
   );
 };
