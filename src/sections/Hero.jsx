@@ -13,9 +13,9 @@ import HomeLogo from '../components/UI/HomeLogo';
 const Hero = () => {
   const navigate = useNavigate();
   return (
-    <header className="container min-h-screen bg-white">
+    <header className="container mx-auto min-h-screen bg-white">
       {/* navbar */}
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+      <nav className="flex w-full items-center justify-between px-6 py-4">
         <div className="flex items-center gap-x-2">
           {/* logo */}
           <HomeLogo />
@@ -72,11 +72,11 @@ const Hero = () => {
 
       {/* hero section */}
 
-      <div className="container mx-auto px-6">
+      <div className="px-6">
         <div className="flex w-full flex-col items-center justify-between pt-10 text-center lg:flex-row lg:text-start">
-          <div className="mb-6 md:mb-0 md:w-1/2">
+          <div className="mb-6 md:mb-0 md:w-2/3">
             <h1 className="mb-4 text-5xl font-bold capitalize md:text-7xl">
-              Where curious minds meet{' '}
+              Where curious minds meet
               <span className="text-purple-700">expert</span> guides.
             </h1>
 
@@ -98,7 +98,7 @@ const Hero = () => {
           </div>
 
           {/* img */}
-          <div className="pointer-events-none flex justify-center md:w-1/2">
+          <div className="pointer-events-none flex justify-center md:w-1/3">
             <img
               src={heroImg}
               alt="register now!!!"

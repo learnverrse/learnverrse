@@ -58,6 +58,7 @@ const SignIn = () => {
       );
 
       console.log(response.data, response.data.token);
+
       // setting global auth state
       setAuth({
         user: response.data.data,
@@ -75,6 +76,29 @@ const SignIn = () => {
       }
     } catch (error) {
       console.log(error.response?.data || error);
+      if (error.response.data?.message === 'Please verify your account') {
+        try {
+          const email = payload.email;
+          localStorage.setItem('learnVerrse-email', email);
+          const res = await axiosInstance.post(
+            import.meta.env.VITE_RESET_OR_OTP,
+            { email: payload.email },
+            {
+              headers: { 'Content-Type': 'application/json' },
+            }
+          );
+          console.log(res.data);
+          if (res.data.success === true) {
+            toast.success('OTP sent to your email');
+            navigate('/otp');
+          } else {
+            toast.error('Failed to send OTP, please try again');
+          }
+        } catch (otpError) {
+          console.error('OTP Error:', otpError);
+          toast.error('Failed to send OTP. Please try again.');
+        }
+      }
       if (error.response.data) {
         toast.error(error.response.data.message);
       } else {
@@ -181,7 +205,7 @@ const SignIn = () => {
             <button
               ref={buttonRef}
               type="submit"
-              className="w-full rounded-md bg-[#6D28D2] py-2 text-white hover:bg-purple-700"
+              className="w-full cursor-pointer rounded-md bg-[#6D28D2] py-2 text-white hover:bg-purple-700"
             >
               Sign In
             </button>

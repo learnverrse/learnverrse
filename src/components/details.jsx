@@ -33,7 +33,7 @@ export const navLinks = [
 export const dashboardAsideMenu = [
   {
     name: 'dashboard',
-    path: '/dashboard',
+    path: '',
     icon: <MdDashboard size={24} />,
   },
   {
@@ -48,7 +48,7 @@ export const dashboardAsideMenu = [
   },
   {
     name: 'student',
-    path: '/dashboard',
+    path: 'student',
     icon: <FaGraduationCap size={24} />,
   },
   {

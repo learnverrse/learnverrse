@@ -55,7 +55,7 @@ export const routes = [
   {
     path: '/educator-dashboard',
     element: <ProtectedRoute role="EDUCATOR" />,
-   children: [
+    children: [
       {
         path: '',
         element: <Educatorlayout />,
@@ -65,7 +65,7 @@ export const routes = [
             element: <TutorsDashboard />,
           },
           {
-            path: "student",
+            path: 'student',
             element: (
               <QuizProvider>
                 <Student />
