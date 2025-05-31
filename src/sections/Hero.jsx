@@ -44,13 +44,12 @@ import { TbCertificate } from 'react-icons/tb';
 const Hero = () => {
   const navigate = useNavigate();
   return (
-    <div>
-      <header className="container min-h-screen bg-white">
-        {/* navbar */}
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-x-2">
-            {/* logo */}
-            <HomeLogo />
+    <header className="container mx-auto min-h-screen bg-white">
+      {/* navbar */}
+      <nav className="flex w-full items-center justify-between px-6 py-4">
+        <div className="flex items-center gap-x-2">
+          {/* logo */}
+          <HomeLogo />
 
             {/* navlinks */}
             <div className="hidden md:ml-4 lg:flex">
@@ -104,13 +103,13 @@ const Hero = () => {
 
         {/* hero section */}
 
-        <div className="container mx-auto px-6">
-          <div className="flex w-full flex-col items-center justify-between pt-10 text-center lg:flex-row lg:text-start">
-            <div className="mb-6 md:mb-0 md:w-1/2 m-auto">
-              <h1 className="mb-4 text-5xl font-bold capitalize md:text-7xl">
-                Where curious minds meet{' '}
-                <span className="text-purple-700">expert</span> guides.
-              </h1>
+      <div className="px-6">
+        <div className="flex w-full flex-col items-center justify-between pt-10 text-center lg:flex-row lg:text-start">
+          <div className="mb-6 md:mb-0 md:w-2/3">
+            <h1 className="mb-4 text-5xl font-bold capitalize md:text-7xl">
+              Where curious minds meet
+              <span className="text-purple-700">expert</span> guides.
+            </h1>
 
               <p className="mt-8 mb-8 flex max-w-lg text-lg text-black">
                 Fuel your curiosity with guidance from experts who’ve walked the
@@ -129,16 +128,16 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* img */}
-            <div className="pointer-events-none flex justify-center">
-              <img
-                src={heroImg}
-                alt="register now!!!"
-                className="w-full max-w-md"
-              />
-            </div>
+          {/* img */}
+          <div className="pointer-events-none flex justify-center md:w-1/3">
+            <img
+              src={heroImg}
+              alt="register now!!!"
+              className="w-full max-w-md"
+            />
           </div>
         </div>
+      </div>
 
         <div className="pointer-events-none mt-5 w-full">
           <img
