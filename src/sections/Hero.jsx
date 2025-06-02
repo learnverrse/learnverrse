@@ -108,7 +108,7 @@ const Hero = () => {
             <div className="mb-6 max-w-7xl md:mb-0 md:w-1/2 m-auto">
               <h1 className="mb-4 text-5xl font-bold capitalize md:text-7xl">
                 Where curious minds meet
-                <span className="text-purple-700">expert</span> guides.
+                <span className="text-purple-700"> expert</span> guides.
               </h1>
 
                 <p className="mt-8 mb-8 flex max-w-lg text-lg text-black">
