@@ -19,6 +19,7 @@ import CourseInformation from '@/pages/tutotorPage/CreateCourse/CourseInformatio
 import Quiz from '@/pages/tutotorPage/CreateCourse/Quiz';
 import CoursePricing from '@/pages/tutotorPage/CreateCourse/CoursePricing';
 import StudentCourses from '@/pages/learnerspage/StudentCourses';
+import RoleSelector from '@/pages/onboardingPages/RoleSelector';
 
 
 export const routes = [
@@ -55,7 +56,7 @@ export const routes = [
   {
     path: 'test',
  
-    element: <StudentCourses />,
+    element: <RoleSelector />,
 
   },
 
