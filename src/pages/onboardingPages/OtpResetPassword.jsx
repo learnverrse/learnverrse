@@ -66,7 +66,7 @@ const OtpResetPassword = () => {
         {/*  <!-- Left Side Panel with Purple Background --> */}
         <div className="hidden h-full basis-[45%] items-center justify-center bg-purple-600 p-8 md:flex md:rounded-tr-[40px] md:rounded-br-[40px]">
           <img
-            src="assets/Hand holding mobile phone with check mark.svg"
+            src="assets/email-img.svg`"
             alt="Phone Image"
             className="h-80 w-80 object-contain"
           />

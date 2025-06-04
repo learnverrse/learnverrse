@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { banner } from '@/components/details';
+// import { banner } from '@/components/details';
 import { banners } from '@/components/details';
 import HomeLogo from '@/components/UI/HomeLogo';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
