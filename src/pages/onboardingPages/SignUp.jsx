@@ -199,6 +199,8 @@ const SignUp = () => {
                 This email has already been registered
               </p>
             </div>
+
+            
             {/* password */}
             <div>
               <label
@@ -240,6 +242,8 @@ const SignUp = () => {
                 </p>
               )}
             </div>
+
+
             {/* confirm password */}
             <div>
               <label
