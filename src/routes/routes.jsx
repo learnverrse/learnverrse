@@ -107,6 +107,10 @@ export const routes = [
             index: true,
             element: <LearnersDashboard />,
           },
+          {
+            path: 'student-courses',
+            element: <StudentCourses />,
+          },
         ],
       },
     ],

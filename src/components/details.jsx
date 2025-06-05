@@ -155,7 +155,7 @@ export const learnersSidebar = [
   },
   {
     name: 'my courses',
-    path: '/dashboard/my-courses',
+    path: 'student-courses',
     icon: <IoBookOutline size={24} />,
   },
   {
