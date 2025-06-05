@@ -61,7 +61,7 @@ const StudentCourses = () => {
         </div>
 
         <div className='px-8 pb-8'>
-            <div className='grid md:grid-cols-3 gap-4'>
+            <div className='grid md:grid-cols-2 gap-4'>
                {courses.map((course) => (
                 <div key={course.id} className='bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow'>
 
