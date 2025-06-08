@@ -174,7 +174,6 @@ export const learnersSidebar = [
   },
   {
     name: 'logout',
-    path: '/dashboard',
     icon: <CiLogout size={24} />,
   },
 ];

@@ -66,18 +66,19 @@ const SignIn = () => {
         token: response.data.token,
       });
       toast.success('Login successful');
-
-      toast(response.data.message);
-
       if (response.data.data.role === 'EDUCATOR') {
-        navigate('/educator-dashboard');
+        navigate('/educator');
       }
       if (response.data.data.role === 'LEARNER') {
         navigate('/learner-dashboard');
       }
     } catch (error) {
       console.log(error.response?.data || error);
-      if (error.response.data?.message === 'Please verify your account') {
+      if (error.message === 'Network Error') {
+        toast.error('Network Error: Please check your internet connection');
+      } else if (
+        error.response.data?.message === 'Please verify your account'
+      ) {
         try {
           const email = payload.email;
           localStorage.setItem('learnVerrse-email', email);
@@ -101,7 +102,7 @@ const SignIn = () => {
         }
       }
       if (error.response.data) {
-        toast.error(error.response.data.message);
+        toast.error(error.response?.data?.message || 'Something went wrong');
       } else {
         toast.error('An error occurred, please try again');
       }

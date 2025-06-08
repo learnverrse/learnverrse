@@ -10,6 +10,7 @@ import QuizProvider from '../contexts/QuizProvider';
 import MyCourses from '@/pages/tutotorPage/MyCourses';
 import UploadCourse from '@/pages/tutotorPage/UploadCourse';
 import LearnersDashboard from '@/pages/learnerspage/LearnersDashboard';
+
 import StudentLayout from '@/layouts/StudentLayout';
 import ProtectedRoute from './ProtectedRoute';
 import Educatorlayout from '@/layouts/EducatorLayout';
@@ -61,7 +62,7 @@ export const routes = [
   // 👨‍🏫 Educator Routes
   {
     path: 'educator',
-    // element: <ProtectedRoute role="EDUCATOR" />, temporarily commented so it can be assessed without authentication
+    element: <ProtectedRoute role="EDUCATOR" />,
     children: [
       {
         path: '',
