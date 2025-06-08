@@ -259,13 +259,13 @@ const Hero = () => {
               <img src={testimonialImg} alt="" />
               <p className='font-semibold leading-[25px]'>Temitayo Bakare</p>
             </div>
-            <p>
+            
               <blockquote className='leading-[25px]'>
                 "The Data Analytics course made complex concepts easy. 
                 the quizzes and hands-on exercises helped me truly understand python and excel. 
                 i even used my certificate to secure an internship."
               </blockquote>
-            </p>
+           
             <div className='flex justify-end mt-4'>
                 <img src={fourStar} alt="" />
             </div>
@@ -276,13 +276,13 @@ const Hero = () => {
               <img src={testimonialImg} alt="" />
               <p className='font-semibold leading-[25px]'>John Adams</p>
             </div>
-            <p>
+           
               <blockquote className='leading-[25px]'>
                 "Publishing my cybersecurity course on learnverrse was seamless. 
                 The dashboard gave me full access to my students progress and earnings . 
                 i have grown a learner base of over 500 in two months."
               </blockquote>
-            </p>
+           
             <div className='flex justify-end mt-4'>
               <img src={fourStar} alt="" />
             </div>
@@ -293,12 +293,12 @@ const Hero = () => {
               <img src={testimonialImg} alt="" />
               <p className='font-semibold leading-[25px]'>Kareem Jones</p>
             </div>
-            <p>
+           
               <blockquote className='leading-[25px]'>
                 “I tried other LMS platforms but learnverrse felt more tailored for me. 
                 The personalized courses, close tutorship and seamless interaction boosted my confidence.”
               </blockquote>
-            </p>
+           
             <div className='flex justify-end mt-4'>
               <img src={fiveStar} alt="" />
             </div>

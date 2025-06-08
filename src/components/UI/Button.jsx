@@ -8,8 +8,8 @@ const Button = ({ label, active, fun }) => {
           ? 'border border-purple-700 text-purple-700 hover:bg-purple-700 hover:text-white'
           : 'rounded-xl bg-purple-700 text-white hover:bg-purple-900'
       } `}
-      onClick={() => {
-        fun();
+      onClick={(e) => {
+        fun(e);
       }}
     >
       {label}

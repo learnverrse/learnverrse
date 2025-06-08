@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 const SideBar = ({ isTutor = true }) => {
   const asideMenu = isTutor ? dashboardAsideMenu : learnersSidebar;
   return (
-    <aside className="col-span-3 flex h-screen flex-col overflow-auto">
+    <aside className="border-ourGray fixed top-[76px] left-0 z-50 flex h-screen w-[240px] flex-col overflow-auto border-r bg-white">
       {asideMenu.map(({ icon, path, name }, index) => (
         <Link
           to={`${path}`}

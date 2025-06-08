@@ -21,7 +21,6 @@ import CoursePricing from '@/pages/tutotorPage/CreateCourse/CoursePricing';
 import StudentCourses from '@/pages/learnerspage/StudentCourses';
 import RoleSelector from '@/pages/onboardingPages/RoleSelector';
 
-
 export const routes = [
   {
     path: '/',
@@ -55,15 +54,14 @@ export const routes = [
 
   {
     path: 'test',
- 
-    element: <RoleSelector />,
 
+    element: <CourseContent />,
   },
 
   // 👨‍🏫 Educator Routes
   {
-    path: '/educator-dashboard',
-    element: <ProtectedRoute role="EDUCATOR" />,
+    path: 'educator',
+    // element: <ProtectedRoute role="EDUCATOR" />, temporarily commented so it can be assessed without authentication
     children: [
       {
         path: '',
@@ -81,14 +79,25 @@ export const routes = [
               </QuizProvider>
             ),
           },
+          // course upload pages
           {
             path: 'upload-course',
-            element: <UploadCourse />,
+            element: <CourseInformation />,
           },
           {
             path: 'my-courses',
             element: <MyCourses />,
           },
+          {
+            path: 'upload-course-content',
+            element: <CourseContent />,
+          },
+          {
+            path: 'pricing',
+            element: <CoursePricing />,
+          },
+
+          // course upload pages ends here 👆
         ],
       },
     ],
@@ -97,7 +106,7 @@ export const routes = [
   // 🎓 Student Routes
   {
     path: '/learner-dashboard',
-    element: <ProtectedRoute role="LEARNER" />,
+    // element: <ProtectedRoute role="LEARNER" />, temporarily commented so it can be assessed without authentication
     children: [
       {
         path: '',
