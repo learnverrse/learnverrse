@@ -62,7 +62,7 @@ export const routes = [
   // 👨‍🏫 Educator Routes
   {
     path: 'educator',
-    // element: <ProtectedRoute role="EDUCATOR" />, temporarily commented so it can be assessed without authentication
+    element: <ProtectedRoute role="EDUCATOR" />,
     children: [
       {
         path: '',

@@ -56,7 +56,10 @@ const OtpPage = () => {
       navigate('/SignIn');
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message);
+      if (error.message === 'Network Error') {
+        toast.error('Network Error: Please check your internet connection');
+      } else
+        toast.error(error.response?.data?.message || 'Something went wrong');
     } finally {
       btnRef.current.innerHTML = 'Continue';
     }
@@ -128,7 +131,15 @@ const OtpPage = () => {
                       toast.success(response.data.message);
                     })
                     .catch((error) => {
-                      toast.error(error.response.data.message);
+                      if (error.message === 'Network Error') {
+                        toast.error(
+                          'Network Error: Please check your internet connection'
+                        );
+                      } else
+                        toast.error(
+                          error.response?.data?.message ||
+                            'Something went wrong'
+                        );
                     });
                 }}
               >
