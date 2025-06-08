@@ -14,6 +14,13 @@ import LearnersDashboard from '@/pages/learnerspage/LearnersDashboard';
 import StudentLayout from '@/layouts/StudentLayout';
 import ProtectedRoute from './ProtectedRoute';
 import Educatorlayout from '@/layouts/EducatorLayout';
+import TutorsDashboard from '@/pages/tutotorPage/TutorsDashboard';
+import CourseContent from '@/pages/tutotorPage/CreateCourse/CourseContent';
+import CourseInformation from '@/pages/tutotorPage/CreateCourse/CourseInformation';
+import Quiz from '@/pages/tutotorPage/CreateCourse/Quiz';
+import CoursePricing from '@/pages/tutotorPage/CreateCourse/CoursePricing';
+import StudentCourses from '@/pages/learnerspage/StudentCourses';
+import RoleSelector from '@/pages/onboardingPages/RoleSelector';
 
 export const routes = [
   {
@@ -46,15 +53,16 @@ export const routes = [
   },
   // tests
 
-  /* {
-    path: 'test-student',
-    element: <StudentLayout />,
-  }, */
+  {
+    path: 'test',
+
+    element: <CourseContent />,
+  },
 
   // 👨‍🏫 Educator Routes
   {
-    path: '/educator-dashboard',
-    element: <ProtectedRoute role="EDUCATOR" />,
+    path: 'educator',
+    // element: <ProtectedRoute role="EDUCATOR" />, temporarily commented so it can be assessed without authentication
     children: [
       {
         path: '',
@@ -62,28 +70,35 @@ export const routes = [
         children: [
           {
             index: true,
+            element: <TutorsDashboard />,
+          },
+          {
+            path: 'student',
             element: (
               <QuizProvider>
                 <Student />
               </QuizProvider>
             ),
           },
+          // course upload pages
           {
             path: 'upload-course',
-            element: <UploadCourse />,
+            element: <CourseInformation />,
           },
           {
             path: 'my-courses',
             element: <MyCourses />,
           },
           {
-            path: 'upload-course',
-            element: <UploadCourse />,
+            path: 'upload-course-content',
+            element: <CourseContent />,
           },
-          /* {
-            path: 'manage-courses',
-            element: <ManageCourses />,
-          }, */
+          {
+            path: 'pricing',
+            element: <CoursePricing />,
+          },
+
+          // course upload pages ends here 👆
         ],
       },
     ],
@@ -92,12 +107,21 @@ export const routes = [
   // 🎓 Student Routes
   {
     path: '/learner-dashboard',
-    element: <ProtectedRoute role="LEARNER" />,
+    // element: <ProtectedRoute role="LEARNER" />, temporarily commented so it can be assessed without authentication
     children: [
       {
         path: '',
         element: <StudentLayout />,
-        children: [],
+        children: [
+          {
+            index: true,
+            element: <LearnersDashboard />,
+          },
+          {
+            path: 'student-courses',
+            element: <StudentCourses />,
+          },
+        ],
       },
     ],
   },

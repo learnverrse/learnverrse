@@ -2,6 +2,7 @@ import { axiosInstance } from '@/apis/axios';
 import { useRef } from 'react';
 import HomeLogo from '@/components/UI/HomeLogo';
 import { banner } from '@/components/details';
+import { banners } from '@/components/details';
 import { Link, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 const ForgotPassword = () => {
@@ -43,7 +44,7 @@ const ForgotPassword = () => {
       <div className="mr-24 hidden lg:block">
         <img
           className="h-full object-contain"
-          src={banner}
+          src={banners}
           alt="Illustration of students studying"
         />
       </div>

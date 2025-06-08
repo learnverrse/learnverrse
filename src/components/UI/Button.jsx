@@ -8,8 +8,8 @@ const Button = ({ label, active, fun }) => {
           ? 'border border-purple-700 text-purple-700 hover:bg-purple-700 hover:text-white'
           : 'rounded-xl bg-purple-700 text-white hover:bg-purple-900'
       } `}
-      onClick={() => {
-        fun();
+      onClick={(e) => {
+        fun(e);
       }}
     >
       {label}
@@ -18,3 +18,13 @@ const Button = ({ label, active, fun }) => {
 };
 
 export default Button;
+
+export const buttonVariants = ({ variant, size }) => {
+  return `rounded-md px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+    variant === 'default'
+      ? 'bg-gray-800 text-white hover:bg-gray-700'
+      : variant === 'outline'
+        ? 'border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white'
+        : ''
+  } ${size === 'sm' ? 'text-xs' : size === 'lg' ? 'text-lg' : ''}`;
+};

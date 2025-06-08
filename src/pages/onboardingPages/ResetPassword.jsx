@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { resetFrame } from '../../components/details';
+import { emailPages } from '../../components/details';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { FaCircleCheck } from 'react-icons/fa6';
 import HomeLogo from '../../components/UI/HomeLogo';
@@ -74,7 +75,7 @@ const ResetPassword = () => {
       {/* <!-- Leftside  --> */}
       <div className="hidden h-full w-1/2 overflow-hidden rounded-r-2xl md:flex">
         <img
-          src={resetFrame}
+          src={emailPages}
           alt="Signup banner"
           className="h-full w-full object-cover"
         />

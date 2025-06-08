@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router';
 import HomeLogo from '../../components/UI/HomeLogo';
 import { banner } from '../../components/details';
+import { banners } from '../../components/details';
 import { toggleState } from '../../components/helperFunctions';
 
 import { useForm } from 'react-hook-form';
@@ -111,7 +112,7 @@ const SignUp = () => {
     <div className="flex h-screen w-full overflow-hidden">
       <div className="mr-24 hidden lg:block">
         <img
-          src={banner}
+          src={banners}
           alt="Signup banner image"
           className="h-full object-contain"
         />
@@ -198,6 +199,8 @@ const SignUp = () => {
                 This email has already been registered
               </p>
             </div>
+
+            
             {/* password */}
             <div>
               <label
@@ -239,6 +242,8 @@ const SignUp = () => {
                 </p>
               )}
             </div>
+
+
             {/* confirm password */}
             <div>
               <label

@@ -6,7 +6,9 @@
 /* extending tailwind classes  */
 @theme {
   --font-inter: 'Inter', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
   --color-primary: #6d28d2;
+  --color-primary-50: #F0E5FF;
   --color-primary-100: #e2d4f6;
   --color-primary-200: #ceb7f0;
   --color-primary-300: #b693e8;
@@ -64,6 +66,13 @@ p {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.bg-radial-bottom-left {
+  background: 
+    radial-gradient(at bottom left,#CEB7F080 0%, transparent 70%),
+    radial-gradient(at top right, #CEB7F080 0%, transparent 70%);
+    min-height: 80vh;
 }
 
 /* ---break---  */
