@@ -36,6 +36,10 @@ export const routes = [
     element: <SignIn />,
   },
   {
+    path: 'role-selector',
+    element: <RoleSelector />,
+  },
+  {
     path: '/ForgotPassword',
     element: <ForgotPassword />,
   },
@@ -118,7 +122,7 @@ export const routes = [
             element: <LearnersDashboard />,
           },
           {
-            path: 'student-courses',
+            path: 'my-courses',
             element: <StudentCourses />,
           },
         ],

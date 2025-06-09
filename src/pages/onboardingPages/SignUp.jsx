@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import HomeLogo from '../../components/UI/HomeLogo';
 import { banner } from '../../components/details';
 import { banners } from '../../components/details';
@@ -14,7 +14,9 @@ import { axiosInstance } from '@/apis/axios';
 import { toast } from 'react-toastify';
 
 const SignUp = () => {
-  const [regAs, setRegAs] = useState('student');
+  const location = useLocation();
+  const selectedRole = location?.state?.selectedRole;
+  const [regAs, setRegAs] = useState(selectedRole);
   // for password vissibility
   const [showPassword, setShowPassword] = useState(true);
   const [showConfirmPassword, setShowConfirmPassword] = useState(true);
