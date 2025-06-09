@@ -49,9 +49,9 @@ export const femaleImg = baseUrl + '/assets/Ellipse 199.png';
 export const blackMaleImg = baseUrl + '/assets/Ellipse 200.png';
 export const maleImg = baseUrl + '/assets/Ellipse 201.png';
 
-export const banner = baseUrl + './assets/banner.png';
-export const banners = baseUrl + './assets/signup-img.png';
-export const emailPages = baseUrl + './assets/email-img.svg';
+export const banner = baseUrl + '/assets/banner.png';
+export const banners = baseUrl + '/assets/signup-img.png';
+export const emailPages = baseUrl + '/assets/email-img.svg';
 
 export const navLinks = [
   {
