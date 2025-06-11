@@ -245,7 +245,7 @@ const Hero = () => {
               </p>
             </div>
           </div>
-          <button className='border border-primary-500 text-primary-500 font-semibold rounded-[15px] px-6 py-1.5 mt-10'><a href="#">Show more</a></button>
+          <button className='border border-primary-500 text-primary-500 hover:bg-white font-semibold rounded-[15px] px-6 py-1.5 mt-10'><a href="#">Show more</a></button>
         </div>
       </div>
 
@@ -288,7 +288,7 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className='flex flex-col rounded-2xl border border-[#D9D9D9] p-6'>
+          <div className='flex flex-col rounded-2xl border border-[#D9D9D9] space-y-6 p-6'>
             <div className='flex items-center gap-x-4 mb-4'>
               <img src={testimonialImg} alt="" />
               <p className='font-semibold leading-[25px]'>Kareem Jones</p>
@@ -302,7 +302,6 @@ const Hero = () => {
             <div className='flex justify-end mt-4'>
               <img src={fiveStar} alt="" />
             </div>
-              
           </div>
         </div>
       </div>
