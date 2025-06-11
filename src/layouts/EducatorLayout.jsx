@@ -4,8 +4,12 @@ import HomeLogo from '../components/UI/HomeLogo';
 import { CgProfile } from 'react-icons/cg';
 import SideBar from '../components/UI/SideBar';
 import { Outlet } from 'react-router';
+import useAuthProvider from '@/hooks/useAuthProvider';
 
 const EducatorLayout = () => {
+  const {
+    auth: { user },
+  } = useAuthProvider();
   return (
     <div className="flex h-screen flex-col">
       <header className="container flex items-center justify-between py-4">
@@ -16,16 +20,16 @@ const EducatorLayout = () => {
 
           <CgProfile size={40} />
 
-          <h3>John Smith</h3>
+          <h3>{user?.lastName}</h3>
         </div>
       </header>
 
-      <main className="grid h-screen w-screen grid-cols-12 gap-8 overflow-hidden">
+      <main className="h-screen w-screen overflow-y-auto">
         {/* sidebar  */}
         <SideBar />
 
-        {/* main content */}
-        <div className="border-primary col-span-9 overflow-y-auto">
+        <div className="scroll-container ml-[240px]">
+          {/* main content */}
           <Outlet />
         </div>
       </main>

@@ -10,6 +10,7 @@ import QuizProvider from '../contexts/QuizProvider';
 import MyCourses from '@/pages/tutotorPage/MyCourses';
 import UploadCourse from '@/pages/tutotorPage/UploadCourse';
 import LearnersDashboard from '@/pages/learnerspage/LearnersDashboard';
+
 import StudentLayout from '@/layouts/StudentLayout';
 import ProtectedRoute from './ProtectedRoute';
 import Educatorlayout from '@/layouts/EducatorLayout';
@@ -20,7 +21,6 @@ import Quiz from '@/pages/tutotorPage/CreateCourse/Quiz';
 import CoursePricing from '@/pages/tutotorPage/CreateCourse/CoursePricing';
 import StudentCourses from '@/pages/learnerspage/StudentCourses';
 import RoleSelector from '@/pages/onboardingPages/RoleSelector';
-
 
 export const routes = [
   {
@@ -34,6 +34,10 @@ export const routes = [
   {
     path: '/SignIn',
     element: <SignIn />,
+  },
+  {
+    path: 'role-selector',
+    element: <RoleSelector />,
   },
   {
     path: '/ForgotPassword',
@@ -55,14 +59,13 @@ export const routes = [
 
   {
     path: 'test',
- 
-    element: <RoleSelector />,
 
+    element: <CourseContent />,
   },
 
   // 👨‍🏫 Educator Routes
   {
-    path: '/educator-dashboard',
+    path: 'educator',
     element: <ProtectedRoute role="EDUCATOR" />,
     children: [
       {
@@ -81,14 +84,25 @@ export const routes = [
               </QuizProvider>
             ),
           },
+          // course upload pages
           {
             path: 'upload-course',
-            element: <UploadCourse />,
+            element: <CourseInformation />,
           },
           {
             path: 'my-courses',
             element: <MyCourses />,
           },
+          {
+            path: 'upload-course-content',
+            element: <CourseContent />,
+          },
+          {
+            path: 'pricing',
+            element: <CoursePricing />,
+          },
+
+          // course upload pages ends here 👆
         ],
       },
     ],
@@ -97,7 +111,7 @@ export const routes = [
   // 🎓 Student Routes
   {
     path: '/learner-dashboard',
-    element: <ProtectedRoute role="LEARNER" />,
+    // element: <ProtectedRoute role="LEARNER" />, temporarily commented so it can be assessed without authentication
     children: [
       {
         path: '',
@@ -108,7 +122,7 @@ export const routes = [
             element: <LearnersDashboard />,
           },
           {
-            path: 'student-courses',
+            path: 'my-courses',
             element: <StudentCourses />,
           },
         ],

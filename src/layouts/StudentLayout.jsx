@@ -20,12 +20,12 @@ const StudentLayout = () => {
         </div>
       </header>
 
-      <main className="grid h-screen w-screen grid-cols-12 gap-8">
+      <main className="h-screen w-screen overflow-y-auto">
         {/* sidebar  */}
-        <SideBar isTutor={false} />
+        <SideBar />
 
-        {/* main content */}
-        <div className="border-primary col-span-9 overflow-y-auto">
+        <div className="scroll-container ml-[240px]">
+          {/* main content */}
           <Outlet />
         </div>
       </main>

@@ -9,11 +9,11 @@ import { GrRadialSelected } from 'react-icons/gr';
 import { GoMultiSelect } from 'react-icons/go';
 import { PiCertificateFill } from 'react-icons/pi';
 import { GoVideo } from 'react-icons/go';
-import { TbCertificate } from "react-icons/tb";
+import { TbCertificate } from 'react-icons/tb';
 import { MdOutlineAssessment } from 'react-icons/md';
-import { LiaBookSolid } from "react-icons/lia";
-import { FaFileAlt } from "react-icons/fa";
-import { TiMessages } from "react-icons/ti";
+import { LiaBookSolid } from 'react-icons/lia';
+import { FaFileAlt } from 'react-icons/fa';
+import { TiMessages } from 'react-icons/ti';
 
 const baseUrl = import.meta.env.BASE_URL;
 
@@ -49,10 +49,9 @@ export const femaleImg = baseUrl + '/assets/Ellipse 199.png';
 export const blackMaleImg = baseUrl + '/assets/Ellipse 200.png';
 export const maleImg = baseUrl + '/assets/Ellipse 201.png';
 
-export const banner = baseUrl + './assets/banner.png';
-export const banners = baseUrl + './assets/signup-img.png';
-export const emailPages = baseUrl + './assets/email-img.svg';
-
+export const banner = baseUrl + '/assets/banner.png';
+export const banners = baseUrl + '/assets/signup-img.png';
+export const emailPages = baseUrl + '/assets/email-img.svg';
 
 export const navLinks = [
   {
@@ -64,7 +63,7 @@ export const navLinks = [
     path: '#',
   },
 ];
-console.log
+console.log;
 
 export const dashboardAsideMenu = [
   {
@@ -72,11 +71,11 @@ export const dashboardAsideMenu = [
     path: '',
     icon: <MdDashboard size={24} />,
   },
-  {
+  /*  {
     name: 'create course',
     path: 'upload-course',
     icon: <IoCreate size={24} />,
-  },
+  }, */
   {
     name: 'my courses',
     path: 'my-courses',
@@ -175,7 +174,6 @@ export const learnersSidebar = [
   },
   {
     name: 'logout',
-    path: '/dashboard',
     icon: <CiLogout size={24} />,
   },
 ];
