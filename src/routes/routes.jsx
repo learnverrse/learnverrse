@@ -21,6 +21,7 @@ import Quiz from '@/pages/tutotorPage/CreateCourse/Quiz';
 import CoursePricing from '@/pages/tutotorPage/CreateCourse/CoursePricing';
 import StudentCourses from '@/pages/learnerspage/StudentCourses';
 import RoleSelector from '@/pages/onboardingPages/RoleSelector';
+import LearningPage from '@/pages/StudentCourse/LearningPage';
 
 export const routes = [
   {
@@ -57,10 +58,15 @@ export const routes = [
   },
   // tests
 
-  {
-    path: 'test',
+  // {
+  //   path: 'test',
 
-    element: <CourseContent />,
+  //   element: <LearningPage />,
+  // },
+
+  {
+    path: 'learning-page',
+    element: <LearningPage />,
   },
 
   // 👨‍🏫 Educator Routes
@@ -124,6 +130,10 @@ export const routes = [
           {
             path: 'my-courses',
             element: <StudentCourses />,
+          },
+          {
+            path: 'learning-page',
+            element: <LearningPage />,
           },
         ],
       },
