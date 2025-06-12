@@ -1,8 +1,11 @@
 import React from 'react';
 import { FaSearch, FaStar, FaRegClock } from 'react-icons/fa';
 import { FaArrowRight } from 'react-icons/fa6';
+import { useNavigate } from 'react-router';
+
 
 const StudentCourses = () => {
+  const navigate = useNavigate();
   const courses = [
     {
       id: 1,
@@ -68,6 +71,7 @@ const StudentCourses = () => {
           {courses.map((course) => (
             <div
               key={course.id}
+              onClick={() => navigate('/learning-page')}
               className="overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-lg"
             >
               {/* course images */}
