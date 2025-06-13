@@ -1,13 +1,16 @@
 import React from 'react'
 import CreateCourseNav from '@/components/UI/CreateCourseNav'
 import { FaCirclePlus } from "react-icons/fa6";
+import Button from '@/components/UI/Button';
+import { useNavigate } from 'react-router';
 
 
 
 const Quiz = () => {
+      const navigate = useNavigate();
   return (
-    <div>
-        <CreateCourseNav />
+    <div className="flex min-h-screen flex-col bg-gray-50 px-6 py-2">
+        <CreateCourseNav currentStep={3}/>
 
         <form action="" className='space-y-6'>
             <div>
@@ -30,7 +33,14 @@ const Quiz = () => {
                 </label>
             </div>
              <div className=' mt-12 flex justify-end'>
-                <button type='submit'className='bg-purple-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-purple-700'>Save & Continue </button>
+                <Button
+                    active={true}
+                    label="save & continue"
+                    fun={(e) => {
+                        e.preventDefault();
+                        navigate('/educator/pricing');
+                    }}
+                    />
             </div>
         </form>
     </div>

@@ -104,6 +104,10 @@ export const routes = [
             element: <CourseContent />,
           },
           {
+            path: 'quiz',
+            element: <Quiz />,
+          },
+          {
             path: 'pricing',
             element: <CoursePricing />,
           },
