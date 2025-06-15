@@ -4,7 +4,7 @@ import { Calendar } from '@/components/UI/calendar';
 const CalenderSection = () => {
   const [date, setDate] = React.useState(new Date());
   return (
-    <section className="flex flex-col gap-12">
+    <section className="flex h-full flex-col gap-12 pb-4 sm:flex-row md:flex-col">
       <Calendar
         mode="single"
         selected={date}
@@ -15,7 +15,7 @@ const CalenderSection = () => {
       {/* messages */}
       <div>
         <h2 className="text-lg font-semibold">Recent Messages</h2>
-        <ul className="scroll-container mt-2 h-[50%] overflow-y-auto">
+        <ul className="mt-2 space-y-2">
           {[
             {
               from: ' Message from James . T.',
@@ -48,15 +48,17 @@ const CalenderSection = () => {
               key={index}
             >
               <div>
-                <h3 className="text-[12px] font-semibold">{from}</h3>
-                <p className="text-[10px]">{message}</p>
-                <small className="text-[8px] font-light">{time}</small>
+                <h3 className="text-[16px] font-semibold">{from}</h3>
+                <p className="text-[14px]">{message}</p>
+                <small className="text-[10px] font-light">{time}</small>
               </div>
               <button className="cursor-pointer bg-gray-200 p-2">View</button>
             </li>
           ))}
         </ul>
       </div>
+      {/* section above keeps cutting off without this div, will research more about it 
+      <div className="mt-10 text-black">END OF COLUMN</div> */}
     </section>
   );
 };

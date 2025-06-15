@@ -41,8 +41,8 @@ const LearnersDashboard = () => {
   ];
 
   return (
-    <div className="grid w-full grid-cols-12">
-      <div className="scroll-container col-span-9 h-screen flex-1 overflow-y-auto bg-gray-50 p-6">
+    <div className="w-full md:grid md:grid-cols-12">
+      <div className="scroll-container col-span-8 h-screen flex-1 overflow-y-auto bg-gray-50 p-2 lg:col-span-9 lg:p-6">
         {/* Welcome Section */}
         <section className="mb-8">
           <div className="flex">
@@ -63,7 +63,7 @@ const LearnersDashboard = () => {
         </section>
 
         {/* Stats Cards */}
-        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="mb-8 grid grid-cols-3 gap-6">
           <div className="relative rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
             <div className="flex items-center">
               <div className="absolute top-2 right-0 mr-4 rounded-lg border-2 border-purple-300 bg-purple-100 p-3">
@@ -174,8 +174,10 @@ const LearnersDashboard = () => {
       </div>
 
       {/* calander column */}
-      <div className="scroll-container col-span-3 overflow-y-auto">
-        <CalenderSection />
+      <div className="col-span-4 h-screen lg:col-span-3">
+        <div className="h-full overflow-y-auto p-4">
+          <CalenderSection />
+        </div>
       </div>
     </div>
   );

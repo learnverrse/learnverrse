@@ -74,6 +74,11 @@ const SignUp = () => {
       password: data.confirmPassword,
     });
 
+    console.log(payload);
+    if (!regAs) {
+      toast.error('please choose how you want to be registered');
+      return;
+    }
     try {
       signUpBtnRef.current.innerHTML = 'Signing Up';
 
