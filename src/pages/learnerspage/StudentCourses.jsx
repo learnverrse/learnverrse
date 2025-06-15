@@ -3,7 +3,6 @@ import { FaSearch, FaStar, FaRegClock } from 'react-icons/fa';
 import { FaArrowRight } from 'react-icons/fa6';
 import { useNavigate } from 'react-router';
 
-
 const StudentCourses = () => {
   const navigate = useNavigate();
   const courses = [
@@ -50,7 +49,7 @@ const StudentCourses = () => {
   ];
 
   return (
-    <div>
+    <div className="h-screen w-screen">
       <div className="flex flex-col items-center justify-between p-8 md:flex-row">
         <div className="pb-8 md:pb-0">
           <h1 className="mb-1 text-2xl font-semibold">My Courses</h1>
