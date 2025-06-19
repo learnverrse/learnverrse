@@ -24,7 +24,7 @@ const useAxiosPrivate = () => {
         console.log(error);
         const originalRequest = error?.config;
         // Check if token expired
-        if (error.response?.status === 403 && !originalRequest._retry) {
+        if (error.response?.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
 
           try {

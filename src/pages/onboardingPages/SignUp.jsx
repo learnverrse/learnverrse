@@ -55,24 +55,14 @@ const SignUp = () => {
   const signUpBtnRef = useRef(null);
   // function to send data to backend
 
-  const registerURL =
-    regAs === 'student'
-      ? import.meta.env.VITE_lEARNERS_ENDPOINT
-      : import.meta.env.VITE_EDUCATORS_ENDPOINT;
-
   const navigate = useNavigate();
   const onSubmit = async (data) => {
-    const name = data.fullName.trim().split(' ');
-    console.log(name);
-    const firstName = name[0];
-    const lastName = name[1];
-    /*  fullName: data.fullname, */
-    const payload = JSON.stringify({
-      firstName,
-      lastName,
+    const payload = {
+      name: data.fullName,
       email: data.email,
+      role: regAs,
       password: data.confirmPassword,
-    });
+    };
 
     console.log(payload);
     if (!regAs) {
@@ -80,25 +70,18 @@ const SignUp = () => {
       return;
     }
     try {
-      signUpBtnRef.current.innerHTML = 'Signing Up';
+      localStorage.setItem('learnCred', JSON.stringify(payload)),
+        (signUpBtnRef.current.innerHTML = 'Signing Up');
 
       localStorage.setItem('learnVerrse-email', data.email);
 
-      const response = await axiosInstance.post(registerURL, payload, {
-        headers: { 'Content-Type': 'application/json' },
-      });
-
-      /*  const response = await fetch(
-        `${import.meta.env.VITE_API_URL + registerURL}`,
+      const response = await axiosInstance.post(
+        import.meta.env.VITE_REGISTER,
+        payload,
         {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
+          headers: { 'Content-Type': 'application/json' },
         }
-        ); */
-      // console.log(await response.json());
+      );
 
       console.log(response.data);
       toast('account created successfully');
@@ -131,17 +114,17 @@ const SignUp = () => {
           <HomeLogo />
           <div className="flex rounded-4xl bg-[#F5F7FA] p-2">
             <button
-              className={` ${regAs === 'student' ? 'bg-[#6D28D2] text-white' : ''} cursor-pointer rounded-3xl px-3 py-1.5 text-base font-medium md:px-5 md:py-2.5`}
+              className={` ${regAs === 'LEARNER' ? 'bg-[#6D28D2] text-white' : ''} cursor-pointer rounded-3xl px-3 py-1.5 text-base font-medium md:px-5 md:py-2.5`}
               onClick={() => {
-                setRegAs('student');
+                setRegAs('LEARNER');
               }}
             >
               Register as a Student
             </button>
             <button
-              className={`${regAs === 'tutor' ? 'cursor-copy bg-[#6D28D2] text-white' : ''} cursor-pointer rounded-3xl px-3 py-1.5 text-base font-medium md:px-5 md:py-2.5`}
+              className={`${regAs === 'EDUCATOR' ? 'cursor-copy bg-[#6D28D2] text-white' : ''} cursor-pointer rounded-3xl px-3 py-1.5 text-base font-medium md:px-5 md:py-2.5`}
               onClick={() => {
-                setRegAs('tutor');
+                setRegAs('EDUCATOR');
               }}
             >
               Register as an Educator

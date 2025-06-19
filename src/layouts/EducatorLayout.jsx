@@ -8,8 +8,9 @@ import useAuthProvider from '@/hooks/useAuthProvider';
 
 const EducatorLayout = () => {
   const {
-    auth: { user },
+    auth: { user, token },
   } = useAuthProvider();
+  console.log(user, token);
   return (
     <div className="flex h-screen flex-col">
       <header className="container flex items-center justify-between py-4">
@@ -20,7 +21,7 @@ const EducatorLayout = () => {
 
           <CgProfile size={40} />
 
-          <h3>{user?.lastName}</h3>
+          <h3>{user?.name}</h3>
         </div>
       </header>
 

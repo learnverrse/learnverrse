@@ -62,14 +62,14 @@ const SignIn = () => {
 
       // setting global auth state
       setAuth({
-        user: response.data.data,
+        user: response.data.user,
         token: response.data.token,
       });
       toast.success('Login successful');
-      if (response.data.data.role === 'EDUCATOR') {
+      if (response.data.user.role === 'EDUCATOR') {
         navigate('/educator');
       }
-      if (response.data.data.role === 'LEARNER') {
+      if (response.data.user.role === 'LEARNER') {
         navigate('/learner-dashboard');
       }
     } catch (error) {
@@ -78,10 +78,10 @@ const SignIn = () => {
         toast.error('Network Error: Please check your internet connection');
       } else if (
         error.response.data?.message === 'Please verify your account'
+        // checking if user is registered but unverified , then pushin them to verify
       ) {
         try {
-          const email = payload.email;
-          localStorage.setItem('learnVerrse-email', email);
+          localStorage.setItem('learnCred', payload);
           const res = await axiosInstance.post(
             import.meta.env.VITE_RESET_OR_OTP,
             { email: payload.email },
@@ -228,7 +228,7 @@ const SignIn = () => {
             Don’t have an account?{' '}
             <Link
               className="font-semibold text-[#6D28D2] hover:underline"
-              to="/Sign-up"
+              to="/role-selector"
             >
               Sign Up
             </Link>
