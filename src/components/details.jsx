@@ -148,13 +148,13 @@ export const exploreSectionIcons = [
 
 export const learnersSidebar = [
   {
-    name: 'dashboard',
+    name: 'learners',
     path: '',
     icon: <MdDashboard size={24} />,
   },
   {
     name: 'my courses',
-    path: 'student-courses',
+    path: '/learner-dashboard/my-courses',
     icon: <IoBookOutline size={24} />,
   },
   {
