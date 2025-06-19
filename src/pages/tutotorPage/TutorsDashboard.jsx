@@ -81,7 +81,7 @@ const TutorsDashboard = () => {
           <div className="flex">
             <div>
               <h1 className="text-2xl font-bold text-gray-800 md:text-3xl">
-                Welcome Back {user.firstName + ' ' + user.lastName}
+                Welcome Back {user?.name}
               </h1>
               <p className="text-gray-500">Here's what's happening today</p>
             </div>

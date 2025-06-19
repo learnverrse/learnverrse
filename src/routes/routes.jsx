@@ -22,6 +22,7 @@ import CoursePricing from '@/pages/tutotorPage/CreateCourse/CoursePricing';
 import StudentCourses from '@/pages/learnerspage/StudentCourses';
 import RoleSelector from '@/pages/onboardingPages/RoleSelector';
 import LearningPage from '@/pages/StudentCourse/LearningPage';
+import SetNewPassword from '@/pages/onboardingPages/SetNewPassword';
 
 export const routes = [
   {
@@ -55,6 +56,10 @@ export const routes = [
   {
     path: '/otp-reset-password',
     element: <OtpResetPassword />,
+  },
+  {
+    path: '/set-new-password',
+    element: <SetNewPassword />,
   },
   // tests
 

@@ -3,8 +3,10 @@ import HomeLogo from '@/components/UI/HomeLogo';
 import React, { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import useAuthProvider from '@/hooks/useAuthProvider';
 
 const OtpPage = () => {
+  const { setAuth } = useAuthProvider();
   const inputRefs = useRef([]);
   const btnRef = useRef(null);
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
@@ -32,15 +34,17 @@ const OtpPage = () => {
 
   const navigate = useNavigate();
   const handleOtpSubmit = async (codes) => {
-    const email = localStorage.getItem('learnVerrse-email') || '';
+    const learnCred = JSON.parse(localStorage.getItem('learnCred'));
 
+    const { email, password } = learnCred;
     const payload = {
       email,
-      code: codes.join(''),
+      otp: codes.join(''),
     };
 
-    console.log(codes.join(''));
+    console.log(payload);
     try {
+      // verifying otp
       btnRef.current.innerHTML = 'Verifying...';
       const response = await axiosInstance.post(
         import.meta.env.VITE_VERIFY_REG,
@@ -50,10 +54,41 @@ const OtpPage = () => {
         }
       );
 
-      toast.success(response.data.message + ' Redirecting to Sign In');
-      localStorage.removeItem('learnVerrse-email');
-      console.log(response.data);
-      navigate('/SignIn');
+      if (response.data.success === true) {
+        // login in user if otp is verified
+        toast.success(response.data.message + ' Signing in');
+        console.log(response.data);
+
+        const loginPayload = {
+          email,
+          password,
+        };
+        try {
+          const loginResponse = await axiosInstance.post(
+            import.meta.env.VITE_LOGIN,
+            loginPayload,
+            {
+              headers: { 'Content-Type': 'application/json' },
+            }
+          );
+
+          console.log(loginResponse.data);
+          setAuth({
+            user: loginResponse.data.user,
+            token: loginResponse.data.token,
+          });
+          toast.success('Login successful');
+          if (loginResponse.data.user.role === 'EDUCATOR') {
+            navigate('/educator');
+          }
+          if (loginResponse.data.user.role === 'LEARNER') {
+            navigate('/learner-dashboard');
+          }
+          localStorage.removeItem('learnCred');
+        } catch (loginError) {
+          console.log(loginError);
+        }
+      }
     } catch (error) {
       console.log(error);
       if (error.message === 'Network Error') {

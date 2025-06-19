@@ -24,9 +24,9 @@ const RoleSelector = () => {
 
       <div className="space-y-6">
         <button
-          onClick={() => setSelectedRole('student')}
+          onClick={() => setSelectedRole('LEARNER')}
           className={`w-full rounded-lg px-30 py-3 text-sm font-medium transition-all duration-200 ${
-            selectedRole === 'student'
+            selectedRole === 'LEARNER'
               ? 'bg-purple-600 text-white ring-2 ring-purple-600'
               : 'border-primary-400 cursor-pointer border-2 bg-purple-200 text-black hover:bg-purple-400'
           }`}
@@ -34,9 +34,9 @@ const RoleSelector = () => {
           As A Student
         </button>
         <button
-          onClick={() => setSelectedRole('tutor')}
+          onClick={() => setSelectedRole('EDUCATOR')}
           className={`w-full rounded-lg px-30 py-3 text-sm font-medium transition-all duration-200 ${
-            selectedRole === 'tutor'
+            selectedRole === 'EDUCATOR'
               ? 'bg-purple-600 text-white ring-2 ring-purple-600'
               : 'border-primary-400 cursor-pointer border-2 bg-purple-200 text-black hover:bg-purple-400'
           }`}

@@ -8,7 +8,7 @@ const useLogout = () => {
   const navigate = useNavigate();
   const logout = async () => {
     try {
-      const response = await axiosInstance.post('/logout', null, {
+      const response = await axiosInstance.post('logout', null, {
         withCredentials: true,
       });
       console.log(response.data);

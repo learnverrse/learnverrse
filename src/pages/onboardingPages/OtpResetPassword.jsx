@@ -3,8 +3,13 @@ import HomeLogo from '@/components/UI/HomeLogo';
 import React, { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import useAuthProvider from '@/hooks/useAuthProvider';
 
 const OtpResetPassword = () => {
+  const {
+    auth: { token },
+    setAuth,
+  } = useAuthProvider();
   const inputRefs = useRef([]);
   const btnRef = useRef(null);
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
@@ -36,7 +41,7 @@ const OtpResetPassword = () => {
 
     const payload = {
       email,
-      code: codes.join(''),
+      otp: codes.join(''),
     };
 
     console.log(codes.join(''), email);
@@ -50,6 +55,9 @@ const OtpResetPassword = () => {
         }
       );
 
+      console.log('previous token: ', token),
+        console.log('new token: ', response.data?.passwordResetToken),
+        setAuth({ token: response.data?.passwordResetToken });
       toast.success(response.data.message);
       console.log(response.data);
       navigate('/set-new-password');
@@ -58,6 +66,29 @@ const OtpResetPassword = () => {
       toast.error(error.response.data.message);
     } finally {
       btnRef.current.innerHTML = 'Continue';
+    }
+  };
+
+  const resendOTP = async () => {
+    try {
+      const payload = {};
+      const resendResponse = await axiosInstance.post(
+        import.meta.env.VITE_RESET_OR_OTP,
+        { email: payload.email },
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+      console.log(resendResponse.data);
+      if (resendResponse.data.success === true) {
+        toast.success('OTP sent to your email');
+        navigate('/otp');
+      } else {
+        toast.error('Failed to send OTP, please try again');
+      }
+    } catch (otpError) {
+      console.error('OTP Error:', otpError);
+      toast.error('Failed to send OTP. Please try again.');
     }
   };
   return (
@@ -116,12 +147,13 @@ const OtpResetPassword = () => {
             {/*  <!-- Resend Text --> */}
             <p className="font-inter text-sm text-gray-500">
               Didn't receive code?
-              <a
+              <button
+                onClick={() => resendOTP()}
                 href="#"
-                className="font-inter text-purple-600 hover:underline"
+                className="font-inter cursor-pointer border-0 p-0 text-purple-600 outline-none hover:underline"
               >
                 Resend code
-              </a>
+              </button>
             </p>
           </div>
         </div>
