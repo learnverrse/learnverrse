@@ -69,10 +69,7 @@ export const routes = [
   //   element: <LearningPage />,
   // },
 
-  {
-    path: 'learning-page',
-    element: <LearningPage />,
-  },
+ 
 
   // 👨‍🏫 Educator Routes
   {
@@ -126,7 +123,7 @@ export const routes = [
   // 🎓 Student Routes
   {
     path: '/learner-dashboard',
-    // element: <ProtectedRoute role="LEARNER" />, temporarily commented so it can be assessed without authentication
+    element: <ProtectedRoute role="LEARNER" />, // Ensure the user is a learner
     children: [
       {
         path: '',

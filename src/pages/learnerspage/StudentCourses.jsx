@@ -70,7 +70,7 @@ const StudentCourses = () => {
           {courses.map((course) => (
             <div
               key={course.id}
-              onClick={() => navigate('/learning-page')}
+              onClick={() => navigate('/learner-dashboard/learning-page')}
               className="overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-lg"
             >
               {/* course images */}

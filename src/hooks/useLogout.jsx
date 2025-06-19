@@ -16,7 +16,7 @@ const useLogout = () => {
       toast.success(response.data.message);
       setAuth({});
       localStorage.removeItem('leseauth');
-      navigate('/login');
+      navigate('/SignIn');
     } catch (error) {
       console.log(error);
       if (error.message === 'Network Error') {
