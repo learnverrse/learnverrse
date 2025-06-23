@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import useAuthProvider from '@/hooks/useAuthProvider';
+import { emailPages } from '@/components/details';
 
 const OtpPage = () => {
   const { setAuth } = useAuthProvider();
@@ -102,13 +103,10 @@ const OtpPage = () => {
   return (
     <main className="flex h-screen items-center justify-center pt-1 pb-1 sm:pt-0 sm:pb-0">
       <div className="flex h-full w-screen flex-col overflow-hidden rounded-lg bg-white shadow-2xl md:flex-row">
-        {/*  <!-- Left Side Panel with Purple Background --> */}
-        <div className="hidden h-full basis-[45%] items-center justify-center bg-purple-600 p-8 md:flex md:rounded-tr-[40px] md:rounded-br-[40px]">
-          <img
-            src="assets/email-img.svg"
-            alt="Phone Image"
-            className="h-80 w-80 object-contain"
-          />
+        {/*  <!-- Left Side Panel with Purple Background --> */ }
+        
+        <div className="hidden h-full basis-[45%] items-center justify-center p-8 md:flex md:rounded-tr-[40px] md:rounded-br-[40px]">
+          <img src={emailPages} alt="" className="object-contain" />
         </div>
 
         <div className="flex h-full w-full flex-col items-center justify-center space-y-6 p-10 text-center md:w-1/2">
