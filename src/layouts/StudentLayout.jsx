@@ -5,10 +5,15 @@ import { CgProfile } from 'react-icons/cg';
 import SideBar from '../components/UI/SideBar';
 import { Outlet } from 'react-router';
 import { FaBars } from 'react-icons/fa6';
+import useAuthProvider from '@/hooks/useAuthProvider';
 
 const StudentLayout = () => {
   const [isMediumScreen, setIsMediumScreen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const {
+    auth: { user },
+  } = useAuthProvider();
 
   useEffect(() => {
     const handleResize = () => {
@@ -35,13 +40,13 @@ const StudentLayout = () => {
 
           <CgProfile size={40} />
 
-          <h3>John Sstudent</h3>
+          <h3>{user?.name}</h3>
         </div>
       </header>
 
       <main className="h-screen w-screen">
         {/* sidebar  */}
-        {isSidebarOpen && <SideBar isTutor={false}/>}
+        {isSidebarOpen && <SideBar isTutor={false} />}
 
         <div className={`scroll-container ${isSidebarOpen && 'ml-[240px]'} `}>
           {/* main content */}

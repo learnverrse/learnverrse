@@ -1,128 +1,204 @@
 import { React, useState } from 'react';
 import CreateCourseNav from '@/components/UI/CreateCourseNav';
-import { FiEdit3, FiChevronDown, FiChevronUp } from "react-icons/fi";
+import {
+  FiEdit3,
+  FiChevronDown,
+  FiChevronUp,
+  FiTrash2,
+  FiTrash,
+} from 'react-icons/fi';
 import Button from '@/components/UI/Button';
 import { useNavigate } from 'react-router';
-import { FaPlus } from "react-icons/fa";
+import { FaPlus } from 'react-icons/fa';
+import useAppContext from '@/hooks/useAppContext';
 
 const CourseContent = () => {
   const navigate = useNavigate();
 
-  const [sections, setSections] = useState([
-    {
-      id: 1,
-      title: 'input section title',
-      description: '',
-      chapters: [
-        {
-          id: 1,
-          title: 'input chapter title',
-          subtitle: '',
-          description: '',
-          file: null
-        }
-      ]
-    }
-  ]);
+  const {
+    dispatch,
+    state: { courseData },
+  } = useAppContext();
 
-  const [expandedSections, setExpandedSections] = useState({ 1: true }); 
+  const [sections, setSections] = useState(
+    courseData.sections || [
+      {
+        id: 1,
+        sectionTitle: 'input section title',
+        sectionDescription: '',
+        chapters: [
+          {
+            id: 1,
+            title: 'input chapter title',
+            subtitle: '',
+            description: '',
+            file: null,
+            video: null,
+          },
+        ],
+      },
+    ]
+  );
+
+  const [expandedSections, setExpandedSections] = useState({ 1: true });
   const [expandedChapters, setExpandedChapters] = useState({ 1: true });
 
   const addSection = () => {
     const newSection = {
       id: Date.now(),
-      title: 'input section title',
-      description: '',
-      chapters: []
+      sectionTitle: 'input section title',
+      SectionDescription: '',
+      chapters: [],
     };
     setSections([...sections, newSection]);
-    setExpandedSections(prev => ({ ...prev, [newSection.id]: true }));
+    setExpandedSections((prev) => ({ ...prev, [newSection.id]: true }));
+  };
+
+  const DeleteSection = (sectionId) => {
+    setSections(sections.filter((section) => section.id !== sectionId));
+  };
+  const toggleSection = (sectionId) => {
+    setExpandedSections((prev) => ({
+      ...prev,
+      [sectionId]: !prev[sectionId],
+    }));
   };
 
   const addChapter = (sectionId) => {
     const newChapterId = Date.now();
-    setSections(sections.map(section => 
-      section.id === sectionId 
-        ? {
-            ...section,
-            chapters: [
-              ...section.chapters,
-              { 
-                id: newChapterId, 
-                title: 'input chapter title',
-                subtitle: '',
-                description: '',
-                file: null
-              }
-            ]
-          }
-        : section
-    ));
-    setExpandedChapters(prev => ({ ...prev, [newChapterId]: true }));
+    setSections(
+      sections.map((section) =>
+        section.id === sectionId
+          ? {
+              ...section,
+              chapters: [
+                ...section.chapters,
+                {
+                  id: newChapterId,
+                  title: 'input chapter title',
+                  subtitle: '',
+                  content: '',
+                  file: null,
+                  video: null,
+                },
+              ],
+            }
+          : section
+      )
+    );
+    setExpandedChapters((prev) => ({ ...prev, [newChapterId]: true }));
   };
 
-  const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }));
+  const deleteChapter = (sectionId, chapterId) => {
+    setSections(
+      sections.map((section) =>
+        section.id === sectionId
+          ? {
+              ...section,
+              chapters: section.chapters.filter(
+                (chapter) => chapter.id !== chapterId
+              ),
+            }
+          : section
+      )
+    );
   };
 
   const toggleChapter = (chapterId) => {
-    setExpandedChapters(prev => ({
+    setExpandedChapters((prev) => ({
       ...prev,
-      [chapterId]: !prev[chapterId]
+      [chapterId]: !prev[chapterId],
     }));
   };
 
   const updateSectionTitle = (sectionId, newTitle) => {
-    setSections(sections.map(section =>
-      section.id === sectionId
-        ? { ...section, title: newTitle }
-        : section
-    ));
+    setSections(
+      sections.map((section) =>
+        section.id === sectionId
+          ? { ...section, sectionTitle: newTitle }
+          : section
+      )
+    );
   };
 
   const updateSectionDescription = (sectionId, newDescription) => {
-    setSections(sections.map(section =>
-      section.id === sectionId
-        ? { ...section, description: newDescription }
-        : section
-    ));
+    setSections(
+      sections.map((section) =>
+        section.id === sectionId
+          ? { ...section, sectionDescription: newDescription }
+          : section
+      )
+    );
   };
 
   const updateChapterTitle = (sectionId, chapterId, newTitle) => {
-    setSections(sections.map(section =>
-      section.id === sectionId
-        ? {
-            ...section,
-            chapters: section.chapters.map(chapter =>
-              chapter.id === chapterId
-                ? { ...chapter, title: newTitle }
-                : chapter
-            )
-          }
-        : section
-    ));
+    setSections(
+      sections.map((section) =>
+        section.id === sectionId
+          ? {
+              ...section,
+              chapters: section.chapters.map((chapter) =>
+                chapter.id === chapterId
+                  ? { ...chapter, title: newTitle }
+                  : chapter
+              ),
+            }
+          : section
+      )
+    );
   };
 
   const updateChapterField = (sectionId, chapterId, field, value) => {
-    setSections(sections.map(section =>
-      section.id === sectionId
-        ? {
-            ...section,
-            chapters: section.chapters.map(chapter =>
-              chapter.id === chapterId
-                ? { ...chapter, [field]: value }
-                : chapter
-            )
-          }
-        : section
-    ));
+    setSections(
+      sections.map((section) =>
+        section.id === sectionId
+          ? {
+              ...section,
+              chapters: section.chapters.map((chapter) =>
+                chapter.id === chapterId
+                  ? { ...chapter, [field]: value }
+                  : chapter
+              ),
+            }
+          : section
+      )
+    );
+  };
+  // video uploaded
+  const [filesToUpload, setFilesToUpload] = useState({});
+  const handleVideoChange = (sectionId, chapterId, file, chapter) => {
+    const { name, type } = file;
+    setFilesToUpload({
+      fileName: name,
+      fileType: type,
+    });
+    console.log(name, type);
+    console.log(chapter);
+    console.log(courseData.sections);
+    updateChapterField(sectionId, chapterId, file);
   };
 
-  const handleFileChange = (sectionId, chapterId, file) => {
-    updateChapterField(sectionId, chapterId, 'file', file);
+  // end video upload logic
+  const SaveAndContinue = (e) => {
+    e.preventDefault();
+    // Here you can handle the save logic, currently saving to context
+
+    // later reference below
+    /*  const sectionToSend = sections.map((section) => ({
+    ...section,
+    chapters: section.chapters.map((chapter)  => ({
+      ...chapter,
+      file: chapter.file ? chapter.file.name : null, // Only send file name
+    }))
+   })) */
+    console.log(sections);
+    dispatch({
+      type: 'SAVE_COURSE_CONTENT',
+      payload: {
+        courseContent: sections,
+      },
+    });
+    navigate('/educator/quiz');
   };
 
   return (
@@ -133,11 +209,11 @@ const CourseContent = () => {
         {sections.map((section, sectionIndex) => (
           <div key={section.id} className="mb-8">
             {/* Section Header */}
-            <div className="flex items-center justify-between p-4 border border-gray-600 rounded-lg mb-4">
+            <div className="mb-4 flex items-center justify-between rounded-lg border border-gray-600 p-4">
               <div className="flex items-center space-x-3">
                 <button
                   onClick={() => toggleSection(section.id)}
-                  className="text-gray-600 hover:text-gray-800 flex items-center"
+                  className="flex items-center text-gray-600 hover:text-gray-800"
                 >
                   {expandedSections[section.id] ? (
                     <FiChevronUp size={20} />
@@ -145,18 +221,25 @@ const CourseContent = () => {
                     <FiChevronDown size={20} />
                   )}
                 </button>
-                <span className="font-medium text-black">Section {sectionIndex + 1}:</span>
+                <span className="font-medium text-black">
+                  Section {sectionIndex + 1}:
+                </span>
                 <input
                   type="text"
-                  value={section.title}
-                  onChange={(e) => updateSectionTitle(section.id, e.target.value)}
-                  className="bg-transparent border-none outline-none text-gray-700 placeholder-gray-700"
+                  value={section.sectionTitle}
+                  onChange={(e) =>
+                    updateSectionTitle(section.id, e.target.value)
+                  }
+                  className="border-none bg-transparent text-gray-700 placeholder-gray-700 outline-none"
                   placeholder="input section title"
                 />
               </div>
-              <button className="text-gray-400 hover:text-gray-600 flex">
-                <FiEdit3 size={16} />
-                <span className="ml-1 text-sm">edit</span>
+              <button
+                className="flex cursor-pointer items-center text-gray-400 hover:text-gray-600"
+                onClick={() => DeleteSection(section.id)}
+              >
+                <FiTrash size={16} />
+                <span className="ml-1 text-sm">delete</span>
               </button>
             </div>
 
@@ -165,12 +248,14 @@ const CourseContent = () => {
               <>
                 {/* Section Description */}
                 <div className="mb-6 ml-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
                     Section Description
                   </label>
                   <textarea
-                    value={section.description}
-                    onChange={(e) => updateSectionDescription(section.id, e.target.value)}
+                    value={section.sectionDescription}
+                    onChange={(e) =>
+                      updateSectionDescription(section.id, e.target.value)
+                    }
                     className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-transparent focus:ring-2 focus:ring-purple-500"
                     rows={3}
                     placeholder="Enter section description..."
@@ -181,11 +266,11 @@ const CourseContent = () => {
                 {section.chapters.map((chapter, chapterIndex) => (
                   <div key={chapter.id} className="mb-6 ml-8">
                     {/* Chapter Header */}
-                    <div className="flex items-center justify-between p-4 border border-gray-400 rounded-lg mb-4">
+                    <div className="mb-4 flex items-center justify-between rounded-lg border border-gray-400 p-4">
                       <div className="flex items-center space-x-3">
                         <button
                           onClick={() => toggleChapter(chapter.id)}
-                          className="text-gray-600 hover:text-gray-800 flex items-center"
+                          className="flex items-center text-gray-600 hover:text-gray-800"
                         >
                           {expandedChapters[chapter.id] ? (
                             <FiChevronDown size={18} />
@@ -193,63 +278,108 @@ const CourseContent = () => {
                             <FiChevronUp size={18} />
                           )}
                         </button>
-                        <span className="font-medium text-black">Chapter {chapterIndex + 1}:</span>
+                        <span className="font-medium text-black">
+                          Chapter {chapterIndex + 1}:
+                        </span>
                         <input
                           type="text"
                           value={chapter.title}
-                          onChange={(e) => updateChapterTitle(section.id, chapter.id, e.target.value)}
-                          className="bg-transparent border-none outline-none text-gray-700 placeholder-gray-700"
+                          onChange={(e) =>
+                            updateChapterTitle(
+                              section.id,
+                              chapter.id,
+                              e.target.value
+                            )
+                          }
+                          className="border-none bg-transparent text-gray-700 placeholder-gray-700 outline-none"
                           placeholder="input chapter title"
                         />
                       </div>
-                      <button className="text-gray-400 hover:text-gray-600 flex">
-                        <FiEdit3 size={16} />
-                        <span className="ml-1 text-sm">edit</span>
+                      <button
+                        className="flex cursor-pointer items-center text-gray-400 hover:text-gray-600"
+                        onClick={() => deleteChapter(section.id, chapter.id)}
+                      >
+                        <FiTrash2 size={16} />
+
+                        <span className="ml-1 text-sm">delete</span>
                       </button>
                     </div>
 
                     {/* Chapter Form - Collapsible */}
                     {expandedChapters[chapter.id] && (
-                      <div className="bg-white p-6 rounded-lg border border-gray-200">
+                      <div className="rounded-lg border border-gray-200 bg-white p-6">
                         <form className="space-y-6">
-                          <div>
-                            <label htmlFor={`subtitle-${chapter.id}`} className="block text-sm font-medium text-gray-700 mb-2">
+                          {/*   <div>
+                            <label
+                              htmlFor={`subtitle-${chapter.id}`}
+                              className="mb-2 block text-sm font-medium text-gray-700"
+                            >
                               Chapter Subtitle
                             </label>
                             <input
                               type="text"
                               id={`subtitle-${chapter.id}`}
                               value={chapter.subtitle}
-                              onChange={(e) => updateChapterField(section.id, chapter.id, 'subtitle', e.target.value)}
+                              onChange={(e) =>
+                                updateChapterField(
+                                  section.id,
+                                  chapter.id,
+                                  'subtitle',
+                                  e.target.value
+                                )
+                              }
                               className="mt-2 w-full rounded-full border border-gray-400 px-4 py-3 outline-none focus:border-transparent focus:ring-2 focus:ring-purple-500"
                               placeholder="Enter chapter subtitle..."
                             />
-                          </div>
-                          
+                          </div> */}
+
                           <div>
-                            <label htmlFor={`description-${chapter.id}`} className="block text-sm font-medium text-gray-700 mb-2">
+                            <label
+                              htmlFor={`description-${chapter.id}`}
+                              className="mb-2 block text-sm font-medium text-gray-700"
+                            >
                               Chapter Description
                             </label>
                             <textarea
                               id={`description-${chapter.id}`}
-                              value={chapter.description}
-                              onChange={(e) => updateChapterField(section.id, chapter.id, 'description', e.target.value)}
+                              value={chapter.content}
+                              onChange={(e) =>
+                                updateChapterField(
+                                  section.id,
+                                  chapter.id,
+                                  'content',
+                                  e.target.value
+                                )
+                              }
                               rows={12}
                               className="mt-2 w-full resize-none rounded-lg border border-gray-300 px-6 py-3 outline-none focus:border-transparent focus:ring-2 focus:ring-purple-500"
                               placeholder="Enter chapter description..."
                             />
-                            <p className="mt-2 ml-4 text-sm text-gray-400">{chapter.description.length}/2000 Characters</p>
+                            <p className="mt-2 ml-4 text-sm text-gray-400">
+                              {chapter.content?.length}/2000 Characters
+                            </p>
                           </div>
-                          
+
                           <div className="flex flex-col">
-                            <label htmlFor={`file-${chapter.id}`} className="mb-2 text-sm font-medium text-gray-700">
-                              Choose File
+                            <label
+                              htmlFor={`file-${chapter.id}`}
+                              className="mb-2 text-sm font-medium text-gray-700"
+                            >
+                              Choose Video
                             </label>
-                            <input 
-                              type="file" 
-                              className="hidden" 
+                            <input
+                              type="file"
+                              accept="video/mp4,video/x-m4v,video/*"
+                              className="hidden"
                               id={`file-${chapter.id}`}
-                              onChange={(e) => handleFileChange(section.id, chapter.id, e.target.files[0])}
+                              onChange={(e) =>
+                                handleVideoChange(
+                                  section.id,
+                                  chapter.id,
+                                  e.target.files[0],
+                                  chapter
+                                )
+                              }
                             />
                             <label
                               htmlFor={`file-${chapter.id}`}
@@ -258,6 +388,7 @@ const CourseContent = () => {
                               {chapter.file ? chapter.file.name : 'Choose file'}
                             </label>
                           </div>
+                          {chapter.file ? <button>upload video</button> : null}
                         </form>
                       </div>
                     )}
@@ -267,7 +398,7 @@ const CourseContent = () => {
                 {/* Add Chapter Button */}
                 <button
                   onClick={() => addChapter(section.id)}
-                  className="flex items-center space-x-2 ml-8 text-purple-600 hover:text-purple-700 font-medium"
+                  className="ml-8 flex cursor-pointer items-center space-x-2 font-medium text-purple-600 hover:text-purple-700"
                 >
                   <FaPlus size={16} />
                   <span>Chapter</span>
@@ -280,7 +411,7 @@ const CourseContent = () => {
         {/* Add Section Button */}
         <button
           onClick={addSection}
-          className="flex items-center space-x-2 text-purple-600 hover:text-purple-700 font-medium"
+          className="flex cursor-pointer items-center space-x-2 font-medium text-purple-600 hover:text-purple-700"
         >
           <FaPlus size={16} />
           <span>Section</span>
@@ -291,10 +422,7 @@ const CourseContent = () => {
         <Button
           label={'Save & Continue'}
           active={true}
-          fun={(e) => {
-            e.preventDefault();
-            navigate('/educator/quiz');
-          }}
+          fun={(e) => SaveAndContinue(e)}
         />
       </div>
     </div>

@@ -58,7 +58,7 @@ const SetNewPassword = () => {
     try {
       buttonRef.current.innerHTML = 'Reseting.... Please wait';
       const newPasswordResponse = await axiosPrivate.post(
-        'reset-password',
+        import.meta.env.VITE_RESET_PASSWORD,
         payload,
         {
           headers: {
