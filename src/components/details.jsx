@@ -54,6 +54,7 @@ export const banner = baseUrl + '/assets/banner.png';
 export const banners = baseUrl + '/assets/signup-img.png';
 export const emailPages = baseUrl + '/assets/email-img.svg';
 
+
 export const navLinks = [
   {
     name: 'explore',

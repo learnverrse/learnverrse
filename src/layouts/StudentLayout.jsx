@@ -41,7 +41,7 @@ const StudentLayout = () => {
 
       <main className="h-screen w-screen">
         {/* sidebar  */}
-        {isSidebarOpen && <SideBar isTutor={false}/>}
+        {isSidebarOpen && <SideBar isTutor={false} />}
 
         <div className={`scroll-container ${isSidebarOpen && 'ml-[240px]'} `}>
           {/* main content */}
