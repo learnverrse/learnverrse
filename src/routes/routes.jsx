@@ -23,6 +23,7 @@ import StudentCourses from '@/pages/learnerspage/StudentCourses';
 import RoleSelector from '@/pages/onboardingPages/RoleSelector';
 import LearningPage from '@/pages/StudentCourse/LearningPage';
 import SetNewPassword from '@/pages/onboardingPages/SetNewPassword';
+import NotFound from '@/pages/home/NotFound';
 
 export const routes = [
   {
@@ -60,6 +61,10 @@ export const routes = [
   {
     path: '/set-new-password',
     element: <SetNewPassword />,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
   // tests
 
