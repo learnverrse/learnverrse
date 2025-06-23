@@ -101,7 +101,7 @@ const SignUp = () => {
 
   return (
     <div className="flex h-screen w-full overflow-hidden">
-      <div className="mr-24 hidden lg:block">
+      <div className="mr-24 hidden lg:block ">
         <img
           src={banners}
           alt="Signup banner image"

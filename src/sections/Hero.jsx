@@ -43,6 +43,7 @@ import { TbCertificate } from 'react-icons/tb';
 import ReviewsCarousel from '@/components/UI/reviewsCarousel';
 import Footer from '@/components/UI/footer';
 
+
 const Hero = () => {
   const navigate = useNavigate();
   return (
