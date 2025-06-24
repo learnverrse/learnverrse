@@ -28,7 +28,7 @@ const ExploreSection = () => {
     
                 <div className="flex flex-col rounded-[17px] bg-white text-center">
                   <img src={uiUx} alt="" />
-                  <p className="py-5 text-lg font-medium text-[#121212]">
+                  <p className="px-3 py-5 text-lg font-medium text-[#121212]">
                     UI/UX Design Masterclass: Design with Users in Mind
                   </p>
                 </div>
@@ -40,5 +40,36 @@ const ExploreSection = () => {
           </div>
   )
 }
+
+// const CourseSection = () => {
+//   return (
+//     <div className="container mx-auto mt-10 px-6">
+//       <h2 className="mb-6 text-3xl font-semibold text-center">Explore Our Courses</h2>
+//       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+//         {data.map((course, index) => (
+//           <div key={index} className="flex flex-col items-center rounded-lg bg-white p-4 shadow-md">
+//             <img src={course.img} alt={course.title} className="w-full h-48 object-cover rounded-t-lg" />
+//             <h3 className="mt-4 text-lg font-semibold">{course.title}</h3>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   )
+// }
+
+// const data = [
+//   {
+//     img: dataAnalytics,
+//     title: 'Data Analytics: Transforming Data into Actionable Insights',
+//   },
+//   {
+//     img: cyberSecurity,
+//     title: 'Cybersecurity Fundamentals: Protecting Digital Frontiers',
+//   },
+//   {
+//     img: uiUx,
+//     title: 'UI/UX Design Masterclass: Design with Users in Mind',
+//   },
+// ]
 
 export default ExploreSection

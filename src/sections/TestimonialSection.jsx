@@ -4,12 +4,12 @@ import ReviewsCarousel from '@/components/UI/reviewsCarousel';
 const TestimonialSection = () => {
   return (
     <div className="container flex flex-col items-center justify-center py-12 lg:py-20">
-        <h2 className="mb-7 text-3xl font-semibold lg:text-5xl lg:font-medium text-[#121212]">
-          Our Testimonials
-        </h2>
-        <p className="text-lg lg:text-base">What people say about us</p>
+      <h2 className="mb-7 text-3xl font-semibold lg:text-5xl lg:font-medium text-[#121212]">
+        Our Testimonials
+      </h2>
+      <p className="text-lg lg:text-base">What people say about us</p>
 
-        <ReviewsCarousel />
+      <ReviewsCarousel />
         {/* <div className="mt-8 flex flex-nowrap space-x-4 overflow-x-auto px-10 lg:px-4 md:overflow-visible md:grid gap-6 md:px-10 md:grid-cols-2 lg:grid-cols-3 md:space-x-0">
           <div className="min-w-sm flex flex-col rounded-2xl border border-[#D9D9D9] p-6">
             <div className="mb-4 flex items-center gap-x-4">
@@ -62,7 +62,7 @@ const TestimonialSection = () => {
             </div>
           </div>
         </div> */}
-      </div>
+    </div>
   )
 }
 
