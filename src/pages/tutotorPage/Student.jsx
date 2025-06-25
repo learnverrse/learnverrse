@@ -2,7 +2,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
+} from '@/components/UI/popover';
 import { questionIcons } from '@/components/details';
 import ButtonDash from '@/components/UI/ButtonDash';
 import Button from '@/components/UI/Button';

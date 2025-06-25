@@ -14,11 +14,12 @@ import { MdOutlineAssessment } from 'react-icons/md';
 import { LiaBookSolid } from 'react-icons/lia';
 import { FaFileAlt } from 'react-icons/fa';
 import { TiMessages } from 'react-icons/ti';
+import { FiChevronDown } from "react-icons/fi";
 
 const baseUrl = import.meta.env.BASE_URL;
 
 export const logo = baseUrl + '/assets/logo.svg';
-export const heroImg = baseUrl + '/assets/heroImg.jpg';
+export const heroImg = baseUrl + '/assets/HeroImg.png';
 export const search = baseUrl + '/assets/search-icon.png';
 export const radialGradient = baseUrl + '/assets/raidial-gradient.png';
 export const resetFrame = baseUrl + '/assets/Reset-frame.png';

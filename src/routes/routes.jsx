@@ -24,6 +24,11 @@ import RoleSelector from '@/pages/onboardingPages/RoleSelector';
 import LearningPage from '@/pages/StudentCourse/LearningPage';
 import SetNewPassword from '@/pages/onboardingPages/SetNewPassword';
 
+import NotFound from '@/pages/home/NotFound';
+
+import QuizUI from '@/pages/StudentCourse/QuizUI';
+
+
 export const routes = [
   {
     path: '/',
@@ -60,6 +65,10 @@ export const routes = [
   {
     path: '/set-new-password',
     element: <SetNewPassword />,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
   // tests
 
@@ -138,6 +147,10 @@ export const routes = [
           {
             path: 'learning-page',
             element: <LearningPage />,
+          },
+          {
+            path: 'Quiz-UI',
+            element: <QuizUI />,
           },
         ],
       },
