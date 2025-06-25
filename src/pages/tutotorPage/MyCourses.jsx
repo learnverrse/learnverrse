@@ -14,20 +14,16 @@ const MyCourses = () => {
 
   const axiosPrivate = useAxiosPrivate();
 
-  const [allCourses, setAllCourses] = useState([]);
-  const [totalCourses, setTotalCourses] = useState(null);
-  const [isLoading, setIsloading] = useState(false);
-
   const fetchAllCourses = async () => {
     try {
-      setIsloading(true);
       const response = await axiosPrivate.get(
         import.meta.env.VITE_GET_ALL_COURSES
       );
-      console.log('Total courses:', response.data.totalCourses);
+      /*   console.log('Total courses:', response.data.totalCourses);
       console.log('All courses fetched:', response.data);
-      setTotalCourses(response.data.totalCourses);
-      return response.data.data;
+      setTotalCourses(response.data.totalCourses); */
+      // setAllCourses(response.data.data);
+      return response.data;
     } catch (error) {
       console.error('Error fetching courses:', error);
       const errorMessage =
@@ -40,12 +36,15 @@ const MyCourses = () => {
       } else {
         toast.error(errorMessage);
       }
-    } finally {
-      setIsloading(false);
     }
   };
 
-  // const {data, isLoading} = useQuery(["allCourses"], fetchAllCourses)
+  const { data, isLoading, isError, refetch } = useQuery(
+    ['allCourses'],
+    fetchAllCourses
+  );
+
+  console.log('Data from query:', data);
 
   const createCourse = async () => {
     try {
@@ -54,16 +53,17 @@ const MyCourses = () => {
         import.meta.env.VITE_CREATE_COURSE
       );
       console.log(response.data.data);
-      const newCourse = response.data.data;
+      // const newCourse = response.data.data;
 
-      // Dispatch the new course data to the context
+      /*  // Dispatch the new course data to the context
       dispatch({
         type: 'CREATE_COURSE',
         payload: newCourse,
-      });
+      }); */
       toast.success(
         'Course created successfully! You can now add content to it.'
       );
+      await refetch();
       toast.message('Click on the First Card to add content to your course');
       // navigate('/educator/upload-course');
     } catch (error) {
@@ -72,10 +72,6 @@ const MyCourses = () => {
   };
 
   const handleCreateCourse = () => {
-    // if (existingCourseData) {
-    //   toast.error('You already have a course created');
-    //   return;
-    // }
     createCourse();
   };
   return (
@@ -88,16 +84,16 @@ const MyCourses = () => {
       ) : (
         <div className="flex flex-col items-center justify-between gap-12">
           <div className="scroll-container overflow-y-auto px-4 py-2">
-            {allCourses && allCourses.length ? (
+            {data?.data && data?.data.length ? (
               <>
                 <p className="text-heading text-sm">
-                  You have {totalCourses} course
-                  {totalCourses > 1 ? 's' : ''}
+                  You have {data?.totalCourses} course
+                  {data?.totalCourses > 1 ? 's' : ''}
                 </p>
 
                 <div className="flex flex-wrap items-center gap-8">
-                  {allCourses.map((course) => (
-                    <SingleCourse course={course} />
+                  {data?.data.map((course) => (
+                    <SingleCourse course={course} key={course._id} />
                   ))}
                 </div>
               </>
