@@ -17,7 +17,7 @@ const ForgotPassword = () => {
     btnRef.current.innerHTML = 'Sending Mail...';
     try {
       const response = await axiosInstance.post(
-        `${import.meta.env.VITE_API_URL + import.meta.env.VITE_FORGOT_PASSWORD}`,
+        import.meta.env.VITE_FORGOT_PASSWORD,
         { email: emailRef.current.value },
         {
           headers: { 'Content-Type': 'application/json' },

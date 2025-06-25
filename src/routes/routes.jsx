@@ -101,7 +101,7 @@ export const routes = [
           },
           // course upload pages
           {
-            path: 'upload-course',
+            path: 'upload-course/:courseId',
             element: <CourseInformation />,
           },
           {
@@ -109,15 +109,15 @@ export const routes = [
             element: <MyCourses />,
           },
           {
-            path: 'upload-course-content',
+            path: 'upload-course-content/:courseId',
             element: <CourseContent />,
           },
           {
-            path: 'quiz',
+            path: 'quiz/:courseId',
             element: <Quiz />,
           },
           {
-            path: 'pricing',
+            path: 'pricing/:courseId',
             element: <CoursePricing />,
           },
 
