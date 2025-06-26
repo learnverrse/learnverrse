@@ -4,32 +4,32 @@ import SingleCourse from '@/components/UI/SingleCourse';
 import useAppContext from '@/hooks/useAppContext';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { data, useNavigate } from 'react-router';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
 const MyCourses = () => {
   const navigate = useNavigate();
   const { dispatch } = useAppContext();
-
   const axiosPrivate = useAxiosPrivate();
 
-  const fetchAllCourses = async () => {
+  const [page, setPage] = useState(1);
+  const limit = 5;
+
+  // ✅ Fetch courses with pagination
+  const fetchAllCourses = async ({ queryKey }) => {
+    const [_key, currentPage] = queryKey;
+
     try {
       const response = await axiosPrivate.get(
-        import.meta.env.VITE_GET_ALL_COURSES
+        `courses/public?page=${currentPage}&limit=${limit}`
       );
-      /*   console.log('Total courses:', response.data.totalCourses);
-      console.log('All courses fetched:', response.data);
-      setTotalCourses(response.data.totalCourses); */
-      // setAllCourses(response.data.data);
       return response.data;
     } catch (error) {
       console.error('Error fetching courses:', error);
+
       const errorMessage =
-        error.response.message ||
-        error.response.data.message ||
-        'Something went Wrong';
+        error.response?.data?.message || 'Something went wrong';
 
       if (errorMessage === 'Network Error') {
         toast.error('Please check your connection');
@@ -39,45 +39,36 @@ const MyCourses = () => {
     }
   };
 
-  const { data, isLoading, isError, refetch } = useQuery(
-    ['allCourses'],
-    fetchAllCourses
-  );
-
-  console.log('Data from query:', data);
+  const {
+    data,
+    isLoading,
+    isError,
+    refetch,
+    isFetching,
+  } = useQuery(['allCourses', page], fetchAllCourses);
 
   const createCourse = async () => {
     try {
-      toast.message('creating');
+      toast('Creating course...');
       const response = await axiosPrivate.post(
         import.meta.env.VITE_CREATE_COURSE
       );
-      console.log(response.data.data);
-      // const newCourse = response.data.data;
 
-      /*  // Dispatch the new course data to the context
-      dispatch({
-        type: 'CREATE_COURSE',
-        payload: newCourse,
-      }); */
       toast.success(
         'Course created successfully! You can now add content to it.'
       );
       await refetch();
-      toast.message('Click on the First Card to add content to your course');
-      // navigate('/educator/upload-course');
+      toast('Click on the First Card to add content to your course');
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleCreateCourse = () => {
-    createCourse();
-  };
   return (
     <div className="h-full w-full">
-      <h1 className="mb-1.5 text-center text-2xl font-bold">My courses</h1>
-      {isLoading ? (
+      <h1 className="mb-1.5 text-center text-2xl font-bold">My Courses</h1>
+
+      {isLoading || isFetching ? (
         <div className="flex h-full items-center justify-center">
           <Loader isLoading={isLoading} info={'Fetching your courses...'} />
         </div>
@@ -96,6 +87,31 @@ const MyCourses = () => {
                     <SingleCourse course={course} key={course._id} />
                   ))}
                 </div>
+
+                {/* ✅ Pagination Controls */}
+                <div className="mt-6 flex items-center gap-4">
+                  {data?.pagination?.hasPrevPage && (
+                    <button
+                      onClick={() => setPage((prev) => prev - 1)}
+                      className="text-primary-500 p-2 cursor-pointer"
+                    >
+                      Previous
+                    </button>
+                  )}
+
+                  <span className="text-gray-500">
+                    Page {data?.pagination?.currentPage}
+                  </span>
+
+                  {data?.pagination?.hasNextPage && (
+                    <button
+                      onClick={() => setPage((prev) => prev + 1)}
+                      className="text-primary-500 p-2 cursor-pointer"
+                    >
+                      Next
+                    </button>
+                  )}
+                </div>
               </>
             ) : (
               <p className="text-heading text-sm">You have no courses yet</p>
@@ -103,15 +119,11 @@ const MyCourses = () => {
           </div>
 
           <div className="flex items-center justify-center">
-            <div className="flex flex-col gap-6">
-              {/*  <small className="font-inter text-paragraph">
-                You currently don’t have any course
-              </small> */}
-
+            <div className="flex flex-col gap-6 pb-10">
               <Button
-                label={'create course'}
+                label={'Create Course'}
                 active={true}
-                fun={() => handleCreateCourse()}
+                fun={createCourse}
               />
             </div>
           </div>
