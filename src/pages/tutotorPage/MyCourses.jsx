@@ -22,7 +22,7 @@ const MyCourses = () => {
 
     try {
       const response = await axiosPrivate.get(
-        `courses/public?page=${currentPage}&limit=${limit}`
+        `courses/educator?page=${currentPage}&limit=${limit}`
       );
       return response.data;
     } catch (error) {
