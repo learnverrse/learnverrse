@@ -13,6 +13,7 @@ import FooterFaqSection from '@/sections/FooterFaqSection';
 
 
 
+
 import Footer from '@/components/UI/footer';
 import CourseSection from '../../sections/ExploreSection';
 
