@@ -13,13 +13,12 @@ const ExploreSection = () => {
             <p className="text-lg lg:text-2xl font-medium text-[#121212]">
               Explore in demand skill courses
             </p>
-            <div className="m-auto mt-8 w-full lg:w-[95%] bg-[#F0E5FF] px-14 py-14 lg:px-10 lg:py-6 md:rounded-lg
+            <div className="m-auto mt-8 w-full lg:w-[95%] bg-[#F0E5FF] px-2 py-14 lg:px-10 lg:py-6 md:rounded-lg
             ">
               <CoursesSection limitCourses={3} />
                <Button
                 label={'View All Courses'}
                 active={true}
-                
               />
             </div>
           </div>
