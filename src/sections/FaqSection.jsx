@@ -101,7 +101,7 @@ function FaqSection() {
                 />
               </div>
               {openQuestion === id && (
-                <div className="p-3 text-sm bg-primary-50 rounded-md mt-2">
+                <div className="p-3 text-sm mt-2">
                   {answer}
                 </div>
               )}
