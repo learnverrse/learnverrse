@@ -26,7 +26,7 @@ const MyCourses = () => {
       );
       return response.data;
     } catch (error) {
-      console.error('Error fetching courses:', error);
+     
 
       const errorMessage =
         error.response?.data?.message || 'Something went wrong';
@@ -64,7 +64,7 @@ const MyCourses = () => {
       }
      
     } catch (error) {
-      console.log(error);
+      
     }
   };
 

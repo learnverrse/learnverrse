@@ -10,7 +10,6 @@ const SingleCourse = ({ course }) => {
   const axiosPrivate = useAxiosPrivate();
   const queryClient = useQueryClient();
   const handleEditCourse = async (id) => {
-    console.log(id);
     navigate(`/educator/upload-course/${id}`);
   };
   const handleDeleteCourse = async (id) => {
@@ -29,11 +28,9 @@ const SingleCourse = ({ course }) => {
           course
         );
 
-        console.log(response?.data);
         toast.success(response?.data.message);
         queryClient.invalidateQueries(['allCourses']);
       } catch (error) {
-        console.log(error);
         toast.error('failed to delete course');
       }
     }

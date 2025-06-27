@@ -24,11 +24,10 @@ const ForgotPassword = () => {
         }
       );
 
-      console.log(response.data);
+
       toast.success(response.data.message);
       navigate('/otp-reset-password');
     } catch (error) {
-      console.log(error.response.data);
       if (error.message === 'Network Error') {
         toast.error('Network Error: Please check your internet connection');
       } else if (error.response.data) {

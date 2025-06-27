@@ -29,7 +29,6 @@ const CourseContent = () => {
 
   useEffect(() => {
     const fetchCourse = async () => {
-      console.log(`${import.meta.env.VITE_GET_COURSE_BY_ID}/${courseId}`);
       setLoading(true);
       try {
         const res = await axiosPrivate.get(
@@ -76,7 +75,6 @@ const CourseContent = () => {
           }
         }
       } catch (err) {
-        console.error('Failed to fetch course:', err);
         toast.error('Could not load course data.');
       } finally {
         setLoading(false);
@@ -230,8 +228,6 @@ const CourseContent = () => {
       );
       const { uploadUrl, videoUrl } = res.data.data;
 
-      console.log('✅ Upload URL:', uploadUrl);
-      console.log('✅ Final video URL (after upload):', videoUrl);
 
       try {
         await axios.put(uploadUrl, file, {
@@ -247,11 +243,9 @@ const CourseContent = () => {
         updateChapterField(sectionId, chapterId, 'video', videoUrl);
         toast.success('Video uploaded successfully!');
       } catch (putErr) {
-        console.error('❌ Failed to PUT to S3:', putErr);
         toast.error('Upload failed during file transfer.');
       }
     } catch (err) {
-      console.error('❌ Failed to get upload URL:', err);
       toast.error('Failed to get upload URL');
     }
   };
@@ -264,7 +258,7 @@ const CourseContent = () => {
       ...course,
       sections,
     };
-    console.log(updatedCourse);
+
 
     try {
       setLoading(true);
@@ -276,7 +270,6 @@ const CourseContent = () => {
       navigate(`/educator/quiz/${courseId}`);
     } catch (err) {
       toast.error('Failed to update course');
-      console.error(err);
     } finally {
       setLoading(false);
     }

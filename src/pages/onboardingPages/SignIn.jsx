@@ -47,9 +47,6 @@ const SignIn = () => {
     try {
       buttonRef.current.innerHTML = 'Please wait';
 
-      console.log(
-        `endpoint: ${import.meta.env.VITE_API_URL + import.meta.env.VITE_LOGIN}`
-      );
       const response = await axiosInstance.post(
         import.meta.env.VITE_LOGIN,
         payload,
@@ -58,7 +55,6 @@ const SignIn = () => {
         }
       );
 
-      console.log(response.data, response.data.token);
 
       // setting global auth state
       setAuth({
@@ -73,7 +69,6 @@ const SignIn = () => {
         navigate('/learner-dashboard');
       }
     } catch (error) {
-      console.log(error.response?.data || error);
       if (error.message === 'Network Error') {
         toast.error('Network Error: Please check your internet connection');
       } else if (
@@ -89,7 +84,6 @@ const SignIn = () => {
               headers: { 'Content-Type': 'application/json' },
             }
           );
-          console.log(res.data);
           if (res.data.success === true) {
             toast.success('OTP sent to your email');
             navigate('/otp');
@@ -97,7 +91,6 @@ const SignIn = () => {
             toast.error('Failed to send OTP, please try again');
           }
         } catch (otpError) {
-          console.error('OTP Error:', otpError);
           toast.error('Failed to send OTP. Please try again.');
         }
       }

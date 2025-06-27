@@ -45,7 +45,7 @@ const OtpResetPassword = () => {
       otp: codes.join(''),
     };
 
-    console.log(codes.join(''), email);
+
     try {
       btnRef.current.innerHTML = 'Verifying...';
       const response = await axiosInstance.post(
@@ -56,14 +56,10 @@ const OtpResetPassword = () => {
         }
       );
 
-      console.log('previous token: ', token),
-        console.log('new token: ', response.data?.passwordResetToken),
         setAuth({ token: response.data?.passwordResetToken });
       toast.success(response.data.message);
-      console.log(response.data);
       navigate('/set-new-password');
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message);
     } finally {
       btnRef.current.innerHTML = 'Continue';
@@ -80,7 +76,6 @@ const OtpResetPassword = () => {
           headers: { 'Content-Type': 'application/json' },
         }
       );
-      console.log(resendResponse.data);
       if (resendResponse.data.success === true) {
         toast.success('OTP sent to your email');
         navigate('/otp');
@@ -88,7 +83,6 @@ const OtpResetPassword = () => {
         toast.error('Failed to send OTP, please try again');
       }
     } catch (otpError) {
-      console.error('OTP Error:', otpError);
       toast.error('Failed to send OTP. Please try again.');
     }
   };

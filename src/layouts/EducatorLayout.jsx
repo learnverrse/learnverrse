@@ -10,7 +10,7 @@ const EducatorLayout = () => {
   const {
     auth: { user, token },
   } = useAuthProvider();
-  console.log(user, token);
+
   return (
     <div className="flex h-screen flex-col">
       <header className="container flex items-center justify-between py-4">
