@@ -14,7 +14,7 @@ const Hero = () => {
         <div className="px-6">
           <div className="flex w-full flex-col-reverse items-center justify-between pt-10 text-center lg:flex-row lg:text-start">
             <div className="m-auto mb-6 max-w-7xl md:mb-0 md:w-1/2">
-              <h1 className="mt-4 mb-4 text-3xl font-bold capitalize md:text-7xl">
+              <h1 className="mt-4 mb-4 text-3xl font-bold capitalize md:text-6xl lg:text-7xl">
                 Where curious minds meet
                 <span className="bg-purple-100 text-purple-700 italic md:text-4xl lg:text-5xl px-4 py-2 rounded-lg font-serif shadow-[0_0_15px_rgba(139,92,246,0.5)] ml-4"> expert</span> guides.
               </h1>
