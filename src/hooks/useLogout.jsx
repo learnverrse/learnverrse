@@ -6,29 +6,37 @@ import { useNavigate } from 'react-router';
 const useLogout = () => {
   const { setAuth } = useAuthProvider();
   const navigate = useNavigate();
+
   const logout = async () => {
-    try {
-      const response = await axiosInstance.post(
-        import.meta.env.VITE_LOGOUT,
-        null,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(response.data);
-      setAuth({});
-      toast.success(response.data.message);
-      setAuth({});
-      localStorage.removeItem('leseauth');
-      navigate('/SignIn');
-    } catch (error) {
-      console.log(error);
-      if (error.message === 'Network Error') {
-        toast.error('Network Error: Please check your internet connection');
+    await toast.promise(
+      axiosInstance.post(import.meta.env.VITE_LOGOUT, null, {
+        withCredentials: true,
+      }),
+      {
+        pending: 'Logging out...',
+        success: {
+          render({ data }) {
+            // cleanup after successful logout
+            setAuth({});
+            localStorage.removeItem('leseauth');
+            navigate('/SignIn');
+            return data?.data?.message || 'Logout successful!';
+          },
+        },
+        error: {
+          render({ data: err }) {
+            const message =
+              err?.response?.data?.message ||
+              (err.message === 'Network Error'
+                ? 'Network Error: Please check your internet connection'
+                : 'Logout failed');
+            return message;
+          },
+        },
       }
-      toast.error(error.response.data.message);
-    }
+    );
   };
+
   return logout;
 };
 

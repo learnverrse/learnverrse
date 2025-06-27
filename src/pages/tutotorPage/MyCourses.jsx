@@ -54,11 +54,15 @@ const MyCourses = () => {
         import.meta.env.VITE_CREATE_COURSE
       );
 
-      toast.success(
-        'Course created successfully! You can now add content to it.'
-      );
-      await refetch();
-      toast('Click on the First Card to add content to your course');
+      if(response.data){
+        navigate(`/educator/upload-course/${response.data.data._id}`)
+        toast.success(
+          'Course created successfully! You can now add content to it.'
+        );
+        await refetch();
+
+      }
+     
     } catch (error) {
       console.log(error);
     }
