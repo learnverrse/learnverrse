@@ -1,5 +1,9 @@
 import React from 'react';
 import CourseCard from './CourseCard';
+import image234 from '@/assets/student-courses-images/image234.png';
+import image176744 from '@/assets/student-courses-images/176744.jpg';
+import image2149 from '@/assets/student-courses-images/2149.jpg';
+import image2213 from '@/assets/student-courses-images/2213.jpg';
 
 const CoursesSection = ({ limitCourses = null }) => {
   const courses = [
@@ -11,7 +15,7 @@ const CoursesSection = ({ limitCourses = null }) => {
       description:
         'Our team would will work closely with you to understand your strengths and experiences.',
       badge: 'Learnverrse',
-      src: '/learnverrse/src/assets/student-courses-images/image234.png',
+      src: image234,
     },
     {
       id: 2,
@@ -21,7 +25,7 @@ const CoursesSection = ({ limitCourses = null }) => {
       description:
         'Our team would will work closely with you to understand your strengths and experiences.',
       badge: 'Educator',
-      src: '/learnverrse/src/assets/student-courses-images/176744.jpg',
+      src: image176744,
     },
     {
       id: 3,
@@ -31,7 +35,7 @@ const CoursesSection = ({ limitCourses = null }) => {
       description:
         'Our team would will work closely with you to understand your strengths and experiences.',
       badge: 'Educator',
-      src: '/learnverrse/src/assets/student-courses-images/2149.jpg',
+      src: image2149,
     },
     {
       id: 4,
@@ -41,7 +45,7 @@ const CoursesSection = ({ limitCourses = null }) => {
       description:
         'Our team would will work closely with you to understand your strengths and experiences.',
       badge: 'Learnverrse',
-      src: '/learnverrse/src/assets/student-courses-images/2213.jpg',
+      src: image2213,
     },
   ];
 
