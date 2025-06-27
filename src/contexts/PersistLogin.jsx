@@ -38,7 +38,6 @@ const PersistLogin = () => {
         if (isMounted) {
           setAuth(null); // Clear auth on error
         }
-        console.error(error);
       } finally {
         if (isMounted) {
           setLoading(false);

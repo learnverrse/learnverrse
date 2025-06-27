@@ -21,7 +21,6 @@ const useAxiosPrivate = () => {
     const responseInterceptor = axiosPrivate.interceptors.response.use(
       (response) => response,
       async (error) => {
-        console.log(error);
         const originalRequest = error?.config;
         // Check if token expired
         if (error.response?.status === 401 && !originalRequest._retry) {

@@ -61,9 +61,7 @@ const ResetPassword = () => {
       );
 
       toast.success(response.data.message);
-      console.log(response.data);
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message || 'An error occurred');
     } finally {
       btnRef.current.innerHTML = 'Reset Password';

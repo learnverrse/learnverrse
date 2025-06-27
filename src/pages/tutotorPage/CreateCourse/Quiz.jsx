@@ -26,10 +26,10 @@ const Quiz = () => {
         );
         const data = res.data.data;
         setCourse(data);
-        console.log(data);
+        
       } catch (err) {
         toast.error('Failed to load course');
-        console.error(err);
+       
       } finally {
         setIsLoading(false);
       }

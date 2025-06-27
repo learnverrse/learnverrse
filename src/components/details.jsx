@@ -66,7 +66,7 @@ export const navLinks = [
     path: '#',
   },
 ];
-console.log;
+
 
 export const dashboardAsideMenu = [
   {

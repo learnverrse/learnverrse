@@ -7,14 +7,14 @@ const UploadCourse = () => {
   const [selectedVideo, setSelectedVideo] = useState([]);
 
   const handleFileChange = (e) => {
-    console.log(e.target.files);
+   
     let selectedFiles = [...e.target.files];
 
     setSelectedFile((prev) => [...prev, ...selectedFiles]);
     const previewURL = selectedFiles.map((file) => URL.createObjectURL(file));
 
     setFilesPreview((prev) => [...prev, ...previewURL]);
-    console.log(filesPreview);
+   
   };
 
   const handleVideoChange = (e) => {
@@ -24,7 +24,7 @@ const UploadCourse = () => {
     const previewURL = selectedFiles.map((file) => URL.createObjectURL(file));
 
     setVideoPreview((prev) => [...prev, ...previewURL]);
-    console.log(videoPreview);
+  
   };
 
   return (

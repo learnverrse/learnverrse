@@ -7,7 +7,6 @@ const QuizProvider = ({ children }) => {
 
   const [questionByWeek, setQuestionByWeek] = useState({});
 
-  console.log(questionByWeek);
   return (
     <QuizContext.Provider
       value={{

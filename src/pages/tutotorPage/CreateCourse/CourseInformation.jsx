@@ -56,7 +56,6 @@ const CourseInformation = () => {
           `${import.meta.env.VITE_GET_COURSE_BY_ID}/${courseId}`
         );
         const data = res.data.data;
-        console.log(data);
         setCourse(data);
         setTitle(data.title || '');
         setCategory(data.category || '');
@@ -65,7 +64,6 @@ const CourseInformation = () => {
         setPreviewImage(data.image || '');
       } catch (err) {
         toast.error('Failed to load course');
-        console.error(err);
       } finally {
         setIsLoading(false);
       }
@@ -106,11 +104,9 @@ const CourseInformation = () => {
         payload
       );
 
-      console.log('Upload URL response:', response.data);
 
       const { uploadUrl, videoUrl: finalImageUrl } = response.data.data;
 
-      console.log(finalImageUrl);
       // 2) PUT file to S3
       try {
         await axios.put(uploadUrl, imageToUpload, {
@@ -123,11 +119,9 @@ const CourseInformation = () => {
         setCourseImage(finalImageUrl);
         toast.success('Image uploaded successfully!');
       } catch (uploadErr) {
-        console.error('Failed to upload image to S3:', uploadErr);
         toast.error('Upload failed during file transfer');
       }
     } catch (error) {
-      console.error('Error fetching upload URL:', error);
       toast.error('Failed to get upload URL');
     } finally {
       setIsLoading(false);
@@ -160,7 +154,6 @@ const CourseInformation = () => {
       navigate(`/educator/upload-course-content/${courseId}`);
     } catch (err) {
       toast.error('Failed to update course');
-      console.error(err);
     } finally {
       setIsLoading(false);
     }

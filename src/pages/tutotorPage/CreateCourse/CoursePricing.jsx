@@ -26,14 +26,12 @@ const CoursePricing = () => {
           `${import.meta.env.VITE_GET_COURSE_BY_ID}/${courseId}`
         );
         const data = res.data.data;
-        console.log(data);
         setCourse(data);
         setSubscriptionType(data.subscription || 'free');
         setPrice(data.price || '');
         // setDiscount(data.discount|| '');
       } catch (err) {
         toast.error('Failed to load course');
-        console.error(err);
       } finally {
         setIsLoading(false);
       }
@@ -61,13 +59,11 @@ const CoursePricing = () => {
         `${import.meta.env.VITE_UPDATE_COURSE + '/' + courseId}`,
         updatedCourse
       );
-      console.log(res.data);
       toast.success(res.data?.message);
       toast('course has been saved as draft');
       navigate(`/educator/my-courses`);
     } catch (err) {
       toast.error('Failed to update course');
-      console.error(err);
     } finally {
       setIsLoading(false);
     }
@@ -90,7 +86,6 @@ const CoursePricing = () => {
       navigate(`/educator/my-courses`);
     } catch (err) {
       toast.error('Failed to update course');
-      console.error(err);
     } finally {
       setIsLoading(false);
     }
