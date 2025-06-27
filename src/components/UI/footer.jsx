@@ -8,8 +8,15 @@ import {
     instagram, 
     xTwitter, 
 } from "../details";
+import { useState } from "react";
 
 function Footer() {
+    const [openDropdown, setOpenDropdown] = useState(null);
+
+    const toggleDropdown = (section) => {
+        setOpenDropdown(openDropdown === section ? null : section);
+    };
+
     return (
         <footer className="container bg-[#121212] py-10 lg:px-10 lg:py-20">
             <div className="m-auto flex w-[90%] flex-col items-start justify-between lg:flex-row">
@@ -27,11 +34,11 @@ function Footer() {
                 <div className="flex flex-col space-y-6 text-white w-full md:w-auto order-2 md:order-none">
                     <div className="flex items-center justify-between">
                         <h2 className="text-xl font-bold">For Learner</h2>
-                        <button className="md:hidden">
-                            <FiChevronDown />
+                        <button className="md:hidden" onClick={() => toggleDropdown("learner")}>
+                            <FiChevronDown className={`${openDropdown === "learner" ? "rotate-180" : ""} transition-transform`} />
                         </button>
                     </div>
-                    <div className="hidden md:flex md:flex-col space-y-6">
+                    <div className={`${openDropdown === "learner" ? "flex" : "hidden"} md:flex flex-col space-y-6 mb-4 md:mb-0`}>
                         <a href="#">Browse Courses</a>
                         <a href="#">How It Works</a>
                         <a href="#">Pricing</a>
@@ -42,11 +49,11 @@ function Footer() {
                 <div className="flex flex-col space-y-6 text-white w-full md:w-auto order-3 md:order-none">
                     <div className="flex items-center justify-between">
                         <h2 className="text-xl font-bold">For Educator</h2>
-                        <button className="md:hidden">
-                            <FiChevronDown />
+                        <button className="md:hidden" onClick={() => toggleDropdown("educator")}>
+                            <FiChevronDown className={`${openDropdown === "educator" ? "rotate-180" : ""} transition-transform`} />
                         </button>
                     </div>
-                    <div className="hidden md:flex md:flex-col space-y-6">
+                    <div className={`${openDropdown === "educator" ? "flex" : "hidden"} md:flex flex-col space-y-6 mb-4 md:mb-0`}>
                         <a href="#">Become an educator</a>
                         <a href="#">Educator Dashboard</a>
                         <a href="#">Community</a>
@@ -56,11 +63,11 @@ function Footer() {
                 <div className="flex flex-col space-y-6 text-white w-full md:w-auto order-4 md:order-none">
                     <div className="flex items-center justify-between">
                         <h2 className="text-xl font-bold">Legal & Support</h2>
-                        <button className="md:hidden">
-                            <FiChevronDown />
+                        <button className="md:hidden" onClick={() => toggleDropdown("legal")}>
+                            <FiChevronDown className={`${openDropdown === "legal" ? "rotate-180" : ""} transition-transform`} />
                         </button>
                     </div>
-                    <div className="hidden md:flex md:flex-col space-y-6">
+                    <div className={`${openDropdown === "legal" ? "flex" : "hidden"} md:flex flex-col space-y-6 mb-4 md:mb-0`}>
                         <a href="#">Forms of Services</a>
                         <a href="#">Privacy Policy</a>
                         <a href="#">Cookies settings</a>
