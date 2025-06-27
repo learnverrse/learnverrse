@@ -9,7 +9,7 @@ const CourseCard = ({course}) => {
   return (
     <div
         onClick={() => navigate('/learner-dashboard/learning-page')}
-        className="overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-lg w-90 md:w-auto"
+        className="overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-lg w-full md:w-auto"
     >
         {/* course images */}
         <div className="h-48">
