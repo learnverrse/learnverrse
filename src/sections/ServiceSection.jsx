@@ -24,7 +24,7 @@ const ServiceSection = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:grid-cols-3">
                 <div className="rounded-4xl border border-[#6D28D2] py-3 text-center">
                   <div className="mb-3 flex items-center justify-center">
-                    <LiaBookSolid className="rounded-full bg-[#6d28d2] p-6 text-2xl text-white" />
+                    <LiaBookSolid className="rounded-full bg-[#6d28d2] text-7xl p-4 text-white" />
                   </div>
                   <h3 className="mb-2 text-base font-medium">Course Management</h3>
                   <p className="m-auto w-[80%] text-sm">
@@ -35,7 +35,7 @@ const ServiceSection = () => {
     
                 <div className="rounded-4xl border border-[#6D28D2] py-3 text-center">
                   <div className="mb-3 flex items-center justify-center">
-                    <GoVideo className="rounded-full bg-[#6d28d2] p-6 text-2xl text-white" />
+                    <GoVideo className="rounded-full bg-[#6d28d2] text-7xl p-4 text-white" />
                   </div>
                   <h3 className="mb-2 font-medium">Content Delivery</h3>
                   <p className="m-auto w-[80%] text-sm">
@@ -46,7 +46,7 @@ const ServiceSection = () => {
     
                 <div className="rounded-4xl border border-[#6D28D2] py-3 text-center">
                   <div className="mb-3 flex items-center justify-center">
-                    <FaFileAlt className="rounded-full bg-[#6d28d2] p-6 text-2xl text-white" />
+                    <FaFileAlt className="rounded-full bg-[#6d28d2] text-7xl p-4 text-white" />
                   </div>
                   <h3 className="mb-2 font-medium">Assessment Tools</h3>
                   <p className="m-auto w-[80%] text-sm">
@@ -57,7 +57,7 @@ const ServiceSection = () => {
     
                 <div className="rounded-4xl border border-[#6D28D2] py-3 text-center">
                   <div className="mb-3 flex items-center justify-center">
-                    <TiMessages className="rounded-full bg-[#6d28d2] p-6 text-2xl text-white" />
+                    <TiMessages className="rounded-full bg-[#6d28d2] text-7xl p-4 text-white" />
                   </div>
                   <h3 className="mb-2 font-medium">Communication</h3>
                   <p className="m-auto w-[80%] text-sm">
@@ -68,7 +68,7 @@ const ServiceSection = () => {
     
                 <div className="rounded-4xl border border-[#6D28D2] py-3 text-center">
                   <div className="mb-3 flex items-center justify-center">
-                    <MdOutlineAssessment className="rounded-full bg-[#6d28d2] p-6 text-2xl text-white" />
+                    <MdOutlineAssessment className="rounded-full bg-[#6d28d2] text-7xl p-4 text-white" />
                   </div>
                   <h3 className="mb-2 font-medium">Analytics</h3>
                   <p className="m-auto w-[80%] text-sm">
@@ -79,7 +79,7 @@ const ServiceSection = () => {
     
                 <div className="rounded-4xl border border-[#6D28D2] py-3 text-center">
                   <div className="mb-3 flex items-center justify-center">
-                    <TbCertificate className="rounded-full bg-[#6d28d2] p-6 text-2xl text-white" />
+                    <TbCertificate className="rounded-full bg-[#6d28d2] text-7xl p-4 text-white" />
                   </div>
                   <h3 className="mb-2 font-medium">Certification</h3>
                   <p className="m-auto w-[80%] text-sm">

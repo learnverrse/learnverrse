@@ -12,7 +12,7 @@ const Hero = () => {
       <div className="container mx-auto min-h-screen bg-white">
         {/* hero section */}
         <div className="px-6">
-          <div className="flex w-full flex-col-reverse items-center justify-between pt-10 text-center lg:flex-row lg:text-start">
+          <div className="flex w-full flex-col-reverse items-center justify-between text-center lg:flex-row lg:text-start">
             <div className="m-auto mb-6 max-w-7xl md:mb-0 md:w-1/2">
               <h1 className="mt-4 mb-4 text-3xl font-bold capitalize md:text-6xl lg:text-7xl">
                 Where curious minds meet
@@ -46,7 +46,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        <div className="pointer-events-none mt-5 w-full">
+        <div className="pointer-events-none mt-[-5px] w-full">
           <img
             src={radialGradient}
             alt="purple gradient"

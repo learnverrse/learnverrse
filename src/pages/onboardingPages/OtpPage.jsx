@@ -120,8 +120,8 @@ const OtpPage = () => {
               Verify your Email
             </h2>
             <p className="font-inter text-base font-normal text-[#6B6B6B]">
-              Enter the 6 digit code we sent to your email to complete reset
-              your password
+              Enter the 6 digit code we sent to your email to complete creating
+              your account.
             </p>
 
             {/*   <!-- Code Inputs --> */}

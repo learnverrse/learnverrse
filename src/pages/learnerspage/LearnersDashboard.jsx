@@ -4,8 +4,12 @@ import { FaBookBookmark } from 'react-icons/fa6';
 import { FaBookOpen } from 'react-icons/fa';
 import Handwave from './../../assets/learners-page-image/handwavee.png';
 import CalenderSection from '@/sections/CalenderSection';
+import useAuthProvider from '@/hooks/useAuthProvider';
 
 const LearnersDashboard = () => {
+  const {
+    auth: { user },
+  } = useAuthProvider();
   // Sample tasks data
   const tasks = [
     {
@@ -48,7 +52,7 @@ const LearnersDashboard = () => {
           <div className="flex">
             <div>
               <h1 className="text-2xl font-bold text-gray-800 md:text-3xl">
-                Welcome Back Kevin
+                Welcome Back {user.name}
               </h1>
               <p className="text-gray-500">Here's what's happening today</p>
             </div>

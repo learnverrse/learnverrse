@@ -8,9 +8,13 @@ const useLogout = () => {
   const navigate = useNavigate();
   const logout = async () => {
     try {
-      const response = await axiosInstance.post('logout', null, {
-        withCredentials: true,
-      });
+      const response = await axiosInstance.post(
+        import.meta.env.VITE_LOGOUT,
+        null,
+        {
+          withCredentials: true,
+        }
+      );
       console.log(response.data);
       setAuth({});
       toast.success(response.data.message);
