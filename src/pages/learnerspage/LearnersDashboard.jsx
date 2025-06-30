@@ -10,6 +10,7 @@ const LearnersDashboard = () => {
   const {
     auth: { user },
   } = useAuthProvider();
+  
   // Sample tasks data
   const tasks = [
     {
@@ -45,14 +46,14 @@ const LearnersDashboard = () => {
   ];
 
   return (
-    <div className="w-full md:grid md:grid-cols-12">
-      <div className="scroll-container col-span-8 h-screen flex-1 overflow-y-auto bg-gray-50 p-2 lg:col-span-9 lg:p-6">
+    <div className="grid w-full grid-cols-1 md:grid-cols-12">
+      <div className="scroll-container col-span-1 md:col-span-9 lg:col-span-9 h-screen flex-1 overflow-y-auto bg-gray-50 p-6">
         {/* Welcome Section */}
         <section className="mb-8">
           <div className="flex">
             <div>
               <h1 className="text-2xl font-bold text-gray-800 md:text-3xl">
-                Welcome Back {user.name}
+                Welcome Back {user?.name}
               </h1>
               <p className="text-gray-500">Here's what's happening today</p>
             </div>
@@ -67,7 +68,7 @@ const LearnersDashboard = () => {
         </section>
 
         {/* Stats Cards */}
-        <div className="mb-8 grid grid-cols-3 gap-6">
+        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
           <div className="relative rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
             <div className="flex items-center">
               <div className="absolute top-2 right-0 mr-4 rounded-lg border-2 border-purple-300 bg-purple-100 p-3">
@@ -104,8 +105,8 @@ const LearnersDashboard = () => {
             </div>
           </div>
         </div>
+        
         {/* Start Course */}
-
         <div className="mb-8">
           <button className="rounded-md bg-purple-700 px-6 py-2 text-white hover:bg-purple-600">
             Start New Course
@@ -148,37 +149,38 @@ const LearnersDashboard = () => {
         </section>
 
         {/* Tasks Section */}
-        <section className="mb-8 rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-xl font-bold text-gray-800">Tasks</h2>
-          <ul className="space-y-4">
+        <section className="mb-8 rounded-xl border border-gray-100 bg-white p-4 shadow-sm md:p-6">
+          <h2 className="mb-4 text-lg font-bold text-gray-800 md:text-xl">Tasks</h2>
+          
+          <div className="space-y-3 md:space-y-4">
             {tasks.map((task) => (
-              <li
+              <div
                 key={task.id}
-                className="flex flex-col items-center justify-between rounded-lg p-3 hover:bg-gray-50 md:flex-row"
+                className="flex flex-col items-center justify-between border-b border-gray-100 py-2 last:border-b-0 md:flex-row"
               >
-                <div className="flex flex-col">
-                  <span
-                    className={
-                      task.completed
-                        ? 'text-gray-400 line-through'
-                        : 'text-gray-700'
-                    }
-                  >
+                <div className="min-w-0 flex-1">
+                  <h3 className={`truncate text-sm font-medium md:text-base ${
+                    task.completed
+                      ? 'text-gray-400 line-through'
+                      : 'text-gray-800'
+                  }`}>
                     {task.title}
-                  </span>
-                  <span className="mt-2 text-sm text-gray-500">{task.due}</span>
+                  </h3>
+                  <p className="mt-1 text-xs text-gray-500 md:text-sm">
+                    {task.due}
+                  </p>
                 </div>
-                <button className="mt-4 rounded-full border-2 border-gray-300 px-4 text-black hover:bg-gray-200 md:mt-0">
+                <button className="mt-4 rounded-full border-2 border-gray-300 px-6 text-center text-black hover:bg-gray-200 md:mt-0">
                   View
                 </button>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </section>
       </div>
 
-      {/* calander column */}
-      <div className="col-span-4 h-screen lg:col-span-3">
+      {/* Calendar column - only shows on md+ screens */}
+      <div className="hidden md:block md:col-span-3 lg:col-span-3 h-screen">
         <div className="h-full overflow-y-auto p-4">
           <CalenderSection />
         </div>

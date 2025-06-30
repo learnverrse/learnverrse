@@ -74,8 +74,8 @@ const TutorsDashboard = () => {
   ];
 
   return (
-    <div className="grid w-full grid-cols-12">
-      <div className="scroll-container col-span-9 h-screen flex-1 overflow-y-auto bg-gray-50 p-6">
+    <div className="grid w-full grid-cols-1 md:grid-cols-12">
+      <div className="scroll-container col-span-1 md:col-span-9 lg:col-span-9 h-screen flex-1 overflow-y-auto bg-gray-50 p-6">
         {/* Welcome Section */}
         <section className="mb-8">
           <div className="flex">
@@ -213,9 +213,11 @@ const TutorsDashboard = () => {
         </section>
       </div>
 
-      {/* calander column */}
-      <div className="scroll-container col-span-3 overflow-y-auto">
-        <CalenderSection />
+      {/* Calendar column - only shows on md+ screens */}
+      <div className="hidden md:block md:col-span-3 lg:col-span-3 h-screen">
+        <div className="h-full overflow-y-auto p-4">
+          <CalenderSection />
+        </div>
       </div>
     </div>
   );
