@@ -37,7 +37,7 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
           </div>
 
           {/* search input */}
-          <div className="relative mx-4 hidden w-full md:max-w-xs max-w-md lg:block">
+          <div className="relative mx-4 hidden w-full md:max-w-3xs lg:max-w-xs max-w-md md:block">
             <input
               type="text"
               placeholder="Discover Courses To Learn"
@@ -53,7 +53,7 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
 
           {/* buttons */}
           <div className="gap-4 md:flex">
-            <div className="hidden items-center space-x-4 md:flex">
+            <div className="hidden items-center space-x-4 lg:flex">
               <Button
                 active={false}
                 label={'login'}
@@ -70,8 +70,19 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
                 }}
               />
             </div>
+
+            <div className='hidden md:block lg:hidden'>
+              <Button
+                active={true}
+                label={'join us now'}
+                fun={() => {
+                  navigate('/role-selector');
+                }}
+              />
+            </div>
+
             <button 
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-200 hover:bg-gray-300 focus:ring-2 focus:ring-purple-700 focus:outline-none lg:hidden"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-200 hover:bg-gray-300 focus:ring-2 focus:ring-purple-700 focus:outline-none md:hidden"
               onClick={toggleMobileMenu}
             >
               <FaBars />

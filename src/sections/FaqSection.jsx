@@ -53,13 +53,13 @@ function FaqSection() {
   };
 
   return (
-    <div className="container flex flex-col items-center justify-center py-10">
+    <div className="container flex flex-col items-center justify-center py-10 lg:py-16">
       <h2 className="mb-4 text-2xl lg:text-[40px] font-bold text-[#121212]">
         Frequently Asked Questions
       </h2>
       <p className="text-base lg:text-2xl">What questions do you need answered?</p>
 
-      <div className="m-auto mt-8 flex w-[90%] lg:w-[70%] flex-col-reverse items-center gap-y-6 md:gap-y-0 justify-between lg:px-4 md:flex-row md:p-6">
+      <div className="m-auto mt-8 flex w-[90%] md:w-[95%] lg:w-[70%] flex-col-reverse items-center gap-y-6 md:gap-y-0 justify-between lg:px-4 md:flex-row md:p-6">
         <div className="flex flex-col w-[90%] lg:w-[50%] space-y-5">
           {[
             {
@@ -97,7 +97,7 @@ function FaqSection() {
                 <img 
                   src={chevronRight} 
                   alt='toggle' 
-                  className={`hidden md:block transform transition-transform ${openQuestion === id ? "rotate-90" : "rotate-0"}`} 
+                  className={`hidden lg:block transform transition-transform ${openQuestion === id ? "rotate-90" : "rotate-0"}`} 
                 />
               </div>
               {openQuestion === id && (
@@ -109,7 +109,7 @@ function FaqSection() {
           ))}
         </div>
 
-        <div className="w-[60%] lg:w-[30%]">
+        <div className="w-[60%] lg:w-[30%] lg:self-start">
           <img src={faqHuman} alt="FAQ Illustration" className='' />
         </div>
       </div>

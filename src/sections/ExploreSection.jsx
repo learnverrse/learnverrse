@@ -6,22 +6,22 @@ import Button from '@/components/UI/Button';
 
 const ExploreSection = () => {
   return (
-     <div className="container flex flex-col items-center justify-center py-8">
-            <h2 className="mb-7 text-3xl font-bold lg:text-5xl text-[#121212]">
-              Explore Our Courses
-            </h2>
-            <p className="text-lg lg:text-2xl font-medium text-[#121212]">
-              Explore in demand skill courses
-            </p>
-            <div className="m-auto mt-8 w-full lg:w-[95%] bg-[#F0E5FF] px-2 py-14 lg:px-10 lg:py-6 md:rounded-lg
-            ">
-              <CoursesSection limitCourses={3} />
-               <Button
-                label={'View All Courses'}
-                active={true}
-              />
-            </div>
-          </div>
+    <div className="container flex flex-col items-center justify-center py-8">
+      <h2 className="mb-7 text-3xl font-bold lg:text-5xl text-[#121212]">
+        Explore Our Courses
+      </h2>
+      <p className="text-lg lg:text-2xl font-medium text-[#121212]">
+        Explore in demand skill courses
+      </p>
+      <div className="m-auto mt-8 w-full lg:w-[95%] bg-[#F0E5FF] px-2 py-14 lg:px-10 lg:py-6 md:rounded-lg
+      ">
+        <CoursesSection limitCourses={3} />
+          <Button
+          label={'View All Courses'}
+          active={true}
+        />
+      </div>
+    </div>
   )
 }
 
