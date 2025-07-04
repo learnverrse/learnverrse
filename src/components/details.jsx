@@ -54,9 +54,11 @@ export const banner = baseUrl + '/assets/banner.png';
 export const banners = baseUrl + '/assets/signup-img.png';
 export const emailPages = baseUrl + '/assets/email-img.svg';
 
+export const defaultCourse = baseUrl + '/assets/defaultCourse.jpg';
+
 export const navLinks = [
   {
-    name: 'explore',
+    name: 'courses',
     path: '#',
   },
   {
@@ -64,7 +66,7 @@ export const navLinks = [
     path: '#',
   },
 ];
-console.log;
+
 
 export const dashboardAsideMenu = [
   {

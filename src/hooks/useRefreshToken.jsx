@@ -4,13 +4,11 @@ import useAuthProvider from './useAuthProvider';
 const useRefreshToken = () => {
   const { setAuth } = useAuthProvider();
   const refresh = async () => {
-    const response = await axiosInstance.get('refresh', {
+    const response = await axiosInstance.get(import.meta.env.VITE_REFRESH, {
       withCredentials: true,
     });
 
     setAuth((prev) => {
-      console.log(JSON.stringify(prev));
-      console.log('new: ', JSON.stringify(response.data.token));
       return { ...prev, token: response.data.token };
     });
 

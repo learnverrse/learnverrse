@@ -74,8 +74,8 @@ const TutorsDashboard = () => {
   ];
 
   return (
-    <div className="grid w-full grid-cols-12">
-      <div className="scroll-container col-span-9 h-screen flex-1 overflow-y-auto bg-gray-50 p-6">
+    <div className="grid w-full grid-cols-1 md:grid-cols-12">
+      <div className="scroll-container col-span-1 h-screen flex-1 overflow-y-auto bg-gray-50 p-6 md:col-span-9 lg:col-span-9">
         {/* Welcome Section */}
         <section className="mb-8">
           <div className="flex">
@@ -96,39 +96,52 @@ const TutorsDashboard = () => {
         </section>
 
         {/* Stats Cards */}
-        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="relative rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
-            <div className="flex items-center">
-              <div className="absolute top-2 right-0 mr-4 rounded-lg border-2 border-purple-300 bg-purple-100 p-3">
-                <FaGraduationCap size={24} />
+        <div className="mb-8 grid grid-cols-3 gap-2 sm:gap-4 md:gap-6">
+          <div className="relative rounded-xl border border-gray-100 bg-white p-3 shadow-sm sm:p-4 md:p-6">
+            <div className="flex h-full flex-col sm:flex-row sm:items-center">
+              <div className="absolute top-2 right-2 rounded-lg border-2 border-purple-300 bg-purple-100 p-2 sm:top-2 sm:right-4 sm:p-3">
+                <FaGraduationCap className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6" />
               </div>
-              <div>
-                <h2 className="text-4xl font-bold text-gray-800">1300</h2>
-                <p className="text-gray-500">Total Students</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
-            <div className="flex items-center">
-              <div className="absolute top-2 right-0 mr-4 rounded-lg border-2 border-purple-300 bg-purple-100 p-3">
-                <FaBook size={24} />
-              </div>
-              <div>
-                <h2 className="text-4xl font-bold text-gray-800">3</h2>
-                <p className="text-gray-500"> Total Courses </p>
+              <div className="flex h-full flex-col justify-between">
+                <h2 className="text-xl font-bold text-gray-800 sm:text-2xl md:text-3xl lg:text-4xl">
+                  1300
+                </h2>
+                <p className="mt-auto text-xs text-gray-500 sm:text-sm md:text-base">
+                  Total Students
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="relative rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
-            <div className="flex items-center">
-              <div className="absolute top-2 right-0 mr-4 rounded-lg border-2 border-purple-300 bg-purple-100 p-3">
-                <PiNotePencilBold size={28} />
+          <div className="relative rounded-xl border border-gray-100 bg-white p-3 shadow-sm sm:p-4 md:p-6">
+            <div className="flex h-full flex-col sm:flex-row sm:items-center">
+              <div className="absolute top-2 right-2 rounded-lg border-2 border-purple-300 bg-purple-100 p-2 sm:top-2 sm:right-4 sm:p-3">
+                <FaBook className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6" />
               </div>
-              <div>
-                <h2 className="text-4xl font-bold text-gray-800">30</h2>
-                <p className="text-gray-500">Recent Enrollment</p>
+              <div className="flex h-full flex-col justify-between">
+                <h2 className="text-xl font-bold text-gray-800 sm:text-2xl md:text-3xl lg:text-4xl">
+                  3
+                </h2>
+                <p className="mt-auto text-xs text-gray-500 sm:text-sm md:text-base">
+                  {' '}
+                  Total Courses{' '}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative rounded-xl border border-gray-100 bg-white p-3 shadow-sm sm:p-4 md:p-6">
+            <div className="flex h-full flex-col sm:flex-row sm:items-center">
+              <div className="absolute top-2 right-2 rounded-lg border-2 border-purple-300 bg-purple-100 p-2 sm:top-2 sm:right-4 sm:p-3">
+                <PiNotePencilBold className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6" />
+              </div>
+              <div className="flex h-full flex-col justify-between">
+                <h2 className="text-xl font-bold text-gray-800 sm:text-2xl md:text-3xl lg:text-4xl">
+                  30
+                </h2>
+                <p className="mt-auto text-xs text-gray-500 sm:text-sm md:text-base">
+                  Recent Enrollment
+                </p>
               </div>
             </div>
           </div>
@@ -136,7 +149,7 @@ const TutorsDashboard = () => {
         {/* Start Course */}
 
         <div className="mb-8">
-          <button className="rounded-md bg-purple-700 px-6 py-2 text-white hover:bg-purple-600">
+          <button className="w-full rounded-md bg-purple-700 px-6 py-2 text-white hover:bg-purple-600 md:w-auto">
             Manage Courses
           </button>
         </div>
@@ -147,11 +160,11 @@ const TutorsDashboard = () => {
             <h2 className="text-xl font-bold text-gray-800">My Courses</h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2 xl:grid-cols-3">
+          <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto md:grid md:grid-cols-2 md:overflow-visible lg:grid-cols-3">
             {courses.map((course) => (
               <div
                 key={course.id}
-                className="rounded-lg border border-gray-200 p-4 transition-shadow hover:shadow-md"
+                className="w-full shrink-0 snap-center rounded-lg border border-gray-200 p-4 transition-shadow hover:shadow-md sm:min-w-[300px] md:min-w-0"
               >
                 <h3 className="mb-3 text-sm leading-tight font-semibold text-gray-800 md:text-base">
                   {course.title}
@@ -213,9 +226,11 @@ const TutorsDashboard = () => {
         </section>
       </div>
 
-      {/* calander column */}
-      <div className="scroll-container col-span-3 overflow-y-auto">
-        <CalenderSection />
+      {/* Calendar column - only shows on md+ screens */}
+      <div className="hidden h-screen md:col-span-3 md:block lg:col-span-3">
+        <div className="h-full overflow-y-auto p-4">
+          <CalenderSection />
+        </div>
       </div>
     </div>
   );

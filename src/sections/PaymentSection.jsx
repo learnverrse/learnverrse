@@ -8,7 +8,9 @@ const PaymentSection = () => {
               Plans For You
             </h2>
             <p className="text-lg lg:text-2xl">Choose the plan that fits your needs</p>
-            <div className="grid grid-cols-1 gap-6 px-10 py-8 m-auto md:grid-cols-2 lg:grid-cols-3">
+
+            <div className="grid grid-cols-1 gap-6 px-10 py-8 m-auto md:grid-cols-2 lg:grid-cols-3 md:max-w-4xl lg:max-w-none">
+              {/* Starter Plan */}
               <div className="flex flex-col rounded-2xl bg-white py-14 px-10 lg:py-16">
                 <h2 className="text-2xl font-bold">Starter</h2>
                 <p className="mt-5 text-sm">Perfect for getting started</p>
@@ -51,7 +53,7 @@ const PaymentSection = () => {
                   </div>
                 </div>
               </div>
-    
+              {/* Learner Plan */}
               <div className="flex flex-col rounded-2xl bg-white py-14 px-10 lg:py-16">
                 <h2 className="text-2xl font-bold">Learner</h2>
                 <p className="mt-5 text-sm">
@@ -97,7 +99,8 @@ const PaymentSection = () => {
                 </div>
               </div>
     
-              <div className="flex flex-col rounded-2xl bg-white py-14 px-10 lg:py-16">
+            {/* Educator Plan */}
+              <div className="flex flex-col rounded-2xl bg-white py-14 px-10 lg:py-16 md:col-span-2 md:max-w-md md:mx-auto lg:col-span-1 lg:max-w-none">
                 <h2 className="text-2xl font-bold">Educator</h2>
                 <p className="mt-5 text-sm">
                   For educators ready to teach and earn

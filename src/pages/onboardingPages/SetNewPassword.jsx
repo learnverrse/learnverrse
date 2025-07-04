@@ -54,11 +54,10 @@ const SetNewPassword = () => {
       password: data.confirmPassword,
     };
 
-    console.log(payload);
     try {
       buttonRef.current.innerHTML = 'Reseting.... Please wait';
       const newPasswordResponse = await axiosPrivate.post(
-        'reset-password',
+        import.meta.env.VITE_RESET_PASSWORD,
         payload,
         {
           headers: {
@@ -66,14 +65,12 @@ const SetNewPassword = () => {
           },
         }
       );
-      console.log(newPasswordResponse.data);
 
       toast.success(newPasswordResponse?.data?.message || 'success');
       navigate('/SignIn');
 
       localStorage.removeItem('learnVerrse-email');
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message);
     } finally {
       buttonRef.current.innerHTML = 'Reset Password';

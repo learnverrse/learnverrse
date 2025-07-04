@@ -43,7 +43,7 @@ const OtpPage = () => {
       otp: codes.join(''),
     };
 
-    console.log(payload);
+
     try {
       // verifying otp
       btnRef.current.innerHTML = 'Verifying...';
@@ -58,7 +58,7 @@ const OtpPage = () => {
       if (response.data.success === true) {
         // login in user if otp is verified
         toast.success(response.data.message + ' Signing in');
-        console.log(response.data);
+
 
         const loginPayload = {
           email,
@@ -73,7 +73,7 @@ const OtpPage = () => {
             }
           );
 
-          console.log(loginResponse.data);
+
           setAuth({
             user: loginResponse.data.user,
             token: loginResponse.data.token,
@@ -87,11 +87,11 @@ const OtpPage = () => {
           }
           localStorage.removeItem('learnCred');
         } catch (loginError) {
-          console.log(loginError);
+
         }
       }
     } catch (error) {
-      console.log(error);
+
       if (error.message === 'Network Error') {
         toast.error('Network Error: Please check your internet connection');
       } else
@@ -120,8 +120,8 @@ const OtpPage = () => {
               Verify your Email
             </h2>
             <p className="font-inter text-base font-normal text-[#6B6B6B]">
-              Enter the 6 digit code we sent to your email to complete reset
-              your password
+              Enter the 6 digit code we sent to your email to complete creating
+              your account.
             </p>
 
             {/*   <!-- Code Inputs --> */}

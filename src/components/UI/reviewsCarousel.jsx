@@ -4,11 +4,11 @@ import { fiveStar, fourStar, testimonialImg } from "../details";
 function ReviewsCarousel({ reviews }) {
   return (
     <div className="w-full">
-        <div className="mt-8 flex space-x-4 m-auto px-5 lg:px-4 md:grid gap-2 md:gap-6 md:px-10 md:grid-cols-2 lg:grid-cols-3 md:space-x-0 overflow-x-auto overflow-y-hidden md:overflow-hidden w-full ">
+        <div className="mt-8 flex space-x-4 m-auto px-5 lg:px-4 gap-2 md:gap-6 md:px-10 lg:grid-cols-3 md:space-x-0 overflow-x-auto overflow-y-hidden lg:overflow-hidden w-full ">
             {data.map((d, index) => (
                 <div
                     key={index}
-                    className="min-w-sm flex flex-col rounded-2xl border border-[#D9D9D9] p-6"
+                    className="min-w-sm flex flex-col rounded-2xl border border-white/20 p-6 backdrop-blur-md bg-white/10 shadow-xl hover:bg-white/15 transition-all duration-300 text-white"
                 >
                     <div className="mb-4 flex items-center gap-x-4">
                         <img src={d.profileImg} alt={d.name} />

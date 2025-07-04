@@ -64,7 +64,6 @@ const SignUp = () => {
       password: data.confirmPassword,
     };
 
-    console.log(payload);
     if (!regAs) {
       toast.error('please choose how you want to be registered');
       return;
@@ -83,11 +82,9 @@ const SignUp = () => {
         }
       );
 
-      console.log(response.data);
       toast('account created successfully');
       navigate('/otp');
     } catch (error) {
-      console.log(error);
       if (error.message === 'Network Error') {
         toast.error('Network Error: Please check your internet connection');
       } else if (error.response) {

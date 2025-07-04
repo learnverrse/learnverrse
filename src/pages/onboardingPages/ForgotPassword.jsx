@@ -17,18 +17,17 @@ const ForgotPassword = () => {
     btnRef.current.innerHTML = 'Sending Mail...';
     try {
       const response = await axiosInstance.post(
-        `${import.meta.env.VITE_API_URL + import.meta.env.VITE_FORGOT_PASSWORD}`,
+        import.meta.env.VITE_FORGOT_PASSWORD,
         { email: emailRef.current.value },
         {
           headers: { 'Content-Type': 'application/json' },
         }
       );
 
-      console.log(response.data);
+
       toast.success(response.data.message);
       navigate('/otp-reset-password');
     } catch (error) {
-      console.log(error.response.data);
       if (error.message === 'Network Error') {
         toast.error('Network Error: Please check your internet connection');
       } else if (error.response.data) {
