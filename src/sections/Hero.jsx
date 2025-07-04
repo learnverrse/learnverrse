@@ -19,7 +19,7 @@ const Hero = () => {
                 <span className="bg-purple-100 text-purple-700 italic md:text-4xl lg:text-5xl px-4 py-2 rounded-lg font-serif shadow-[0_0_15px_rgba(139,92,246,0.5)] ml-4"> expert</span> guides.
               </h1>
 
-              <p className="mt-8 mb-8 flex max-w-lg md:text-center text-lg text-black">
+              <p className="mt-8 mb-8 flex lg:max-w-lg md:text-center lg:text-start text-lg text-black">
                 Fuel your curiosity with guidance from experts who’ve walked the
                 path—learn deeply, grow confidently, and turn potential into
                 progress.
@@ -35,14 +35,14 @@ const Hero = () => {
                 />
               </div>
 
-              <div className='flex items-center mt-6 space-x-3'>
+              <div className='flex flex-col md:flex-row md:items-center mt-6 space-x-3'>
                 <div className='flex -space-x-4'>
                   <img src={testimonialImg} alt="" />
                   <img src={testimonialImg} alt="" />
                   <img src={testimonialImg} alt="" />
                 </div>
 
-                <p className='text-primary-600'>Join our users who benefit from our platform</p>
+                <p className='text-primary-600 mt-2 md:mt-0'>Join our users who benefit from our platform</p>
               </div>
             </div>
 
