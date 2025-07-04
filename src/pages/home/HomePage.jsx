@@ -1,7 +1,7 @@
 import React from 'react';
 import Hero from '@/sections/Hero';
 import HeaderNav from '@/components/UI/HeaderNav';
-import BrandSection from '../../sections/brandSection';
+import BrandSection from '../../sections/BrandSection';
 import ServiceSection from '../../sections/ServiceSection';
 import ExploreSection from '../../sections/ExploreSection';
 import TestimonialSection from '../../sections/TestimonialSection';
@@ -9,13 +9,8 @@ import PaymentSection from '../../sections/PaymentSection';
 import FaqSection from '../../sections/FaqSection';
 import FooterFaqSection from '@/sections/FooterFaqSection';
 
-
-
-
-
 import Footer from '@/components/UI/footer';
 import CourseSection from '../../sections/ExploreSection';
-
 
 const HomePage = () => {
   return (
