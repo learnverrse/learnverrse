@@ -160,7 +160,7 @@ const CourseInformation = () => {
   };
 
   return (
-    <div className="flex flex-col bg-gray-50 px-6 py-2">
+    <div className="flex flex-col bg-gray-50 px-6 py-2 h-[calc(100vh-80px)]">
       <CreateCourseNav />
       {isLoading ? (
         <Loader isLoading={isLoading} info={'Loading course information...'} />

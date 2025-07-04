@@ -69,8 +69,19 @@ const MyCourses = () => {
   };
 
   return (
-    <div className="h-full w-full">
-      <h1 className="mb-1.5 text-center text-2xl font-bold">My Courses</h1>
+    <div className="h-[calc(100vh-80px)] w-fit">
+      <div className='flex justify-between p-4 md:p-12 gap-4 items-center'>
+        <h1 className="mb-1.5 text-center text-xl md:text-2xl font-bold">My Courses</h1>
+        <div>
+              <Button
+                label={'Create Course'}
+                active={true}
+                fun={createCourse}
+              />
+            </div>
+
+      </div>
+      
 
       {isLoading || isFetching ? (
         <div className="flex h-full items-center justify-center">
@@ -122,15 +133,7 @@ const MyCourses = () => {
             )}
           </div>
 
-          <div className="flex items-center justify-center">
-            <div className="flex flex-col gap-6 pb-10">
-              <Button
-                label={'Create Course'}
-                active={true}
-                fun={createCourse}
-              />
-            </div>
-          </div>
+          
         </div>
       )}
     </div>

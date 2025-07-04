@@ -37,13 +37,19 @@ const Quiz = () => {
 
     if (courseId) fetchCourse();
   }, [courseId]);
+
+  const goBack = () => {
+    // Navigate to step 2 - adjust the route based on your routing structure
+    navigate(`/educator/upload-course-content/${courseId}`);
+  };
+
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50 px-6 py-2">
+    <div className="flex h-[calc(100vh-80px)] flex-col bg-gray-50 px-6 py-2 overflow-y-auto">
       <CreateCourseNav currentStep={3} />
       {isLoading ? (
         <Loader info="Loading quizz details..." isLoading={isLoading} />
       ) : (
-        <form action="" className="space-y-6">
+        <form action="" className="space-y-6 pb-8">
           <div>
             <label htmlFor="">Quiz Title</label>
             <input
@@ -80,7 +86,14 @@ const Quiz = () => {
               <FaCirclePlus className="h-6 w-6 text-black" /> Add Question
             </label>
           </div>
-          <div className="mt-12 flex justify-end">
+          <div className="mt-12 flex justify-between items-center gap-4">
+            <button
+              type="button"
+              className="rounded-full bg-gray-600 px-8 py-3 font-medium text-white hover:bg-gray-700"
+              onClick={goBack}
+            >
+              Back
+            </button>
             <Button
               active={true}
               label="save & continue"
