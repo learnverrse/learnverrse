@@ -28,7 +28,6 @@ import NotFound from '@/pages/home/NotFound';
 
 import QuizUI from '@/pages/StudentCourse/QuizUI';
 
-
 export const routes = [
   {
     path: '/',
