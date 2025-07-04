@@ -46,6 +46,11 @@ const CoursePricing = () => {
     }
   };
 
+  const goBack = () => {
+    // Navigate to step 3 - adjust the route based on your routing structure
+    navigate(`/educator/quiz/${courseId}`);
+  };
+
   const saveAsDraft = async (e) => {
     e.preventDefault();
     const updatedCourse = {
@@ -91,7 +96,7 @@ const CoursePricing = () => {
     }
   };
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50 px-6 py-2">
+    <div className="flex h-[calc(100vh-80px)] flex-col bg-gray-50 px-6 py-2 overflow-y-auto">
       <CreateCourseNav currentStep={4} />
       {isLoading ? (
         <Loader
@@ -99,7 +104,7 @@ const CoursePricing = () => {
           info={'fetching course pricing information'}
         />
       ) : (
-        <form action="" className="space-y-6">
+        <form action="" className="space-y-6 pb-8">
           <p className="text-sm text-gray-500">
             Create and define what your course is all about{' '}
           </p>
@@ -202,7 +207,14 @@ const CoursePricing = () => {
               Save as Draft
             </button>
           </div>
-          <div className="mt-4 flex justify-end">
+          <div className="mt-4 flex justify-between items-center gap-4">
+            <button
+              type="button"
+              className="rounded-full bg-gray-600 px-8 py-3 font-medium text-white hover:bg-gray-700"
+              onClick={goBack}
+            >
+              Back
+            </button>
             <button
               type="submit"
               className="rounded-full bg-purple-600 px-8 py-3 font-medium text-white hover:bg-purple-700"
