@@ -43,6 +43,8 @@ const Hero = () => {
                     <img src={testimonialImg} alt="" />
                     <img src={testimonialImg} alt="" />
                     <img src={testimonialImg} alt="" />
+                    <img src={testimonialImg} alt="" />
+                    <img src={testimonialImg} alt="" />
                   </div>
 
                   <p className="text-primary-600 mt-2 md:mt-0">

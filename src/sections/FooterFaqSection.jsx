@@ -1,6 +1,5 @@
 import React from 'react';
 import { blackMaleImg, femaleImg, maleImg } from '../components/details';
-import Button from '@/components/UI/Button';
 
 const FooterFaqSection = () => {
   return (
