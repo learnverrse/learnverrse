@@ -2,7 +2,7 @@ import { GridLoader } from 'react-spinners';
 
 const Loader = ({ isLoading, info }) => {
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-4">
+    <div className="flex h-full w-full flex-col items-center justify-center gap-4">
       <GridLoader
         color="#6d28d2"
         loading={isLoading}

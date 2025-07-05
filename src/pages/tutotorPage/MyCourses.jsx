@@ -22,7 +22,7 @@ const MyCourses = () => {
 
     try {
       const response = await axiosPrivate.get(
-        `courses/educator?page=${currentPage}&limit=${limit}`
+        `courses/educator?ownCoursesOnly=true`
       );
       return response.data;
     } catch (error) {
@@ -72,7 +72,7 @@ const MyCourses = () => {
       </div>
 
       {isLoading || isFetching ? (
-        <div className="flex h-full items-center justify-center">
+        <div className="flex h-2/3 w-[70vw] items-center justify-center">
           <Loader isLoading={isLoading} info={'Fetching your courses...'} />
         </div>
       ) : (
