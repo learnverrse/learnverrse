@@ -33,9 +33,10 @@ const SignUp = () => {
       .string()
       .min(6, 'Password must be at least 6 characters')
       .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+      .matches(/[0-9]/, 'Password must contain at least one number')
       .matches(
-        /[@$!%*?&]/,
-        'Password must contain at least one special character @$!%*?&'
+        /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]/,
+        ` Password must contain at least one special character [!@#$%^...`
       )
       .required('password is required'),
     confirmPassword: yup
@@ -65,40 +66,53 @@ const SignUp = () => {
     };
 
     if (!regAs) {
-      toast.error('please choose how you want to be registered');
+      toast.error('Please choose how you want to be registered');
       return;
     }
+
+    signUpBtnRef.current.innerHTML = 'Signing Up';
+    localStorage.setItem('learnCred', JSON.stringify(payload));
+    localStorage.setItem('learnVerrse-email', data.email);
+
     try {
-      localStorage.setItem('learnCred', JSON.stringify(payload)),
-        (signUpBtnRef.current.innerHTML = 'Signing Up');
-
-      localStorage.setItem('learnVerrse-email', data.email);
-
-      const response = await axiosInstance.post(
-        import.meta.env.VITE_REGISTER,
-        payload,
-        {
+      await toast.promise(
+        axiosInstance.post(import.meta.env.VITE_REGISTER, payload, {
           headers: { 'Content-Type': 'application/json' },
+        }),
+        {
+          pending: 'Creating your account...',
+          success: {
+            render({ data }) {
+              const { success } = data.data;
+              if (success) {
+                navigate('/otp');
+                return 'Account created successfully';
+              }
+              return 'Unexpected response. Please try again';
+            },
+          },
+          error: {
+            render({ data }) {
+              const error = data;
+              if (error.message === 'Network Error') {
+                return 'Network Error: Please check your internet connection';
+              }
+              return error.response?.data?.message || 'Something went wrong';
+            },
+          },
         }
       );
-
-      toast('account created successfully');
-      navigate('/otp');
-    } catch (error) {
-      if (error.message === 'Network Error') {
-        toast.error('Network Error: Please check your internet connection');
-      } else if (error.response) {
-        // Show the actual server-side error messag
-        toast.error(error.response?.data?.message || 'Something went wrong'); // or show a toast, etc.
-      }
+    } catch (err) {
+      // Already handled in toast.promise, so no need to toast here
+      console.error(err);
     } finally {
-      signUpBtnRef.current.innerHTML = 'Sing up';
+      signUpBtnRef.current.innerHTML = 'Sign up';
     }
   };
 
   return (
     <div className="flex h-screen w-full overflow-hidden">
-      <div className="mr-24 hidden lg:block ">
+      <div className="mr-24 hidden lg:block">
         <img
           src={banners}
           alt="Signup banner image"
@@ -304,14 +318,14 @@ const SignUp = () => {
               alt=""
             />
           </div>
-          <button className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#6B6B6B] px-4 py-3 text-base leading-6 font-semibold text-[#121212] md:w-[430px]">
+          {/* <button className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#6B6B6B] px-4 py-3 text-base leading-6 font-semibold text-[#121212] md:w-[430px]">
             <img
               src="src/assets/Sign-up Images/flat-color-icons_google.svg"
               alt=""
               className="w-[5%] px-0 py-0"
             />
             Sign Up with Google
-          </button>
+          </button>*/}
 
           <div className="mt-4 flex items-center justify-center">
             <p className="text-base leading-6 font-medium text-[#3E3E3E]">
