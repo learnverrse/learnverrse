@@ -1,29 +1,26 @@
-import React from 'react'
-import {dataAnalytics, cyberSecurity, uiUx,   } from '../components/details';
+import React from 'react';
+import { dataAnalytics, cyberSecurity, uiUx } from '../components/details';
 import CoursesSection from '@/components/UI/CourseSection';
 import Button from '@/components/UI/Button';
 
-
 const ExploreSection = () => {
   return (
-    <div className="container flex flex-col items-center justify-center py-8">
-      <h2 className="mb-7 text-3xl font-bold lg:text-5xl text-[#121212]">
-        Explore Our Courses
-      </h2>
-      <p className="text-lg lg:text-2xl font-medium text-[#121212]">
-        Explore in demand skill courses
-      </p>
-      <div className="m-auto mt-8 w-full lg:w-[95%] bg-[#F0E5FF] px-2 py-14 lg:px-10 lg:py-6 md:rounded-lg
-      ">
-        <CoursesSection limitCourses={3} />
-          <Button
-          label={'View All Courses'}
-          active={true}
-        />
+    <div className="flex w-full flex-col items-center justify-center py-12 lg:min-h-screen lg:py-16">
+      <div className="container flex flex-col items-center justify-center">
+        <h2 className="mb-7 text-3xl font-bold text-[#121212] lg:text-5xl">
+          Explore Our Courses
+        </h2>
+        <p className="text-lg font-medium text-[#121212] lg:text-2xl">
+          Explore in demand skill courses
+        </p>
+        <div className="m-auto mt-8 w-full bg-[#F0E5FF] px-2 py-14 md:rounded-lg lg:w-[95%] lg:px-10 lg:py-6">
+          <CoursesSection limitCourses={3} />
+          <Button label={'View All Courses'} active={true} />
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 // const CourseSection = () => {
 //   return (
@@ -56,4 +53,4 @@ const ExploreSection = () => {
 //   },
 // ]
 
-export default ExploreSection
+export default ExploreSection;
