@@ -14,7 +14,7 @@ const MyCourses = () => {
   const axiosPrivate = useAxiosPrivate();
 
   const [page, setPage] = useState(1);
-  const limit = 5;
+  const limit = 10;
 
   // ✅ Fetch courses with pagination
   const fetchAllCourses = async ({ queryKey }) => {
@@ -26,8 +26,6 @@ const MyCourses = () => {
       );
       return response.data;
     } catch (error) {
-     
-
       const errorMessage =
         error.response?.data?.message || 'Something went wrong';
 
@@ -39,13 +37,10 @@ const MyCourses = () => {
     }
   };
 
-  const {
-    data,
-    isLoading,
-    isError,
-    refetch,
-    isFetching,
-  } = useQuery(['allCourses', page], fetchAllCourses);
+  const { data, isLoading, isError, refetch, isFetching } = useQuery(
+    ['allCourses', page],
+    fetchAllCourses
+  );
 
   const createCourse = async () => {
     try {
@@ -54,34 +49,27 @@ const MyCourses = () => {
         import.meta.env.VITE_CREATE_COURSE
       );
 
-      if(response.data){
-        navigate(`/educator/upload-course/${response.data.data._id}`)
+      if (response.data) {
+        navigate(`/educator/upload-course/${response.data.data._id}`);
         toast.success(
           'Course created successfully! You can now add content to it.'
         );
         await refetch();
-
       }
-     
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   return (
     <div className="h-[calc(100vh-80px)] w-fit">
-      <div className='flex justify-between p-4 md:p-12 gap-4 items-center'>
-        <h1 className="mb-1.5 text-center text-xl md:text-2xl font-bold">My Courses</h1>
-        <div>
-              <Button
-                label={'Create Course'}
-                active={true}
-                fun={createCourse}
-              />
-            </div>
-
+      <div className="flex items-center justify-between gap-4 p-4 md:p-6">
+        <h1 className="mb-1.5 text-center text-xl font-bold md:text-2xl">
+          My Courses
+        </h1>
+        {/* make it fixed instead */}
+        <div className="fixed bottom-[20px] left-1/2 -translate-x-1/2">
+          <Button label={'Create Course'} active={true} fun={createCourse} />
+        </div>
       </div>
-      
 
       {isLoading || isFetching ? (
         <div className="flex h-full items-center justify-center">
@@ -97,18 +85,18 @@ const MyCourses = () => {
                   {data?.totalCourses > 1 ? 's' : ''}
                 </p>
 
-                <div className="flex flex-wrap items-center gap-8">
+                <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-evenly">
                   {data?.data.map((course) => (
                     <SingleCourse course={course} key={course._id} />
                   ))}
                 </div>
 
                 {/* ✅ Pagination Controls */}
-                <div className="mt-6 flex items-center gap-4">
+                <div className="mt-6 flex items-center gap-4 pb-10">
                   {data?.pagination?.hasPrevPage && (
                     <button
                       onClick={() => setPage((prev) => prev - 1)}
-                      className="text-primary-500 p-2 cursor-pointer"
+                      className="text-primary-500 cursor-pointer p-2"
                     >
                       Previous
                     </button>
@@ -121,7 +109,7 @@ const MyCourses = () => {
                   {data?.pagination?.hasNextPage && (
                     <button
                       onClick={() => setPage((prev) => prev + 1)}
-                      className="text-primary-500 p-2 cursor-pointer"
+                      className="text-primary-500 cursor-pointer p-2"
                     >
                       Next
                     </button>
@@ -132,8 +120,6 @@ const MyCourses = () => {
               <p className="text-heading text-sm">You have no courses yet</p>
             )}
           </div>
-
-          
         </div>
       )}
     </div>

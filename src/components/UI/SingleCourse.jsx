@@ -36,7 +36,7 @@ const SingleCourse = ({ course }) => {
     }
   };
   return (
-    <div className="flex w-full max-w-[349px] flex-col gap-4">
+    <div className="flex w-full max-w-[349px] basis-full flex-col gap-4 sm:basis-[47%] lg:basis-[31%]">
       <img
         src={course.image === '' ? `${course.image}` : `${defaultCourse}`}
         alt={course.title}
