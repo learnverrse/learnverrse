@@ -27,6 +27,7 @@ import SetNewPassword from '@/pages/onboardingPages/SetNewPassword';
 import NotFound from '@/pages/home/NotFound';
 
 import QuizUI from '@/pages/StudentCourse/QuizUI';
+import About from '@/pages/home/AboutPage';
 
 export const routes = [
   {
@@ -68,6 +69,10 @@ export const routes = [
   {
     path: '*',
     element: <NotFound />,
+  },
+  {
+    path: '/about',
+    element: <About />,
   },
   // tests
 

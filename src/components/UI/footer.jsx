@@ -119,8 +119,8 @@ function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 w-full">
-          <img src={footerLine} alt="" />
+        <div className="mt-16 w-full ">
+          <img src={footerLine} alt="" className='w-full'/>
         </div>
 
         <div className="mt-10 flex flex-col items-center justify-between space-y-5 text-white md:flex-row md:space-y-0">
