@@ -14,11 +14,11 @@ const About = () => {
 
             {/* Story Section */}
             <div className="w-full lg:min-h-screen py-12 lg:py-30 bg-radial-[at_5%_15%] from-purple-300 via-purple-700 via-20% to-purple-800 to-95%">
-                <div className="flex justify-around items-center">
-                    <div className="">
+                <div className="flex flex-col lg:flex-row justify-around items-center w-[90%] md:w-full m-auto">
+                    <div className=" ">
                         <img src={aboutHuman} alt="" className="" />
                     </div>
-                    <div className="flex flex-col space-y-10 text-white w-1/2">
+                    <div className="flex flex-col space-y-5 lg:space-y-10 text-white mt-5 md:w-[90%] lg:mt-0 lg:w-1/2 text-center lg:text-start">
                         <h2 className="text-4xl font-bold">Our Story</h2>
                         <p className="text-xl font-medium">
                             Learnverrse was born from a simple but powerful idea: learning should feel like a conversation with a guide, not a lecture from a screen. We saw a gap between traditional online courses and real, engaging mentorship .and we decided to bridge it.
@@ -33,8 +33,8 @@ const About = () => {
 
             {/* Mission section */}
             <div className="bg-primary-100 py-12 lg:py-20">
-                <div className="flex justify-between w-[80%] m-auto gap-x-5">
-                    <div className="bg-white w-[70%] px-5 py-5 border border-l-4 border-l-primary-500 rounded-[6px] space-y-3 flex flex-col items-start">
+                <div className="flex flex-col lg:flex-row w-[90%] lg:w-[80%] justify-between gap-y-5 lg:gap-y-0 lg:gap-x-5 m-auto">
+                    <div className="bg-white w-full lg:w-[70%] px-8 py-10 lg:px-5 lg:py-5 border border-l-4 border-l-primary-500 rounded-[6px] space-y-3 flex flex-col items-start">
                         <div className="flex items-center space-x-2">
                             <RiMapPinFill className="text-primary-500 w-10 h-5"/>
                             <h2 className="text-3xl font-bold">Our Mission</h2>
@@ -46,7 +46,7 @@ const About = () => {
                         </p>
                     </div>
 
-                    <div className="bg-white w-[70%] px-5 py-5 border border-l-4 border-l-primary-500 rounded-[6px] space-y-3 flex flex-col items-start">
+                    <div className="bg-white w-full lg:w-[70%] px-8 py-10 lg:px-5 lg:py-5 border border-l-4 border-l-primary-500 rounded-[6px] space-y-3 flex flex-col items-start">
                         <div className="flex items-center space-x-2">
                             <BsEyeFill className="text-primary-500 w-10 h-5"/>
                             <h2 className="text-3xl font-bold">Our Vision</h2>
