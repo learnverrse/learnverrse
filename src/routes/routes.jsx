@@ -23,10 +23,10 @@ import StudentCourses from '@/pages/learnerspage/StudentCourses';
 import RoleSelector from '@/pages/onboardingPages/RoleSelector';
 import LearningPage from '@/pages/StudentCourse/LearningPage';
 import SetNewPassword from '@/pages/onboardingPages/SetNewPassword';
-
+import MainView from '@/pages/ContentViewer/MainView';
 import NotFound from '@/pages/home/NotFound';
 
-import QuizUI from '@/pages/StudentCourse/QuizUI';
+import QuizUI from '@/pages/ContentViewer/QuizUI';
 import About from '@/pages/home/AboutPage';
 
 export const routes = [
@@ -79,7 +79,7 @@ export const routes = [
   // {
   //   path: 'test',
 
-  //   element: <LearningPage />,
+  //   element: <MainView />,
   // },
 
   // 👨‍🏫 Educator Routes
@@ -150,7 +150,7 @@ export const routes = [
           },
           {
             path: 'learning-page',
-            element: <LearningPage />,
+            element: <MainView />,
           },
           {
             path: 'Quiz-UI',
