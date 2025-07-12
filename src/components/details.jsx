@@ -65,7 +65,7 @@ export const navLinks = [
   },
   {
     name: 'about',
-    path: '#',
+    path: '/about',
   },
 ];
 
