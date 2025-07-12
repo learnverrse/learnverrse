@@ -1,0 +1,197 @@
+{
+  "title": "Product Design",
+  "sections": [
+    {
+      "title": "Fundamentals",
+      "lessons": [
+        {
+          "title": "UX and UI basics",
+          "description": "Learn the fundamentals of user-centered design and create experiences that inspire.",
+          "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+          "videoDuration": 447,
+          "videoProgress": 0,
+          "backgroundImage": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23065f46;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23047857;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23grad)' /%3E%3Cg transform='translate(200,100)'%3E%3Cpath d='M0,0 Q200,50 400,0 Q400,100 200,150 Q0,100 0,0' fill='%23065f46' opacity='0.3'/%3E%3C/g%3E%3Cg transform='translate(100,200)'%3E%3Cpath d='M0,0 Q300,20 600,0 Q550,80 300,100 Q50,80 0,0' fill='%23047857' opacity='0.4'/%3E%3C/g%3E%3Cg transform='translate(300,250)'%3E%3Cpath d='M0,0 Q100,30 200,0 Q180,50 100,60 Q20,50 0,0' fill='%2310b981' opacity='0.5'/%3E%3C/g%3E%3C/svg%3E",
+          "pdfContent": {
+            "title": "UX and UI Basics - Study Guide",
+            "pages": [
+              {
+                "title": "Page 1: Introduction to UX/UI",
+                "content": "\n# UX and UI Basics\n\n## What is User Experience (UX)?\nUser Experience encompasses all aspects of the end-user's interaction with a company, its services, and its products. It's about creating meaningful and relevant experiences for users.\n\n## Key UX Principles:\n- **User-Centered Design**: Put the user at the center of all design decisions\n- **Usability**: Make interfaces easy to use and understand\n- **Accessibility**: Ensure everyone can use your product\n- **Consistency**: Maintain uniformity across all touchpoints\n\n## What is User Interface (UI)?\nUser Interface is the space where interactions between humans and machines occur. It's the visual and interactive elements that users engage with.\n\n## UI Design Elements:\n- Typography and color schemes\n- Buttons and interactive elements\n- Layout and spacing\n- Icons and imagery\n                "
+              },
+              {
+                "title": "Page 2: Design Process",
+                "content": "\n# The Design Process\n\n## 1. Research & Discovery\n- User interviews and surveys\n- Competitive analysis\n- Market research\n- Persona development\n\n## 2. Ideation & Concepts\n- Brainstorming sessions\n- Sketching and wireframing\n- User journey mapping\n- Information architecture\n\n## 3. Design & Prototyping\n- Visual design creation\n- Interactive prototypes\n- Design system development\n- Collaboration with developers\n\n## 4. Testing & Iteration\n- Usability testing\n- A/B testing\n- Feedback collection\n- Continuous improvement\n\n## Tools of the Trade:\n- **Figma**: Collaborative design tool\n- **Sketch**: Vector-based design tool\n- **Adobe XD**: User experience design software\n- **InVision**: Prototyping and collaboration platform\n                "
+              },
+              {
+                "title": "Page 3: Best Practices",
+                "content": "\n# Design Best Practices\n\n## Visual Hierarchy\n- Use size, color, and contrast to guide attention\n- Establish clear information hierarchy\n- Group related elements together\n- Use white space effectively\n\n## Typography Guidelines\n- Choose readable fonts\n- Maintain consistent font sizes\n- Use appropriate line spacing\n- Limit font families (2-3 max)\n\n## Color Theory\n- Understand color psychology\n- Maintain sufficient contrast ratios\n- Use color consistently across the interface\n- Consider accessibility requirements\n\n## Interaction Design\n- Provide clear feedback for user actions\n- Use familiar interaction patterns\n- Minimize cognitive load\n- Design for different device sizes\n\n## Mobile-First Approach\n- Start with mobile constraints\n- Progressive enhancement for larger screens\n- Touch-friendly interface elements\n- Optimize for various screen sizes\n                "
+              }
+            ]
+          }
+        },
+        {
+          "title": "Design Thinking Process",
+          "description": "Explore the 5 stages of design thinking and how to apply them to real-world problems.",
+          "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+          "videoDuration": 512,
+          "videoProgress": 0,
+          "backgroundImage": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%236d28d9;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%238b5cf6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23grad)' /%3E%3Cg transform='translate(150,100)'%3E%3Cpath d='M0,0 Q250,40 500,0 Q450,120 250,180 Q50,120 0,0' fill='%236d28d9' opacity='0.3'/%3E%3C/g%3E%3Cg transform='translate(200,250)'%3E%3Cpath d='M0,0 Q150,30 300,0 Q250,70 150,90 Q50,70 0,0' fill='%238b5cf6' opacity='0.4'/%3E%3C/g%3E%3C/svg%3E",
+          "pdfContent": {
+            "title": "Design Thinking - Study Guide",
+            "pages": [
+              {
+                "title": "Page 1: Introduction to Design Thinking",
+                "content": "\n# Design Thinking Process\n\n## What is Design Thinking?\nDesign Thinking is a human-centered approach to innovation that draws from the designer's toolkit to integrate the needs of people, the possibilities of technology, and the requirements for business success.\n\n## The 5 Stages:\n1. **Empathize**: Understand your users' needs\n2. **Define**: Clearly articulate the problem\n3. **Ideate**: Brainstorm potential solutions\n4. **Prototype**: Build tangible representations\n5. **Test**: Validate with real users\n\n## Benefits:\n- Fosters innovation and creativity\n- Reduces risk of building the wrong thing\n- Creates solutions that truly meet user needs\n- Encourages collaboration across teams"
+              },
+              {
+                "title": "Page 2: Applying Design Thinking",
+                "content": "\n# Applying Design Thinking\n\n## Empathy in Practice\n- Conduct user interviews\n- Create empathy maps\n- Observe user behavior\n- Develop user personas\n\n## Defining the Problem\n- Create 'How Might We' questions\n- Develop point of view statements\n- Identify constraints and requirements\n\n## Ideation Techniques\n- Brainstorming rules\n- Worst possible idea\n- Mind mapping\n- Storyboarding\n\n## Prototyping Approaches\n- Paper prototypes\n- Digital wireframes\n- Role playing\n- Physical models\n\n## Testing Strategies\n- Usability testing\n- A/B testing\n- Feedback sessions\n- Iterative refinement"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "UX Research",
+      "lessons": [
+        {
+          "title": "User Interviews",
+          "description": "Learn how to conduct effective user interviews to gather qualitative insights.",
+          "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+          "videoDuration": 385,
+          "videoProgress": 0,
+          "backgroundImage": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23b45309;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23f59e0b;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23grad)' /%3E%3Cg transform='translate(100,150)'%3E%3Cpath d='M0,0 Q300,60 600,0 Q550,150 300,200 Q50,150 0,0' fill='%23b45309' opacity='0.3'/%3E%3C/g%3E%3Cg transform='translate(200,300)'%3E%3Cpath d='M0,0 Q200,40 400,0 Q350,80 200,100 Q50,80 0,0' fill='%23f59e0b' opacity='0.4'/%3E%3C/g%3E%3C/svg%3E",
+          "pdfContent": {
+            "title": "User Interviews - Study Guide",
+            "pages": [
+              {
+                "title": "Page 1: Conducting User Interviews",
+                "content": "\n# User Interviews\n\n## Why Conduct User Interviews?\n- Gain deep qualitative insights\n- Understand user motivations\n- Discover pain points\n- Validate assumptions\n\n## Preparing for Interviews\n1. Define your research goals\n2. Recruit representative participants\n3. Prepare an interview guide\n4. Choose the right environment\n\n## Effective Questions\n- Open-ended questions\n- Follow-up probes\n- Avoid leading questions\n- Focus on behaviors not opinions\n\n## Common Mistakes\n- Asking yes/no questions\n- Talking too much\n- Leading the participant\n- Not listening actively"
+              },
+              {
+                "title": "Page 2: Analyzing Interview Data",
+                "content": "\n# Analyzing Interview Data\n\n## Transcription Tips\n- Record with permission\n- Use transcription software\n- Note nonverbal cues\n- Highlight key quotes\n\n## Thematic Analysis\n1. Read through all transcripts\n2. Code interesting excerpts\n3. Group codes into themes\n4. Refine themes\n\n## Creating Insights\n- Look for patterns\n- Identify contradictions\n- Connect to business goals\n- Prioritize findings\n\n## Presenting Results\n- Create user personas\n- Develop journey maps\n- Highlight key quotes\n- Share video clips"
+              }
+            ]
+          }
+        },
+        {
+          "title": "Usability Testing",
+          "description": "Master the techniques for planning and conducting effective usability tests.",
+          "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+          "videoDuration": 428,
+          "videoProgress": 0,
+          "backgroundImage": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%230e7490;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%2306b6d4;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23grad)' /%3E%3Cg transform='translate(150,100)'%3E%3Cpath d='M0,0 Q250,50 500,0 Q450,120 250,180 Q50,120 0,0' fill='%230e7490' opacity='0.3'/%3E%3C/g%3E%3Cg transform='translate(100,250)'%3E%3Cpath d='M0,0 Q300,40 600,0 Q550,80 300,100 Q50,80 0,0' fill='%2306b6d4' opacity='0.4'/%3E%3C/g%3E%3C/svg%3E",
+          "pdfContent": {
+            "title": "Usability Testing - Study Guide",
+            "pages": [
+              {
+                "title": "Page 1: Planning Usability Tests",
+                "content": "\n# Usability Testing\n\n## What is Usability Testing?\nObserving users as they attempt to complete tasks with your product to identify usability problems.\n\n## Planning Your Test\n1. Define objectives\n2. Choose methodology\n3. Recruit participants\n4. Prepare test materials\n\n## Test Types\n- Moderated vs. unmoderated\n- Remote vs. in-person\n- Think-aloud protocol\n- Benchmark testing\n\n## Creating Tasks\n- Realistic scenarios\n- Clear instructions\n- Appropriate difficulty\n- Measurable outcomes\n\n## Metrics to Track\n- Success rate\n- Time on task\n- Error rate\n- Satisfaction scores"
+              },
+              {
+                "title": "Page 2: Conducting Tests",
+                "content": "\n# Conducting Usability Tests\n\n## The Moderator's Role\n- Create comfortable environment\n- Remain neutral\n- Ask probing questions\n- Manage time effectively\n\n## During the Session\n- Record with consent\n- Take detailed notes\n- Observe body language\n- Listen for verbal cues\n\n## Common Issues\n- Participants being too polite\n- Technical difficulties\n- Unclear instructions\n- Biased facilitation\n\n## After the Session\n- Thank the participant\n- Debrief with observers\n- Document immediately\n- Compare with other sessions"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "UI Design",
+      "lessons": [
+        {
+          "title": "Visual Design Principles",
+          "description": "Understand the core principles that make interfaces visually appealing and functional.",
+          "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+          "videoDuration": 476,
+          "videoProgress": 0,
+          "backgroundImage": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%239d174d;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23ec4899;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23grad)' /%3E%3Cg transform='translate(200,100)'%3E%3Cpath d='M0,0 Q200,50 400,0 Q400,100 200,150 Q0,100 0,0' fill='%239d174d' opacity='0.3'/%3E%3C/g%3E%3Cg transform='translate(100,200)'%3E%3Cpath d='M0,0 Q300,20 600,0 Q550,80 300,100 Q50,80 0,0' fill='%23ec4899' opacity='0.4'/%3E%3C/g%3E%3C/svg%3E",
+          "pdfContent": {
+            "title": "Visual Design - Study Guide",
+            "pages": [
+              {
+                "title": "Page 1: Core Principles",
+                "content": "\n# Visual Design Principles\n\n## Hierarchy\n- Size and scale\n- Color contrast\n- Typography\n- White space\n\n## Balance\n- Symmetrical vs. asymmetrical\n- Visual weight\n- Grid systems\n- Alignment\n\n## Contrast\n- Color contrast\n- Size contrast\n- Shape contrast\n- Texture contrast\n\n## Unity\n- Consistent styling\n- Repetition\n- Proximity\n- Common alignment\n\n## Gestalt Principles\n- Similarity\n- Continuation\n- Closure\n- Figure/ground"
+              },
+              {
+                "title": "Page 2: Applying Principles",
+                "content": "\n# Applying Design Principles\n\n## Color Theory\n- Color psychology\n- Color harmonies\n- Accessibility\n- Brand colors\n\n## Typography\n- Font pairing\n- Readability\n- Hierarchy\n- Responsive typography\n\n## Imagery\n- Iconography\n- Photography\n- Illustrations\n- Data visualization\n\n## Layout\n- F-pattern\n- Z-pattern\n- Visual flow\n- Responsive grids\n\n## Motion\n- Microinteractions\n- Transitions\n- Feedback\n- Performance"
+              }
+            ]
+          }
+        },
+        {
+          "title": "Design Systems",
+          "description": "Learn how to create and maintain scalable design systems for consistent UI.",
+          "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+          "videoDuration": 532,
+          "videoProgress": 0,
+          "backgroundImage": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%234f46e5;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%238b5cf6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23grad)' /%3E%3Cg transform='translate(150,100)'%3E%3Cpath d='M0,0 Q250,40 500,0 Q450,120 250,180 Q50,120 0,0' fill='%234f46e5' opacity='0.3'/%3E%3C/g%3E%3Cg transform='translate(200,250)'%3E%3Cpath d='M0,0 Q150,30 300,0 Q250,70 150,90 Q50,70 0,0' fill='%238b5cf6' opacity='0.4'/%3E%3C/g%3E%3C/svg%3E",
+          "pdfContent": {
+            "title": "Design Systems - Study Guide",
+            "pages": [
+              {
+                "title": "Page 1: Building Design Systems",
+                "content": "\n# Design Systems\n\n## What is a Design System?\nA collection of reusable components, guided by clear standards, that can be assembled together to build any number of applications.\n\n## Benefits\n- Consistency across products\n- Faster development\n- Easier maintenance\n- Better collaboration\n\n## Core Components\n- Design tokens\n- UI components\n- Patterns\n- Documentation\n\n## Getting Started\n1. Audit existing components\n2. Define design principles\n3. Create foundational styles\n4. Build component library"
+              },
+              {
+                "title": "Page 2: Maintaining Systems",
+                "content": "\n# Maintaining Design Systems\n\n## Governance\n- Version control\n- Change management\n- Contribution model\n- Roadmap planning\n\n## Documentation\n- Usage guidelines\n- Code examples\n- Best practices\n- Accessibility notes\n\n## Adoption Strategies\n- Internal marketing\n- Training sessions\n- Starter kits\n- Showcase examples\n\n## Scaling Challenges\n- Platform variations\n- Theming support\n- Customization needs\n- Performance optimization\n\n## Tools\n- Figma libraries\n- Storybook\n- Zeroheight\n- Component playgrounds"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Prototyping",
+      "lessons": [
+        {
+          "title": "Wireframing",
+          "description": "Master the art of creating low-fidelity wireframes to quickly test ideas.",
+          "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+          "videoDuration": 412,
+          "videoProgress": 0,
+          "backgroundImage": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%236b21a8;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23a855f7;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23grad)' /%3E%3Cg transform='translate(100,150)'%3E%3Cpath d='M0,0 Q300,60 600,0 Q550,150 300,200 Q50,150 0,0' fill='%236b21a8' opacity='0.3'/%3E%3C/g%3E%3Cg transform='translate(200,300)'%3E%3Cpath d='M0,0 Q200,40 400,0 Q350,80 200,100 Q50,80 0,0' fill='%23a855f7' opacity='0.4'/%3E%3C/g%3E%3C/svg%3E",
+          "pdfContent": {
+            "title": "Wireframing - Study Guide",
+            "pages": [
+              {
+                "title": "Page 1: Wireframing Basics",
+                "content": "\n# Wireframing\n\n## What are Wireframes?\nLow-fidelity representations of a design that focus on layout, structure, and functionality rather than visual details.\n\n## Benefits\n- Quick to create\n- Easy to modify\n- Focus on functionality\n- Early feedback\n\n## Tools\n- Pen and paper\n- Balsamiq\n- Figma\n- Sketch\n- Adobe XD\n\n## Best Practices\n- Start with sketches\n- Use grayscale\n- Keep it simple\n- Annotate interactions\n\n## Common Elements\n- Header/footer\n- Navigation\n- Content areas\n- Call-to-actions"
+              },
+              {
+                "title": "Page 2: Advanced Techniques",
+                "content": "\n# Advanced Wireframing\n\n## Responsive Wireframing\n- Mobile-first approach\n- Breakpoint planning\n- Content prioritization\n- Adaptive components\n\n## Interactive Wireframes\n- Basic click-through\n- Form interactions\n- State changes\n- Animation concepts\n\n## User Flow Integration\n- Page connections\n- Decision points\n- Error states\n- Alternative paths\n\n## Presenting Wireframes\n- Context setting\n- Walkthroughs\n- Gathering feedback\n- Version comparison"
+              }
+            ]
+          }
+        },
+        {
+          "title": "High-Fidelity Prototypes",
+          "description": "Create realistic prototypes that closely resemble the final product for accurate testing.",
+          "videoUrl": "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+          "videoDuration": 487,
+          "videoProgress": 0,
+          "backgroundImage": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%230e7490;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%2306b6d4;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='450' fill='url(%23grad)' /%3E%3Cg transform='translate(150,100)'%3E%3Cpath d='M0,0 Q250,50 500,0 Q450,120 250,180 Q50,120 0,0' fill='%230e7490' opacity='0.3'/%3E%3C/g%3E%3Cg transform='translate(100,250)'%3E%3Cpath d='M0,0 Q300,40 600,0 Q550,80 300,100 Q50,80 0,0' fill='%2306b6d4' opacity='0.4'/%3E%3C/g%3E%3C/svg%3E",
+          "pdfContent": {
+            "title": "High-Fidelity Prototyping - Study Guide",
+            "pages": [
+              {
+                "title": "Page 1: Creating Hi-Fi Prototypes",
+                "content": "\n# High-Fidelity Prototypes\n\n## What are Hi-Fi Prototypes?\nInteractive simulations that closely match the final product in look, feel, and functionality.\n\n## When to Use\n- Usability testing\n- Stakeholder reviews\n- Developer handoff\n- Marketing previews\n\n## Tools\n- Figma\n- Adobe XD\n- ProtoPie\n- Framer\n- Webflow\n\n## Design Considerations\n- Realistic content\n- Visual polish\n- Microinteractions\n- Performance\n\n## Benefits\n- More accurate testing\n- Better stakeholder buy-in\n- Clearer developer specs\n- Polished presentations"
+              },
+              {
+                "title": "Page 2: Advanced Interactions",
+                "content": "\n# Advanced Prototyping\n\n## Complex Interactions\n- Drag and drop\n- Gestures\n- Form validation\n- Conditional logic\n\n## Animation Principles\n- Easing\n- Timing\n- Choreography\n- Performance\n\n## State Management\n- Component states\n- Overlays\n- Error handling\n- Loading sequences\n\n## User Testing\n- Task scenarios\n- Success metrics\n- Feedback collection\n- Iteration planning\n\n## Handoff Best Practices\n- Developer notes\n- Asset export\n- Design specs\n- Version control"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

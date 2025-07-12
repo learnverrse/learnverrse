@@ -1,16 +1,15 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CongratScreen from './CongratScreen';
 
-const QuizUI = () => {
+const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
   const quizQuestions = [
     {
-      question: 'What is the capital of france?',
-      options: ['Beijin', 'London', 'Rome', 'Paris'],
+      question: 'What is the capital of France?',
+      options: ['Beijing', 'London', 'Rome', 'Paris'],
       answer: 'Paris',
     },
     {
-      question: 'What Language is used for web app?',
+      question: 'What language is used for web apps?',
       options: ['JavaScript', 'PHP', 'Python', 'All'],
       answer: 'All',
     },
@@ -25,42 +24,53 @@ const QuizUI = () => {
       answer: 'JavaScript XML',
     },
     {
-      question: 'Who is the ceo of tesla?',
-      options: ['Elon Musk', 'Jeff Bezos', 'Bill Gate', 'Bola Tinubu'],
+      question: 'Who is the CEO of Tesla?',
+      options: ['Elon Musk', 'Jeff Bezos', 'Bill Gates', 'Bola Tinubu'],
       answer: 'Elon Musk',
     },
     {
-      question: 'What does HTML stands for?',
+      question: 'What does HTML stand for?',
       options: [
-        'HyperText MarkUp Language',
-        'HyperText MockUp Language',
-        'HyperText MakeUp Language',
-        'HyperTetic MakeUP Language',
+        'HyperText Markup Language',
+        'HyperText Mockup Language',
+        'HyperText Makeup Language',
+        'HyperTetic Makeup Language',
       ],
-      answer: 'HyperText MarkUp Language',
+      answer: 'HyperText Markup Language',
     },
   ];
 
   const [isQuizFinished, setQuizFinished] = useState(false);
-
   const [currentQuestion, setCurrentQuestion] = useState(0);
-
-  const initialAnswers = [null, null, null, null, null];
-
-  const [userAnswers, setUserAnswers] = useState(initialAnswers);
+  const [userAnswers, setUserAnswers] = useState(Array(quizQuestions.length).fill(null));
+  const [timeRemaining, setTimeRemaining] = useState(15 * 60); // 15 minutes in seconds
+  const [timerActive, setTimerActive] = useState(true);
 
   const selectedAnswer = userAnswers[currentQuestion];
+
+  useEffect(() => {
+    let interval;
+    if (timerActive && timeRemaining > 0) {
+      interval = setInterval(() => {
+        setTimeRemaining(prev => prev - 1);
+      }, 1000);
+    } else if (timeRemaining === 0) {
+      setQuizFinished(true);
+      setTimerActive(false);
+    }
+    return () => clearInterval(interval);
+  }, [timeRemaining, timerActive]);
 
   const handleAnswer = (option) => {
     const newUserAnswers = [...userAnswers];
     newUserAnswers[currentQuestion] = option;
-
     setUserAnswers(newUserAnswers);
   };
 
   const nextQuestion = () => {
     if (currentQuestion === quizQuestions.length - 1) {
       setQuizFinished(true);
+      setTimerActive(false);
     } else {
       setCurrentQuestion(currentQuestion + 1);
     }
@@ -72,27 +82,37 @@ const QuizUI = () => {
     }
   };
 
-  const radius = 60; // circle radius
-  const strokeWidth = 10; // thickness of the ring
-  const circumference = 2 * Math.PI * radius;
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
-  /* 45 % of the ring filled */
-  const progress = 0.45;
+  const radius = 60;
+  const strokeWidth = 10;
+  const circumference = 2 * Math.PI * radius;
+  const progress = 1 - (timeRemaining / (15 * 60));
   const dashOffset = circumference * (1 - progress);
 
   if (isQuizFinished) {
     return (
-      <CongratScreen userAnswers={userAnswers} quizQuestions={quizQuestions} />
+      <CongratScreen 
+        userAnswers={userAnswers} 
+        quizQuestions={quizQuestions}
+        onContinue={onQuizComplete}
+        onReview={() => setQuizFinished(false)}
+        onClose={onCloseQuiz}
+      />
     );
   }
 
   return (
-    <div className="flex justify-between bg-gray-50 p-4">
-      <div className="w-9/12 p-4">
+    <div className="h-[calc(100vh-80px)] flex flex-col justify-between bg-gray-50 p-4 md:flex-row">
+      <div className="w-full p-4 md:w-9/12">
         <p className="text-[#6B6B6B]">
           Please answer the following questions to test your understanding of
-          the course. Select the best answer for each question, You can review
-          your response before submitting
+          the course. Select the best answer for each question. You can review
+          your response before submitting.
         </p>
         <p className="mt-3 mb-5 font-medium italic">
           The duration for this quiz is 15 minutes
@@ -103,13 +123,17 @@ const QuizUI = () => {
             Question {currentQuestion + 1} of {quizQuestions.length}
           </p>
 
-          <h1 className="mb-6">{quizQuestions[currentQuestion].question}</h1>
-          <div className="mb-5">
+          <h1 className="mb-6 text-xl font-semibold">{quizQuestions[currentQuestion].question}</h1>
+          <div className="mb-5 space-y-3">
             {quizQuestions[currentQuestion].options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleAnswer(option)}
-                className={`hover:bg-primary-100 block w-full cursor-pointer rounded-lg border px-3.5 py-2 text-start ${selectedAnswer === option ? 'bg-primary-500 hover:bg-primary-500' : ''}`}
+                className={`block w-full cursor-pointer rounded-lg border px-3.5 py-2 text-start hover:bg-primary-100 ${
+                  selectedAnswer === option 
+                    ? 'border-primary-500 bg-primary-500 text-white hover:bg-primary-500' 
+                    : 'border-gray-300'
+                }`}
               >
                 {option}
               </button>
@@ -120,32 +144,28 @@ const QuizUI = () => {
             <button
               onClick={prevQuestion}
               disabled={currentQuestion === 0}
-              className="bg-primary-500 disabled:bg-primary-200 cursor-pointer rounded px-4 py-2 text-white disabled:cursor-no-drop"
+              className="rounded bg-primary-500 px-4 py-2 text-white disabled:cursor-not-allowed disabled:bg-primary-200"
             >
               Back
             </button>
             <button
               onClick={nextQuestion}
               disabled={!selectedAnswer}
-              className="bg-primary-500 disabled:bg-primary-200 cursor-pointer rounded px-8 py-2 text-white disabled:cursor-no-drop"
+              className="rounded bg-primary-500 px-8 py-2 text-white disabled:cursor-not-allowed disabled:bg-primary-200"
             >
-              {currentQuestion === quizQuestions.length - 1 && selectedAnswer
-                ? 'Finish Quiz'
-                : 'Next'}
+              {currentQuestion === quizQuestions.length - 1 ? 'Finish Quiz' : 'Next'}
             </button>
           </div>
         </div>
       </div>
 
-      <div className="flex h-64 w-64 flex-col items-center rounded-lg bg-white p-6 shadow-md">
-        {/* Ring + time label */}
+      <div className="flex h-64 w-full flex-col items-center rounded-lg bg-white p-6 shadow-md md:w-64">
         <div className="relative">
           <svg
-            className="-rotate-90" /* start arc at 12 o’clock   */
+            className="-rotate-90"
             width={(radius + strokeWidth) * 2}
             height={(radius + strokeWidth) * 2}
           >
-            {/* grey track */}
             <circle
               cx="50%"
               cy="50%"
@@ -155,8 +175,6 @@ const QuizUI = () => {
               stroke="currentColor"
               fill="transparent"
             />
-
-            {/* purple arc */}
             <circle
               cx="50%"
               cy="50%"
@@ -170,12 +188,10 @@ const QuizUI = () => {
               strokeLinecap="round"
             />
           </svg>
-
           <span className="absolute inset-0 flex items-center justify-center text-3xl">
-            5:30
+            {formatTime(timeRemaining)}
           </span>
         </div>
-
         <p className="mt-8 font-medium">Time Remaining</p>
       </div>
     </div>
