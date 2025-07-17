@@ -25,6 +25,7 @@ import LearningPage from '@/pages/StudentCourse/LearningPage';
 import SetNewPassword from '@/pages/onboardingPages/SetNewPassword';
 import MainView from '@/pages/ContentViewer/MainView';
 import NotFound from '@/pages/home/NotFound';
+import CoursesPage from '@/pages/home/CoursesPage';
 
 import QuizUI from '@/pages/ContentViewer/QuizUI';
 import About from '@/pages/home/AboutPage';
@@ -73,6 +74,10 @@ export const routes = [
   {
     path: '/about',
     element: <About />,
+  },
+  {
+    path: '/courses',
+    element: <CoursesPage />,
   },
   // tests
 

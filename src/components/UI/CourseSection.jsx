@@ -7,47 +7,127 @@ import image2213 from '@/assets/student-courses-images/2213.jpg';
 
 const CoursesSection = ({ limitCourses = null }) => {
   const courses = [
-    {
-      id: 1,
-      title: 'Introduction To Product Design',
-      rating: 4.3,
-      duration: '5 hr',
-      description:
-        'Our team would will work closely with you to understand your strengths and experiences.',
-      badge: 'Learnverrse',
-      src: image234,
-    },
-    {
-      id: 2,
-      title: 'Product Management Essentials',
-      rating: 4.3,
-      duration: '5 hr',
-      description:
-        'Our team would will work closely with you to understand your strengths and experiences.',
-      badge: 'Educator',
-      src: image176744,
-    },
-    {
-      id: 3,
-      title: 'Advanced Product Management',
-      rating: 4.3,
-      duration: '5 hr',
-      description:
-        'Our team would will work closely with you to understand your strengths and experiences.',
-      badge: 'Educator',
-      src: image2149,
-    },
-    {
-      id: 4,
-      title: 'Product Management Fundamentals',
-      rating: 4.3,
-      duration: '5 hr',
-      description:
-        'Our team would will work closely with you to understand your strengths and experiences.',
-      badge: 'Learnverrse',
-      src: image2213,
-    },
-  ];
+  {
+    id: 1,
+    title: 'Introduction To Product Design',
+    rating: 4.3,
+    duration: '5 hr',
+    description:
+      'Our team would will work closely with you to understand your strengths and experiences.',
+    badge: 'Learnverrse',
+    src: image234,
+  },
+  {
+    id: 2,
+    title: 'Product Management Essentials',
+    rating: 4.3,
+    duration: '5 hr',
+    description:
+      'Our team would will work closely with you to understand your strengths and experiences.',
+    badge: 'Educator',
+    src: image176744,
+  },
+  {
+    id: 3,
+    title: 'Advanced Product Management',
+    rating: 4.3,
+    duration: '5 hr',
+    description:
+      'Our team would will work closely with you to understand your strengths and experiences.',
+    badge: 'Educator',
+    src: image2149,
+  },
+  {
+    id: 4,
+    title: 'Product Management Fundamentals',
+    rating: 4.3,
+    duration: '5 hr',
+    description:
+      'Our team would will work closely with you to understand your strengths and experiences.',
+    badge: 'Learnverrse',
+    src: image2213,
+  },
+  {
+    id: 5,
+    title: 'Frontend Development with React',
+    rating: 4.6,
+    duration: '6 hr',
+    description:
+      'Master React and build interactive UIs with reusable components and state management.',
+    badge: 'Learnverrse',
+    src: image234,
+  },
+  {
+    id: 6,
+    title: 'Backend Development with Node.js',
+    rating: 4.5,
+    duration: '5.5 hr',
+    description:
+      'Build scalable APIs and backend systems using Node.js and Express.',
+    badge: 'Educator',
+    src: image2213,
+  },
+  {
+    id: 7,
+    title: 'Database Design & SQL',
+    rating: 4.4,
+    duration: '4 hr',
+    description:
+      'Understand relational databases, write complex queries, and manage data effectively.',
+    badge: 'Educator',
+    src: image234,
+  },
+  {
+    id: 8,
+    title: 'Introduction to Cybersecurity',
+    rating: 4.2,
+    duration: '3.5 hr',
+    description:
+      'Learn the fundamentals of cybersecurity, threats, and how to secure systems.',
+    badge: 'Learnverrse',
+    src: image2149,
+  },
+  {
+    id: 9,
+    title: 'UI/UX Design Principles',
+    rating: 4.5,
+    duration: '4 hr',
+    description:
+      'Learn the core principles of user interface and user experience design.',
+    badge: 'Educator',
+    src: image2213,
+  },
+  {
+    id: 10,
+    title: 'Agile & Scrum for Teams',
+    rating: 4.3,
+    duration: '3 hr',
+    description:
+      'Master agile methodology and the Scrum framework to improve team productivity.',
+    badge: 'Learnverrse',
+    src: image2149,
+  },
+  {
+    id: 11,
+    title: 'Version Control with Git & GitHub',
+    rating: 4.7,
+    duration: '2.5 hr',
+    description:
+      'Track changes, collaborate with teams, and manage projects using Git and GitHub.',
+    badge: 'Educator',
+    src: image234,
+  },
+  {
+    id: 12,
+    title: 'Deploying Applications with Docker',
+    rating: 4.4,
+    duration: '4.5 hr',
+    description:
+      'Containerize and deploy your applications effectively using Docker.',
+    badge: 'Learnverrse',
+    src: image2149,
+  },
+];
 
   // Limit courses if specified
   const displayedCourses = limitCourses ? courses.slice(0, limitCourses) : courses;

@@ -2,6 +2,7 @@ import React from 'react'
 import { FaSearch, FaStar, FaRegClock } from 'react-icons/fa';
 import { FaArrowRight } from 'react-icons/fa6';
 import { useNavigate } from 'react-router';
+import Button from './Button';
 
 const CourseCard = ({course}) => {
   const navigate = useNavigate();
@@ -46,11 +47,13 @@ const CourseCard = ({course}) => {
         </div>
     
         <p className="p-5">{course.description}</p>
-    
-        <button className="flex items-center gap-2 p-5 text-sm font-medium text-purple-600 transition-colors hover:text-purple-700">
-            Learn more
-            <FaArrowRight className="h-4 w-4" />
-        </button>
+
+
+        <div className="flex justify-center p-5">
+            <button className="flex items-center gap-2 p-2 px-24 text-sm font-medium rounded-full text-black transition-colors hover:text-purple-700 bg-primary-300">
+                Enroll Now
+            </button>
+        </div>
     </div>
   )
 }
