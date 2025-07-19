@@ -2,8 +2,15 @@ import React from 'react';
 import { dataAnalytics, cyberSecurity, uiUx } from '../components/details';
 import CoursesSection from '@/components/UI/CourseSection';
 import Button from '@/components/UI/Button';
+import { useNavigate } from 'react-router';
 
 const ExploreSection = () => {
+  const navigate = useNavigate();
+  const handleViewAll = () => {
+    navigate('/courses');
+  };
+
+
   return (
     <div className="flex w-full flex-col items-center justify-center py-12 lg:min-h-screen lg:py-16">
       <div className="container flex flex-col items-center justify-center">
@@ -15,7 +22,7 @@ const ExploreSection = () => {
         </p>
         <div className="m-auto mt-8 w-full bg-[#F0E5FF] px-2 py-14 md:rounded-lg lg:w-[95%] lg:px-10 lg:py-6">
           <CoursesSection limitCourses={3} />
-          <Button label={'View All Courses'} active={true} />
+          <Button label={'View All Courses'} active={true} onClick={handleViewAll} />
         </div>
       </div>
     </div>

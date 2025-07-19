@@ -62,7 +62,7 @@ export const defaultCourse = baseUrl + '/assets/defaultCourse.jpg';
 export const navLinks = [
   {
     name: 'courses',
-    path: '#',
+    path: '/courses',
   },
   {
     name: 'about',

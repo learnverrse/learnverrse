@@ -42,9 +42,13 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
 
   const [isQuizFinished, setQuizFinished] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [userAnswers, setUserAnswers] = useState(Array(quizQuestions.length).fill(null));
+  const [userAnswers, setUserAnswers] = useState(
+    Array(quizQuestions.length).fill(null)
+  );
   const [timeRemaining, setTimeRemaining] = useState(15 * 60); // 15 minutes in seconds
   const [timerActive, setTimerActive] = useState(true);
+  const [quizStartTime] = useState(Date.now());
+  const [quizEndTime, setQuiZEndTime] = useState(null);
 
   const selectedAnswer = userAnswers[currentQuestion];
 
@@ -52,7 +56,7 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
     let interval;
     if (timerActive && timeRemaining > 0) {
       interval = setInterval(() => {
-        setTimeRemaining(prev => prev - 1);
+        setTimeRemaining((prev) => prev - 1);
       }, 1000);
     } else if (timeRemaining === 0) {
       setQuizFinished(true);
@@ -71,6 +75,7 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
     if (currentQuestion === quizQuestions.length - 1) {
       setQuizFinished(true);
       setTimerActive(false);
+      handleSubmitQuiz();
     } else {
       setCurrentQuestion(currentQuestion + 1);
     }
@@ -88,26 +93,47 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const getTimeTaken = () => {
+    if (!quizStartTime || !quizEndTime) return null;
+    else return quizEndTime - quizStartTime;
+  };
+
+  const formatTimeTaken = (ms) => {
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.ceil(totalSeconds / 60);
+    const label = minutes === 1 ? 'minute' : 'minutes';
+    return `${minutes} ${label}`;
+  };
+
+  const handleSubmitQuiz = () => {
+    const endTime = Date.now();
+    setQuiZEndTime(endTime);
+  };
+
+  const timeTaken = getTimeTaken();
+
   const radius = 60;
   const strokeWidth = 10;
   const circumference = 2 * Math.PI * radius;
-  const progress = 1 - (timeRemaining / (15 * 60));
+  const progress = 1 - timeRemaining / (15 * 60);
   const dashOffset = circumference * (1 - progress);
 
   if (isQuizFinished) {
     return (
-      <CongratScreen 
-        userAnswers={userAnswers} 
+      <CongratScreen
+        userAnswers={userAnswers}
         quizQuestions={quizQuestions}
         onContinue={onQuizComplete}
         onReview={() => setQuizFinished(false)}
         onClose={onCloseQuiz}
+        formatTimeTaken={formatTimeTaken}
+        timeTaken={timeTaken}
       />
     );
   }
 
   return (
-    <div className="h-[calc(100vh-80px)] flex flex-col justify-between bg-gray-50 p-4 md:flex-row">
+    <div className="flex h-[calc(100vh-80px)] flex-col justify-between bg-gray-50 p-4 md:flex-row">
       <div className="w-full p-4 md:w-9/12">
         <p className="text-[#6B6B6B]">
           Please answer the following questions to test your understanding of
@@ -123,15 +149,17 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
             Question {currentQuestion + 1} of {quizQuestions.length}
           </p>
 
-          <h1 className="mb-6 text-xl font-semibold">{quizQuestions[currentQuestion].question}</h1>
+          <h1 className="mb-6 text-xl font-semibold">
+            {quizQuestions[currentQuestion].question}
+          </h1>
           <div className="mb-5 space-y-3">
             {quizQuestions[currentQuestion].options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleAnswer(option)}
-                className={`block w-full cursor-pointer rounded-lg border px-3.5 py-2 text-start hover:bg-primary-100 ${
-                  selectedAnswer === option 
-                    ? 'border-primary-500 bg-primary-500 text-white hover:bg-primary-500' 
+                className={`hover:bg-primary-100 block w-full cursor-pointer rounded-lg border px-3.5 py-2 text-start ${
+                  selectedAnswer === option
+                    ? 'border-primary-500 bg-primary-500 hover:bg-primary-500 text-white'
                     : 'border-gray-300'
                 }`}
               >
@@ -144,16 +172,18 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
             <button
               onClick={prevQuestion}
               disabled={currentQuestion === 0}
-              className="rounded bg-primary-500 px-4 py-2 text-white disabled:cursor-not-allowed disabled:bg-primary-200"
+              className="bg-primary-500 disabled:bg-primary-200 rounded px-4 py-2 text-white disabled:cursor-not-allowed"
             >
               Back
             </button>
             <button
               onClick={nextQuestion}
               disabled={!selectedAnswer}
-              className="rounded bg-primary-500 px-8 py-2 text-white disabled:cursor-not-allowed disabled:bg-primary-200"
+              className="bg-primary-500 disabled:bg-primary-200 rounded px-8 py-2 text-white disabled:cursor-not-allowed"
             >
-              {currentQuestion === quizQuestions.length - 1 ? 'Finish Quiz' : 'Next'}
+              {currentQuestion === quizQuestions.length - 1
+                ? 'Finish Quiz'
+                : 'Next'}
             </button>
           </div>
         </div>
