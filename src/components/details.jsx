@@ -50,7 +50,8 @@ export const femaleImg = baseUrl + '/assets/Ellipse 199.png';
 export const blackMaleImg = baseUrl + '/assets/Ellipse 200.png';
 export const maleImg = baseUrl + '/assets/Ellipse 201.png';
 export const aboutHeaderImg = baseUrl + '/assets/aboutImageHeader.png'
-export const aboutHuman = baseUrl + '/assets/aboutHuman.png'
+export const aboutHuman = baseUrl + '/assets/aboutHuman.png';
+export const certificateBanner = baseUrl + '/assets/certificateBanner.png';
 
 export const banner = baseUrl + '/assets/banner.png';
 export const banners = baseUrl + '/assets/signup-img.png';
@@ -164,7 +165,7 @@ export const learnersSidebar = [
   },
   {
     name: 'certificate',
-    path: '/',
+    path: '/learner-dashboard/certificate',
     icon: <PiCertificateFill size={24} />,
   },
   {
