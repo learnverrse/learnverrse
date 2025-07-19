@@ -28,6 +28,7 @@ import NotFound from '@/pages/home/NotFound';
 
 import QuizUI from '@/pages/ContentViewer/QuizUI';
 import About from '@/pages/home/AboutPage';
+import Certificate from '@/pages/learnerspage/Certificate';
 
 export const routes = [
   {
@@ -147,6 +148,10 @@ export const routes = [
           {
             path: 'my-courses',
             element: <StudentCourses />,
+          },
+          {
+            path: 'certificate',
+            element: <Certificate />,
           },
           {
             path: 'learning-page',
