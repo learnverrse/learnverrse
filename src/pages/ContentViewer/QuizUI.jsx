@@ -45,7 +45,7 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
   const [userAnswers, setUserAnswers] = useState(
     Array(quizQuestions.length).fill(null)
   );
-  const [timeRemaining, setTimeRemaining] = useState(15 * 60); // 15 minutes in seconds
+  const [timeRemaining, setTimeRemaining] = useState(5 * 60); // 15 minutes in seconds
   const [timerActive, setTimerActive] = useState(true);
   const [quizStartTime] = useState(Date.now());
   const [quizEndTime, setQuiZEndTime] = useState(null);
@@ -115,7 +115,7 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
   const radius = 60;
   const strokeWidth = 10;
   const circumference = 2 * Math.PI * radius;
-  const progress = 1 - timeRemaining / (15 * 60);
+  const progress = 1 - timeRemaining / (5 * 60);
   const dashOffset = circumference * (1 - progress);
 
   if (isQuizFinished) {
