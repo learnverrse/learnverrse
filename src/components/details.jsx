@@ -175,7 +175,7 @@ export const learnersSidebar = [
   },
   {
     name: 'settings',
-    path: '/dashboard',
+    path: '/learner-dashboard/settings',
     icon: <CiSettings size={24} />,
   },
   {

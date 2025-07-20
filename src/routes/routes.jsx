@@ -30,6 +30,7 @@ import CoursesPage from '@/pages/home/CoursesPage';
 import QuizUI from '@/pages/ContentViewer/QuizUI';
 import About from '@/pages/home/AboutPage';
 import Certificate from '@/pages/learnerspage/Certificate';
+import Settings from '@/pages/learnerspage/Settings';
 
 export const routes = [
   {
@@ -165,6 +166,10 @@ export const routes = [
           {
             path: 'Quiz-UI',
             element: <QuizUI />,
+          },
+          {
+            path: 'settings',
+            element: <Settings />,
           },
         ],
       },
