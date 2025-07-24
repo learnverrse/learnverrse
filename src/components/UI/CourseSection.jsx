@@ -14,8 +14,9 @@ const CoursesSection = ({ limitCourses = null }) => {
     duration: '5 hr',
     description:
       'Our team would will work closely with you to understand your strengths and experiences.',
-    badge: 'Learnverrse',
+    badge: 'Premium',
     src: image234,
+    price: "#15,000.00"
   },
   {
     id: 2,
@@ -24,8 +25,10 @@ const CoursesSection = ({ limitCourses = null }) => {
     duration: '5 hr',
     description:
       'Our team would will work closely with you to understand your strengths and experiences.',
-    badge: 'Educator',
+    badge: 'Free',
     src: image176744,
+    price: "#15,000.00"
+
   },
   {
     id: 3,
@@ -34,8 +37,10 @@ const CoursesSection = ({ limitCourses = null }) => {
     duration: '5 hr',
     description:
       'Our team would will work closely with you to understand your strengths and experiences.',
-    badge: 'Educator',
+    badge: 'Free',
     src: image2149,
+        price: "#15,000.00"
+
   },
   {
     id: 4,
@@ -44,7 +49,7 @@ const CoursesSection = ({ limitCourses = null }) => {
     duration: '5 hr',
     description:
       'Our team would will work closely with you to understand your strengths and experiences.',
-    badge: 'Learnverrse',
+    badge: 'Premium',
     src: image2213,
   },
   {
@@ -54,8 +59,10 @@ const CoursesSection = ({ limitCourses = null }) => {
     duration: '6 hr',
     description:
       'Master React and build interactive UIs with reusable components and state management.',
-    badge: 'Learnverrse',
+    badge: 'Premium',
     src: image234,
+        price: "#15,000.00"
+
   },
   {
     id: 6,
@@ -64,8 +71,10 @@ const CoursesSection = ({ limitCourses = null }) => {
     duration: '5.5 hr',
     description:
       'Build scalable APIs and backend systems using Node.js and Express.',
-    badge: 'Educator',
+    badge: 'Free',
     src: image2213,
+        price: "#15,000.00"
+
   },
   {
     id: 7,
@@ -74,8 +83,10 @@ const CoursesSection = ({ limitCourses = null }) => {
     duration: '4 hr',
     description:
       'Understand relational databases, write complex queries, and manage data effectively.',
-    badge: 'Educator',
+    badge: 'Free',
     src: image234,
+        price: "#15,000.00"
+
   },
   {
     id: 8,
@@ -84,7 +95,7 @@ const CoursesSection = ({ limitCourses = null }) => {
     duration: '3.5 hr',
     description:
       'Learn the fundamentals of cybersecurity, threats, and how to secure systems.',
-    badge: 'Learnverrse',
+    badge: 'Premium',
     src: image2149,
   },
   {
@@ -94,7 +105,7 @@ const CoursesSection = ({ limitCourses = null }) => {
     duration: '4 hr',
     description:
       'Learn the core principles of user interface and user experience design.',
-    badge: 'Educator',
+    badge: 'Free',
     src: image2213,
   },
   {
@@ -104,7 +115,7 @@ const CoursesSection = ({ limitCourses = null }) => {
     duration: '3 hr',
     description:
       'Master agile methodology and the Scrum framework to improve team productivity.',
-    badge: 'Learnverrse',
+    badge: 'Premium',
     src: image2149,
   },
   {
@@ -114,7 +125,7 @@ const CoursesSection = ({ limitCourses = null }) => {
     duration: '2.5 hr',
     description:
       'Track changes, collaborate with teams, and manage projects using Git and GitHub.',
-    badge: 'Educator',
+    badge: 'Free',
     src: image234,
   },
   {
@@ -124,7 +135,7 @@ const CoursesSection = ({ limitCourses = null }) => {
     duration: '4.5 hr',
     description:
       'Containerize and deploy your applications effectively using Docker.',
-    badge: 'Learnverrse',
+    badge: 'Premium',
     src: image2149,
   },
 ];

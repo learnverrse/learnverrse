@@ -27,7 +27,7 @@ const CourseCard = ({course}) => {
                 <h3 className="text-lg font-semibold text-gray-900">
                     {course.title}
                 </h3>
-                <span className="self-start rounded-full bg-purple-400 px-2 py-1 text-xs font-medium text-white">
+                <span className="self-start rounded-full bg-purple-400 px-4 py-1 text-xs md:text-sm font-medium text-white">
                     {course.badge}
                 </span>
             </div>
@@ -49,10 +49,15 @@ const CourseCard = ({course}) => {
         <p className="p-5">{course.description}</p>
 
 
-        <div className="flex justify-center p-5">
-            <button className="flex items-center gap-2 p-2 px-24 text-sm font-medium rounded-full text-black transition-colors hover:text-purple-700 bg-primary-300">
+        <div className="flex justify-between items-center p-5">
+            <button className="flex gap-2 p-2 px-16 text-sm font-medium rounded-full text-black transition-colors hover:text-purple-700 bg-primary-300">
                 Enroll Now
             </button>
+            <h3 className="text-lg md:text-2xl font-bold text-black">
+                    {course.price}
+            </h3>
+
+
         </div>
     </div>
   )
