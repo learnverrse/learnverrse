@@ -52,7 +52,7 @@ const Certificate = () => {
   // Render certificates table if User has certificates
   if (certificates.length > 0) {
     return (
-      <div className='h-screen w-full'>
+      <div className='h-screen md:w-full'>
         <div className='flex flex-col items-center justify-between p-8 md:flex-row'>
           <div className='pb-8 md:pb-0'>
             <h1 className='mb-1 text-2xl font-semibold '>My Certificates</h1>

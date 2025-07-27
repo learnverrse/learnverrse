@@ -12,11 +12,11 @@ const PaymentSection = () => {
           Choose the plan that fits your needs
         </p>
 
-        <div className="m-auto grid grid-cols-1 gap-6 px-10 py-8 md:max-w-4xl md:grid-cols-2 lg:max-w-none lg:grid-cols-3">
-          {/* Starter Plan */}
+        <div className="m-auto grid grid-cols-1 gap-6 px-10 py-8 md:max-w-4xl md:grid-cols-2 lg:max-w-none">
+          {/* Basic Plan */}
           <div className="flex flex-col rounded-2xl bg-white px-10 py-14 lg:py-16">
-            <h2 className="text-2xl font-bold">Starter</h2>
-            <p className="mt-5 text-sm">Perfect for getting started</p>
+            <h2 className="text-2xl font-bold">Basic Plan</h2>
+            <p className="mt-5 text-sm">Introductory and beginner friendly courses</p>
             <div className="mt-10 flex gap-x-1">
               <div className="flex">
                 <img src={naira} alt="" />
@@ -24,41 +24,46 @@ const PaymentSection = () => {
                   0
                 </p>
               </div>
-              <p className="text-sm leading-5">per month</p>
+              <p className="text-sm leading-5">7 days</p>
             </div>
-            <button className="bg-primary-500 mt-7 cursor-pointer px-12 py-2.5 text-sm leading-5 text-white hover:bg-purple-700 lg:px-20">
-              Start free trial
+            <button className="bg-primary-500 mt-7 cursor-pointer px-12 py-2.5 text-sm leading-5 text-white hover:bg-purple-700 lg:px-20 rounded-lg">
+              Access course
             </button>
             <div className="mt-7 space-y-4">
               <div className="flex items-center gap-x-3">
                 <img src={checkIcon} alt="" />
-                <p>No payment</p>
+                <p>No payment for 7 days</p>
               </div>
 
               <div className="flex items-center gap-x-3">
                 <img src={checkIcon} alt="" />
-                <p>3 free courses</p>
+                <p>Unlimited access to all eligible courses</p>
               </div>
 
               <div className="flex items-center gap-x-3">
                 <img src={checkIcon} alt="" />
-                <p>Basic access</p>
+                <p>Watch videos, take quizzes & view course materials</p>
               </div>
 
               <div className="flex items-center gap-x-3">
                 <img src={checkIcon} alt="" />
-                <p>Join student community forum</p>
+                <p>Personalized dashboard & course recommendation</p>
               </div>
 
               <div className="flex items-center gap-x-3">
                 <img src={checkIcon} alt="" />
-                <p>Progress tracking dashboard</p>
+                <p>Access to premium educator content</p>
+              </div>
+
+              <div className="flex items-center gap-x-3">
+                <img src={checkIcon} alt="" />
+                <p>Monthly badge streak bonuses</p>
               </div>
             </div>
           </div>
 
           {/* Learner Plan */}
-          <div className="flex flex-col rounded-2xl bg-white px-10 py-14 lg:py-16">
+          {/* <div className="flex flex-col rounded-2xl bg-white px-10 py-14 lg:py-16">
             <h2 className="text-2xl font-bold">Learner</h2>
             <p className="mt-5 text-sm">
               For learners serious about leveling up
@@ -101,13 +106,13 @@ const PaymentSection = () => {
                 <p>Access to private learning groups</p>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Educator Plan */}
           <div className="flex flex-col rounded-2xl bg-white px-10 py-14 md:col-span-2 md:mx-auto md:max-w-md lg:col-span-1 lg:max-w-none lg:py-16">
-            <h2 className="text-2xl font-bold">Educator</h2>
+            <h2 className="text-2xl font-bold">Premium Plan</h2>
             <p className="mt-5 text-sm">
-              For educators ready to teach and earn
+              Masterclasses & Industry certified courses
             </p>
             <div className="mt-10 flex gap-x-1">
               <div className="flex">
@@ -118,38 +123,33 @@ const PaymentSection = () => {
               </div>
               <p className="text-sm leading-5">per month</p>
             </div>
-            <button className="bg-primary-500 mt-7 cursor-pointer px-12 py-2.5 text-sm leading-5 text-white hover:bg-purple-700 lg:px-20">
-              Start Teaching Today
+            <button className="bg-primary-500 mt-7 cursor-pointer px-12 py-2.5 text-sm leading-5 text-white hover:bg-purple-700 lg:px-20 rounded-lg">
+              Get Started
             </button>
             <div className="mt-7 space-y-4">
               <div className="flex items-center gap-x-3">
                 <img src={checkIcon} alt="" />
-                <p>Course creation tools</p>
+                <p>Unlimited access to all eligible courses</p>
               </div>
 
               <div className="flex items-center gap-x-3">
                 <img src={checkIcon} alt="" />
-                <p>Unlimited course publishing</p>
+                <p>Access to premium educator content</p>
               </div>
 
               <div className="flex items-center gap-x-3">
                 <img src={checkIcon} alt="" />
-                <p>Access to earnings dashboard</p>
+                <p>Monthly badge streak bonuses</p>
               </div>
 
               <div className="flex items-center gap-x-3">
                 <img src={checkIcon} alt="" />
-                <p>Learner analytics & progress tracking</p>
+                <p>Personalized dashboard & course recommendation</p>
               </div>
 
               <div className="flex items-center gap-x-3">
                 <img src={checkIcon} alt="" />
-                <p>Payouts and monetization tools</p>
-              </div>
-
-              <div className="flex items-center gap-x-3">
-                <img src={checkIcon} alt="" />
-                <p>Priority educator support</p>
+                <p>Watch videos, take quizzes & view course materials</p>
               </div>
             </div>
           </div>
