@@ -52,6 +52,7 @@ export const maleImg = baseUrl + '/assets/Ellipse 201.png';
 export const aboutHeaderImg = baseUrl + '/assets/aboutImageHeader.png'
 export const aboutHuman = baseUrl + '/assets/aboutHuman.png';
 export const certificateBanner = baseUrl + '/assets/certificateBanner.png';
+export const CertificateBackground = baseUrl + '/assets/CertficateBG.png';
 
 export const banner = baseUrl + '/assets/banner.png';
 export const banners = baseUrl + '/assets/signup-img.png';
