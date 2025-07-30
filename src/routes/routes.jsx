@@ -26,6 +26,7 @@ import SetNewPassword from '@/pages/onboardingPages/SetNewPassword';
 import MainView from '@/pages/ContentViewer/MainView';
 import NotFound from '@/pages/home/NotFound';
 import CoursesPage from '@/pages/home/CoursesPage';
+import CertificateBG from '@/components/UI/Certificate';
 
 import QuizUI from '@/pages/ContentViewer/QuizUI';
 import About from '@/pages/home/AboutPage';
@@ -86,7 +87,7 @@ export const routes = [
   // {
   //   path: 'test',
 
-  //   element: <MainView />,
+  //   element: <CertificateBG />,
   // },
 
   // 👨‍🏫 Educator Routes
