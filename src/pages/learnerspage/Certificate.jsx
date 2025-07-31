@@ -5,11 +5,12 @@ import React from 'react';
 import { FaSearch } from 'react-icons/fa';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { c } from 'vite/dist/node/moduleRunnerTransport.d-DJ_mE5sf';
+import CertificateTemplate from './CertificateTemplate';
 
 const Certificate = () => {
   const certificateRef = React.useRef();
   const [selectedCertificate, setSelectedCertificate] = React.useState(null);
+  const [downloadRequested, setDownloadRequested] = React.useState(false);
 
   const [certificates, setCertificates] = React.useState([
     {
@@ -48,36 +49,81 @@ const Certificate = () => {
   };
 
   const handleDownload = async (certificateId, certificateName) => {
-    const selected = certificates.find((cert) => cert.id === certificateId);
-    if (!selected) return;
-    setSelectedCertificate(selected);
+    const selectedCert = certificates.find((cert) => cert.id === certificateId);
 
-    const certificateContainer = document.querySelector('hidden-certifacte');
-    certificateContainer.style.display = 'block';
+    if (!selectedCert) return;
 
-    await html2canvas(certificateRef.current).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      pdf.addImage(imgData, 'PNG', 10, 10, 190, 0);
-      pdf.save(`${certificateName}.pdf`);
-    });
+    setSelectedCertificate(selectedCert);
+    setDownloadRequested(certificateName);
+
+    // if (!certificateRef.current) return;
+    // const canvas = await html2canvas(certificateRef.current);
+    // const data = canvas.toDataURL('image/png');
+
+    // const pdf = new jsPDF({
+    //   orientation: 'landscape',
+    //   unit: 'px',
+    //   format: 'a4',
+    // });
+    // pdf.addImage(data, 'PNG', 10, 10, 190, 0);
+    // pdf.save(`${certificateName}.pdf`);
+
+    // const selected = certificates.find((cert) => cert.id === certificateId);
+    // if (!selected) return;
+    // setSelectedCertificate(selected);
+
+    // const certificateContainer = document.getElementById('hidden-certifacte');
+    // certificateContainer.style.display = 'block';
+
+    // await html2canvas(certificateRef.current).then((canvas) => {
+    //   const imgData = canvas.toDataURL('image/png');
+    //   const pdf = new jsPDF('p', 'mm', 'a4');
+    //   pdf.addImage(imgData, 'PNG', 10, 10, 190, 0);
+    //   pdf.save(`${certificateName}.pdf`);
+    // });
     // console.log(`Downloading certificate ${certificateName}`);
 
-    certificateContainer.style.display = 'none';
+    // certificateContainer.style.display = 'none';
   };
 
-  <div id="hidden-certificate" className="hidden" ref={certificateRef}>
-    <CertificateTemplate
-      name={selectedCertificate?.name}
-      issuingOrganisation={selectedCertificate?.issuingOrganisation}
-      dateOfIssue={selectedCertificate?.dateOfIssue}
-    />
-  </div>;
+  React.useEffect(() => {
+    const downloadCertificate = async () => {
+      if (downloadRequested && certificateRef.current) {
+        const canvas = await html2canvas(certificateRef.current);
+        const data = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({
+          orientation: 'landscape',
+          unit: 'px',
+          format: 'a4',
+        });
+        pdf.addImage(data, 'PNG', 10, 10, 190, 0);
+        pdf.save(`${downloadRequested}.pdf`);
+        setDownloadRequested(false);
+      }
+    };
+    downloadCertificate();
+  }, [downloadRequested, selectedCertificate]);
+
+  const hiddenCertificate = (
+    <div
+      id="hidden-certificate"
+      className={downloadRequested ? 'block' : 'hidden'}
+    >
+      <div ref={certificateRef} className="">
+        <CertificateTemplate
+          name={selectedCertificate?.name}
+          issuingOrganisation={selectedCertificate?.issuingOrganisation}
+          dateOfIssue={selectedCertificate?.dateOfIssue}
+        />
+      </div>
+    </div>
+  );
 
   // Render certificates table if User has certificates
   if (certificates.length > 0) {
     return (
       <div className="h-screen md:w-full">
+        {hiddenCertificate}
         <div className="flex flex-col items-center justify-between p-8 md:flex-row">
           <div className="pb-8 md:pb-0">
             <h1 className="mb-1 text-2xl font-semibold">My Certificates</h1>
