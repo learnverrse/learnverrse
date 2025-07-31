@@ -55,48 +55,26 @@ const Certificate = () => {
 
     setSelectedCertificate(selectedCert);
     setDownloadRequested(certificateName);
-
-    // if (!certificateRef.current) return;
-    // const canvas = await html2canvas(certificateRef.current);
-    // const data = canvas.toDataURL('image/png');
-
-    // const pdf = new jsPDF({
-    //   orientation: 'landscape',
-    //   unit: 'px',
-    //   format: 'a4',
-    // });
-    // pdf.addImage(data, 'PNG', 10, 10, 190, 0);
-    // pdf.save(`${certificateName}.pdf`);
-
-    // const selected = certificates.find((cert) => cert.id === certificateId);
-    // if (!selected) return;
-    // setSelectedCertificate(selected);
-
-    // const certificateContainer = document.getElementById('hidden-certifacte');
-    // certificateContainer.style.display = 'block';
-
-    // await html2canvas(certificateRef.current).then((canvas) => {
-    //   const imgData = canvas.toDataURL('image/png');
-    //   const pdf = new jsPDF('p', 'mm', 'a4');
-    //   pdf.addImage(imgData, 'PNG', 10, 10, 190, 0);
-    //   pdf.save(`${certificateName}.pdf`);
-    // });
-    // console.log(`Downloading certificate ${certificateName}`);
-
-    // certificateContainer.style.display = 'none';
   };
 
+  //get the selected certificate and convert it to pdf
   React.useEffect(() => {
     const downloadCertificate = async () => {
       if (downloadRequested && certificateRef.current) {
-        const canvas = await html2canvas(certificateRef.current);
+        const canvas = await html2canvas(certificateRef.current, {
+          scale: 2,
+        });
         const data = canvas.toDataURL('image/png');
         const pdf = new jsPDF({
           orientation: 'landscape',
           unit: 'px',
           format: 'a4',
         });
-        pdf.addImage(data, 'PNG', 10, 10, 190, 0);
+        const imgProperties = pdf.getImageProperties(data);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight =
+          (imgProperties.height * pdfWidth) / imgProperties.width;
+        pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
         pdf.save(`${downloadRequested}.pdf`);
         setDownloadRequested(false);
       }
@@ -105,12 +83,10 @@ const Certificate = () => {
   }, [downloadRequested, selectedCertificate]);
 
   const hiddenCertificate = (
-    <div
-      id="hidden-certificate"
-      className={downloadRequested ? 'block' : 'hidden'}
-    >
-      <div ref={certificateRef} className="">
+    <div className={downloadRequested ? 'block' : 'hidden'}>
+      <div>
         <CertificateTemplate
+          ref={certificateRef}
           name={selectedCertificate?.name}
           issuingOrganisation={selectedCertificate?.issuingOrganisation}
           dateOfIssue={selectedCertificate?.dateOfIssue}
