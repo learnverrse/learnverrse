@@ -2,14 +2,18 @@ import React from 'react';
 import { CertificateBackground } from '@/components/details';
 
 const CertificateTemplate = React.forwardRef(
-  ({ name, issuingOrganisation, dateOfIssue }, ref) => (
+  ({ name, issuingOrganisation, dateOfIssue, holderName }, ref) => (
     <div>
       <div
         ref={ref}
-        className="flex h-screen items-center justify-center bg-auto bg-center bg-no-repeat pb-5"
-        style={{ backgroundImage: `url(${CertificateBackground})` }}
+        className="flex items-center justify-center border bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${CertificateBackground})`,
+          width: '1123px',
+          height: '794px',
+        }}
       >
-        <div className="max-w-2xl text-center">
+        <div className="max-w-3xl text-center">
           <h1 className="mb-4 text-5xl font-semibold">{name}</h1>
 
           <h5 className="mb-8 italic">certificate number: LV3859763</h5>
@@ -20,7 +24,7 @@ const CertificateTemplate = React.forwardRef(
             className="mb-8 border-b-2 pb-5 text-4xl font-bold"
             style={{ borderBottomColor: '#000' }}
           >
-            Titilope
+            {holderName}
           </h2>
 
           <h4 className="font-bold">Acknowledgment</h4>
@@ -35,7 +39,7 @@ const CertificateTemplate = React.forwardRef(
 
           <h4 className="mt-4 text-2xl font-bold">
             Awarded by {''}
-            <span style={{ color: '491b86' }}>{issuingOrganisation}</span>
+            <span style={{ color: '#491b86' }}>{issuingOrganisation}</span>
           </h4>
 
           <div className="mt-6 flex flex-row items-center justify-around">
@@ -71,4 +75,3 @@ const CertificateTemplate = React.forwardRef(
 );
 
 export default CertificateTemplate;
-// className = 'mb-2 text-xl font-bold';
