@@ -6,11 +6,13 @@ import { FaSearch } from 'react-icons/fa';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import CertificateTemplate from './CertificateTemplate';
+import useAuthProvider from '@/hooks/useAuthProvider';
 
 const Certificate = () => {
   const certificateRef = React.useRef();
   const [selectedCertificate, setSelectedCertificate] = React.useState(null);
   const [downloadRequested, setDownloadRequested] = React.useState(false);
+  const { auth } = useAuthProvider();
 
   const [certificates, setCertificates] = React.useState([
     {
@@ -70,11 +72,11 @@ const Certificate = () => {
           unit: 'px',
           format: 'a4',
         });
-        const imgProperties = pdf.getImageProperties(data);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight =
-          (imgProperties.height * pdfWidth) / imgProperties.width;
-        pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
+
+        const imgWidth = pdf.internal.pageSize.getWidth();
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        pdf.addImage(data, 'PNG', 0, 0, imgWidth, imgHeight);
         pdf.save(`${downloadRequested}.pdf`);
         setDownloadRequested(false);
       }
@@ -82,79 +84,79 @@ const Certificate = () => {
     downloadCertificate();
   }, [downloadRequested, selectedCertificate]);
 
-  const hiddenCertificate = (
-    <div className={downloadRequested ? 'block' : 'hidden'}>
-      <div>
-        <CertificateTemplate
-          ref={certificateRef}
-          name={selectedCertificate?.name}
-          issuingOrganisation={selectedCertificate?.issuingOrganisation}
-          dateOfIssue={selectedCertificate?.dateOfIssue}
-        />
-      </div>
-    </div>
-  );
-
   // Render certificates table if User has certificates
   if (certificates.length > 0) {
     return (
-      <div className="h-screen md:w-full">
-        {hiddenCertificate}
-        <div className="flex flex-col items-center justify-between p-8 md:flex-row">
-          <div className="pb-8 md:pb-0">
-            <h1 className="mb-1 text-2xl font-semibold">My Certificates</h1>
+      <>
+        {downloadRequested ? (
+          <div>
+            <CertificateTemplate
+              ref={certificateRef}
+              name={selectedCertificate?.name}
+              issuingOrganisation={selectedCertificate?.issuingOrganisation}
+              dateOfIssue={selectedCertificate?.dateOfIssue}
+              holderName={auth?.user?.name}
+            />
           </div>
-        </div>
+        ) : (
+          <div className="h-screen md:w-full">
+            <div className="flex flex-col items-center justify-between p-8 md:flex-row">
+              <div className="pb-8 md:pb-0">
+                <h1 className="mb-1 text-2xl font-semibold">My Certificates</h1>
+              </div>
+            </div>
 
-        <div className="px-4 lg:px-8">
-          <div className="rounded-lg border bg-white shadow-sm">
-            <table className="w-full">
-              <thead className="border-b bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
-                    Certificate name
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
-                    Issuing Organisation
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
-                    Date of issue
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
-                    Action
-                  </th>
-                </tr>
-              </thead>
+            <div className="px-4 lg:px-8">
+              <div className="rounded-lg border bg-white shadow-sm">
+                <table className="w-full">
+                  <thead className="border-b bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                        Certificate name
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                        Issuing Organisation
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                        Date of issue
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-500 uppercase">
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
 
-              <tbody className="divide-y divide-gray-200 bg-white">
-                {certificates.map((certificate) => (
-                  <tr key={certificate.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
-                      {certificate.name}
-                    </td>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
-                      {certificate.issuingOrganisation}
-                    </td>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
-                      {certificate.dateOfIssue}
-                    </td>
-                    <td className="px-6 py-4 text-sm whitespace-nowrap">
-                      <button
-                        onClick={() =>
-                          handleDownload(certificate.id, certificate.name)
-                        }
-                        className="text-primary-600 hover:text-primary-800 font-medium"
-                      >
-                        Download
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                  <tbody className="divide-y divide-gray-200 bg-white">
+                    {certificates.map((certificate) => (
+                      <tr key={certificate.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 text-sm font-medium whitespace-nowrap text-gray-900">
+                          {certificate.name}
+                        </td>
+                        <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
+                          {certificate.issuingOrganisation}
+                        </td>
+                        <td className="px-6 py-4 text-sm whitespace-nowrap text-gray-500">
+                          {certificate.dateOfIssue}
+                        </td>
+                        <td className="px-6 py-4 text-sm whitespace-nowrap">
+                          <button
+                            onClick={() =>
+                              handleDownload(certificate.id, certificate.name)
+                            }
+                            className="text-primary-600 hover:text-primary-800 font-medium"
+                          >
+                            Download
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )}
+      </>
     );
   }
 
