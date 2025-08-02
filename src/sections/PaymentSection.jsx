@@ -1,10 +1,14 @@
 import React from 'react';
 import { naira, checkIcon } from '../components/details';
+import { useNavigate } from 'react-router';
+
 
 const PaymentSection = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="bg-primary-50 flex w-full flex-col items-center justify-center py-12 lg:min-h-screen lg:py-20">
-      <div className="container mt-10 flex w-full flex-col items-center justify-center">
+    <div className="bg-primary-50 flex w-full flex-col items-center justify-center py-12 lg:min-h-screen lg:py-20" >
+      <div id="plans" className="container mt-10 flex w-full flex-col items-center justify-center">
         <h2 className="mb-4 text-3xl font-semibold text-[#121212] lg:text-5xl lg:font-medium">
           Plans For You
         </h2>
@@ -26,7 +30,10 @@ const PaymentSection = () => {
               </div>
               <p className="text-sm leading-5">7 days</p>
             </div>
-            <button className="bg-primary-500 mt-7 cursor-pointer px-12 py-2.5 text-sm leading-5 text-white hover:bg-purple-700 lg:px-20 rounded-lg">
+            <button 
+             className="bg-primary-500 mt-7 cursor-pointer px-12 py-2.5 text-sm leading-5 text-white hover:bg-purple-700 lg:px-20 rounded-lg"
+             onClick={() => navigate('/courses')}
+            >
               Access course
             </button>
             <div className="mt-7 space-y-4">
@@ -108,7 +115,7 @@ const PaymentSection = () => {
             </div>
           </div> */}
 
-          {/* Educator Plan */}
+          {/* Premium Plan */}
           <div className="flex flex-col rounded-2xl bg-white px-10 py-14 md:col-span-2 md:mx-auto md:max-w-md lg:col-span-1 lg:max-w-none lg:py-16">
             <h2 className="text-2xl font-bold">Premium Plan</h2>
             <p className="mt-5 text-sm">
@@ -123,7 +130,11 @@ const PaymentSection = () => {
               </div>
               <p className="text-sm leading-5">per month</p>
             </div>
-            <button className="bg-primary-500 mt-7 cursor-pointer px-12 py-2.5 text-sm leading-5 text-white hover:bg-purple-700 lg:px-20 rounded-lg">
+            
+            <button 
+              className="bg-primary-500 mt-7 cursor-pointer px-12 py-2.5 text-sm leading-5 text-white hover:bg-purple-700 lg:px-20 rounded-lg"
+              onClick={() => navigate('/courses')}
+            >
               Get Started
             </button>
             <div className="mt-7 space-y-4">

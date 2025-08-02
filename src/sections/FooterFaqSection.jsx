@@ -1,7 +1,10 @@
 import React from 'react';
 import { blackMaleImg, femaleImg, maleImg } from '../components/details';
+import { useNavigate } from 'react-router';
 
 const FooterFaqSection = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex w-full flex-col items-center justify-center bg-[#6d28d2] py-12 lg:py-16">
       <div className="container px-6 lg:px-10">
@@ -16,10 +19,16 @@ const FooterFaqSection = () => {
             </p>
 
             <div className="mt-8 flex w-full flex-col items-center space-y-5 md:w-auto md:flex-row md:space-y-0 md:space-x-5">
-              <button className="hover:text-primary-800 cursor-pointer rounded-2xl bg-white px-27 py-3 font-semibold lg:px-6">
+              <button 
+                className="hover:text-primary-800 cursor-pointer rounded-2xl bg-white px-27 py-3 font-semibold lg:px-6" 
+                onClick={() => navigate('/Sign-up')}
+              >
                 Start Learning
               </button>
-              <button className="hover:text-primary-800 cursor-pointer rounded-2xl border border-white px-20 py-3 font-semibold text-white hover:bg-white lg:px-6">
+              <button 
+                className="hover:text-primary-800 cursor-pointer rounded-2xl border border-white px-20 py-3 font-semibold text-white hover:bg-white lg:px-6"
+                onClick={() => navigate('/Sign-up')}
+              >
                 Become An Educator
               </button>
             </div>

@@ -32,6 +32,7 @@ import QuizUI from '@/pages/ContentViewer/QuizUI';
 import About from '@/pages/home/AboutPage';
 import Certificate from '@/pages/learnerspage/Certificate';
 import Settings from '@/pages/learnerspage/Settings';
+import PaymentSection from '@/sections/PaymentSection';
 
 export const routes = [
   {
@@ -81,6 +82,10 @@ export const routes = [
   {
     path: '/courses',
     element: <CoursesPage />,
+  },
+  {
+    path: '/see-plans',
+    element: <PaymentSection />,
   },
   // tests
 

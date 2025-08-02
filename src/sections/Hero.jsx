@@ -2,6 +2,7 @@ import React from 'react';
 import { heroImg, radialGradient, testimonialImg } from '../components/details';
 import { useNavigate } from 'react-router';
 import Button from '../components/UI/Button';
+import PaymentSection from './PaymentSection';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -29,12 +30,15 @@ const Hero = () => {
                 </p>
 
                 <div className="z-20 flex flex-col justify-center space-y-4 space-x-4 md:flex-row md:space-y-0 lg:justify-start">
-                  <Button label={'see plans'} active={true} fun={() => {}} />
+                  <Button label={'see plans'} active={true} fun={() => navigate('/see-plans')} />
 
                   <Button
                     label="Access your course"
                     active={false}
-                    fun={() => navigate('/learning')}
+                    fun={() => {
+                      const el = document.getElementById("plans");
+                      if (el) el.scrollIntoView({ behavior: 'smooth'})
+                    }}
                   />
                 </div>
 
