@@ -1,4 +1,4 @@
-import CoursesSection from '@/components/UI/CourseSection';
+import CourseEnrolledSection from '@/sections/CourseEnrolledSection';
 import React from 'react';
 import { FaSearch } from 'react-icons/fa';
 
@@ -8,7 +8,7 @@ const StudentCourses = () => {
  
 
   return (
-    <div className="h-screen w-full">
+    <div className="h-[calc(100vh-80px)] w-full">
       <div className="flex flex-col items-center justify-between p-8 md:flex-row">
         <div className="pb-8 md:pb-0">
           <h1 className="mb-1 text-2xl font-semibold">My Courses</h1>
@@ -24,7 +24,7 @@ const StudentCourses = () => {
         </div>
       </div>
 
-      <CoursesSection/>
+      <CourseEnrolledSection/>
 
       
     </div>
