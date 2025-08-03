@@ -109,10 +109,9 @@ export const routes = [
             element: <TutorsDashboard />,
           },
           {
-            path: 'student',
+            path: '',
             element: (
               <QuizProvider>
-                <Student />
               </QuizProvider>
             ),
           },
