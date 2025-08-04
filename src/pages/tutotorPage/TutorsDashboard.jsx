@@ -5,11 +5,14 @@ import { FaBook } from 'react-icons/fa';
 import Handwave from './../../assets/learners-page-image/handwavee.png';
 import CalenderSection from '@/sections/CalenderSection';
 import useAuthProvider from '@/hooks/useAuthProvider';
+import { useNavigate } from 'react-router';
 
 const TutorsDashboard = () => {
   const {
     auth: { user },
   } = useAuthProvider();
+
+  const navigate = useNavigate();
 
   // Course data objects
   const courses = [
@@ -149,7 +152,10 @@ const TutorsDashboard = () => {
         {/* Start Course */}
 
         <div className="mb-8">
-          <button className="w-full rounded-md bg-purple-700 px-6 py-2 text-white hover:bg-purple-600 md:w-auto">
+          <button
+            className="w-full rounded-md bg-purple-700 px-6 py-2 text-white hover:bg-purple-600 md:w-auto"
+            onClick={() => navigate('/educator/my-courses')}
+          >
             Manage Courses
           </button>
         </div>
