@@ -21,7 +21,7 @@ const FooterFaqSection = () => {
             <div className="mt-8 flex w-full flex-col items-center space-y-5 md:w-auto md:flex-row md:space-y-0 md:space-x-5">
               <button 
                 className="hover:text-primary-800 cursor-pointer rounded-2xl bg-white px-27 py-3 font-semibold lg:px-6" 
-                onClick={() => navigate('/Sign-up')}
+                onClick={() => navigate('/courses')}
               >
                 Start Learning
               </button>

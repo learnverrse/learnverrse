@@ -30,15 +30,16 @@ const Hero = () => {
                 </p>
 
                 <div className="z-20 flex flex-col justify-center space-y-4 space-x-4 md:flex-row md:space-y-0 lg:justify-start">
-                  <Button label={'see plans'} active={true} fun={() => navigate('/see-plans')} />
+                  <Button label={'see plans'} active={true} fun={() => {
+                    const el = document.getElementById("plans");
+                    if (el) el.scrollIntoView({behavior: 'smooth'})
+                  }
+                  } />
 
                   <Button
                     label="Access your course"
                     active={false}
-                    fun={() => {
-                      const el = document.getElementById("plans");
-                      if (el) el.scrollIntoView({ behavior: 'smooth'})
-                    }}
+                    fun={() => {navigate('/courses')}}
                   />
                 </div>
 

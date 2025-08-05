@@ -22,7 +22,7 @@ const ExploreSection = () => {
         </p>
         <div className="m-auto mt-8 w-full bg-[#F0E5FF] px-2 py-14 md:rounded-lg lg:w-[95%] lg:px-10 lg:py-6">
           <CoursesSection limitCourses={3} />
-          <Button label={'View All Courses'} active={true} onClick={handleViewAll} />
+          <Button label={'View All Courses'} active={true} onClick={handleViewAll} fun={() => navigate('/courses')} />
         </div>
       </div>
     </div>
