@@ -33,6 +33,7 @@ import About from '@/pages/home/AboutPage';
 import Certificate from '@/pages/learnerspage/Certificate';
 import Settings from '@/pages/learnerspage/Settings';
 import PaymentSection from '@/sections/PaymentSection';
+import Payment from '@/pages/home/Payment';
 
 
 import CourseDetails from '@/pages/home/CourseDetails';
@@ -91,13 +92,13 @@ export const routes = [
     path: '/see-plans',
     element: <PaymentSection />,
   },
-
-
-// CourseDetails
-
   {
     path: '/coursedetails',
     element: <CourseDetails />,
+  },
+  {
+    path: '/payment',
+    element: <Payment />,
   },
 
   // tests

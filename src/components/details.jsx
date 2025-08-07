@@ -53,6 +53,12 @@ export const aboutHeaderImg = baseUrl + '/assets/aboutImageHeader.png'
 export const aboutHuman = baseUrl + '/assets/aboutHuman.png';
 export const certificateBanner = baseUrl + '/assets/certificateBanner.png';
 export const CertificateBackground = baseUrl + '/assets/CertficateBG.png';
+export const CourseHolder = baseUrl + '/assets/productCourse.jpg';
+export const VerveCard = baseUrl + '/assets/VerveCard.png';
+export const VisaCard = baseUrl + '/assets/VisaCard.png';
+export const MasterCard = baseUrl + '/assets/Mastercard.png';
+
+
 
 export const banner = baseUrl + '/assets/banner.png';
 export const banners = baseUrl + '/assets/signup-img.png';

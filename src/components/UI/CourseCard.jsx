@@ -10,7 +10,7 @@ const CourseCard = ({ course }) => {
 
   return (
     <div
-      onClick={() => navigate('/learner-dashboard/learning-page')}
+      onClick={() => navigate('/coursedetails')}
       className="w-full overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-lg md:w-auto"
     >
       {/* course images */}
