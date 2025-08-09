@@ -19,7 +19,7 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
 
   const [searchQuery, setSearchQuery] = useState('');
 
-  const search = async (e) => {
+  const searchBar = async (e) => {
     setSearchQuery(e.target.value);
   };
 
