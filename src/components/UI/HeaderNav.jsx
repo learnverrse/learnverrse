@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import HomeLogo from '@/components/UI/HomeLogo';
 import Button from '@/components/UI/Button';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import {search, navLinks, radialGradient, heroImg,} from '../details';
+import { search, navLinks, radialGradient, heroImg } from '../details';
 
 const HeaderNav = ({ bgColor = 'bg-white' }) => {
   const navigate = useNavigate();
@@ -17,11 +17,17 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
     setIsMobileMenuOpen(false);
   };
 
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const search = async (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <>
       <header className={`container mx-auto ${bgColor}`}>
         {/* navbar */}
-        <nav className="m-auto mt-2 flex w-full lg:max-w-7xl items-center justify-between px-6 py-4 b border-2 border-primary-500 rounded-full">
+        <nav className="b border-primary-500 m-auto mt-2 flex w-full items-center justify-between rounded-full border-2 px-6 py-4 lg:max-w-7xl">
           <div className="flex items-center gap-x-2">
             {/* logo */}
             <HomeLogo />
@@ -37,10 +43,11 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
           </div>
 
           {/* search input */}
-          <div className="relative mx-4 hidden w-full md:max-w-3xs lg:max-w-xs max-w-md md:block">
+          <div className="relative mx-4 hidden w-full max-w-md md:block md:max-w-3xs lg:max-w-xs">
             <input
-              type="text"
+              type="search"
               placeholder="Discover Courses To Learn"
+              onChange={(e) => search(e)}
               className="w-full rounded-full border border-black px-4 py-2 pl-10 focus:ring-2 focus:ring-purple-700 focus:outline-none"
             />
 
@@ -71,7 +78,7 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
               />
             </div>
 
-            <div className='hidden md:block lg:hidden'>
+            <div className="hidden md:block lg:hidden">
               <Button
                 active={true}
                 label={'join us now'}
@@ -81,7 +88,7 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
               />
             </div>
 
-            <button 
+            <button
               className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-200 hover:bg-gray-300 focus:ring-2 focus:ring-purple-700 focus:outline-none md:hidden"
               onClick={toggleMobileMenu}
             >
@@ -93,21 +100,21 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
 
       {/* Mobile Slide-in Menu */}
       {/* Backdrop */}
-      <div 
-        className={`fixed inset-0 backdrop-blur-sm z-40 transition-opacity duration-300 lg:hidden ${
-          isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      <div
+        className={`fixed inset-0 z-40 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
+          isMobileMenuOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
         onClick={closeMobileMenu}
       />
 
       {/* Slide-in Menu */}
-      <div 
-        className={`fixed top-0 right-0 h-full w-80 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
+      <div
+        className={`fixed top-0 right-0 z-50 h-full w-80 transform bg-white shadow-xl transition-transform duration-300 ease-in-out lg:hidden ${
           isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         {/* Menu Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+        <div className="flex items-center justify-between border-b border-gray-200 p-6">
           <HomeLogo />
           <button
             onClick={closeMobileMenu}
@@ -118,7 +125,7 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
         </div>
 
         {/* Menu Content */}
-        <div className="p-6 space-y-6">
+        <div className="space-y-6 p-6">
           {/* Search Input */}
           <div className="relative">
             <input
@@ -136,9 +143,9 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
           {/* Navigation Links */}
           <div className="space-y-4">
             {navLinks.map(({ name, path }, index) => (
-              <Link 
-                className="block py-2 text-lg font-medium text-gray-700 hover:text-purple-700 border-b border-purple-100 last:border-b-1 capitalize" 
-                to={`${path}`} 
+              <Link
+                className="block border-b border-purple-100 py-2 text-lg font-medium text-gray-700 capitalize last:border-b-1 hover:text-purple-700"
+                to={`${path}`}
                 key={index}
                 onClick={closeMobileMenu}
               >
@@ -170,7 +177,7 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default HeaderNav
+export default HeaderNav;
