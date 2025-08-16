@@ -35,9 +35,7 @@ import Settings from '@/pages/learnerspage/Settings';
 import PaymentSection from '@/sections/PaymentSection';
 import Payment from '@/pages/home/Payment';
 
-
 import CourseDetails from '@/pages/home/CourseDetails';
-
 
 export const routes = [
   {
@@ -98,7 +96,8 @@ export const routes = [
   },
   {
     path: '/payment',
-    element: <Payment />,
+    element: <ProtectedRoute role="learner" />,
+    children: [{ element: <Payment /> }],
   },
 
   // tests
@@ -124,10 +123,7 @@ export const routes = [
           },
           {
             path: '',
-            element: (
-              <QuizProvider>
-              </QuizProvider>
-            ),
+            element: <QuizProvider></QuizProvider>,
           },
           // course upload pages
           {
