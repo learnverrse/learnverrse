@@ -136,7 +136,7 @@ import Loader from './Loader';
 //     src: image2149,
 //   },
 // ];
-const CoursesSection = ({ limitCourses = 3 }) => {
+const CoursesSection = ({ limitCourses }) => {
   async function fetchCourses() {
     const response = await axiosInstance.get(
       import.meta.env.VITE_GET_ALL_COURSES
