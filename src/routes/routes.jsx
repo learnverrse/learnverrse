@@ -92,12 +92,12 @@ export const routes = [
     element: <PaymentSection />,
   },
   {
-    path: '/coursedetails',
+    path: '/coursedetails/:courseId',
     element: <CourseDetails />,
   },
   {
     path: '/payment',
-    element: <ProtectedRoute role="learner" />,
+    element: <ProtectedRoute role="LEARNER" />,
     children: [{ element: <Payment /> }],
   },
   {

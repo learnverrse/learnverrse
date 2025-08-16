@@ -4,13 +4,14 @@ import { FaArrowRight } from 'react-icons/fa6';
 import { useNavigate } from 'react-router';
 import Button from './Button';
 import image234 from '@/assets/student-courses-images/image234.png';
+import Naira from '../utils/Naira';
 
 const CourseCard = ({ course }) => {
   const navigate = useNavigate();
 
   return (
     <div
-      onClick={() => navigate('/coursedetails')}
+      onClick={() => navigate(`/coursedetails/${course._id}`)}
       className="w-full overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-lg md:w-auto"
     >
       {/* course images */}
@@ -37,7 +38,7 @@ const CourseCard = ({ course }) => {
       <div className="mb-3 flex items-center gap-4 pl-5">
         <div className="flex items-center gap-2">
           <FaStar className="h-4 w-4 text-yellow-400" />
-          <span>{course?.rating || 'no rating'}</span>
+          <span>{course?.averageRating || 'no rating'}</span>
         </div>
         <div className="flex items-center gap-2">
           <FaRegClock className="h-4 w-4 text-gray-400" />
@@ -49,12 +50,12 @@ const CourseCard = ({ course }) => {
 
       <p className="p-5">{course.description}</p>
 
-      <div className="flex items-center justify-between p-5">
-        <button className="bg-primary-300 flex gap-2 rounded-full p-2 px-16 text-sm font-medium text-black transition-colors hover:text-purple-700">
+      <div className="flex items-center justify-between p-5 max-sm:flex-wrap">
+        <button className="bg-primary-300 flex gap-2 rounded-full p-2 px-10 text-sm font-medium text-black transition-colors hover:text-purple-700">
           Enroll Now
         </button>
-        <h3 className="text-lg font-bold text-black md:text-2xl">
-          ${course.price}
+        <h3 className="text-lg font-bold text-black md:text-xl">
+          <Naira amount={course.price} />
         </h3>
       </div>
     </div>

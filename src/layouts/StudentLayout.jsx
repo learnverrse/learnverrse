@@ -5,7 +5,7 @@ import { CgProfile } from 'react-icons/cg';
 import SideBar from '../components/UI/SideBar';
 import { Outlet } from 'react-router';
 import { FaBars } from 'react-icons/fa6';
-import { FaTimes } from "react-icons/fa";
+import { FaTimes } from 'react-icons/fa';
 import useAuthProvider from '@/hooks/useAuthProvider';
 
 const StudentLayout = () => {
@@ -15,6 +15,7 @@ const StudentLayout = () => {
   const {
     auth: { user },
   } = useAuthProvider();
+  console.log(user);
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,9 +44,13 @@ const StudentLayout = () => {
 
   return (
     <div className="flex h-screen flex-col overflow-hidden">
-      <header className="flex items-center justify-between px-2 py-4 relative z-30">
+      <header className="relative z-30 flex items-center justify-between px-2 py-4">
         {isMediumScreen ? (
-          <FaBars size={25} onClick={toggleSidebar} className="cursor-pointer" />
+          <FaBars
+            size={25}
+            onClick={toggleSidebar}
+            className="cursor-pointer"
+          />
         ) : (
           <HomeLogo />
         )}
@@ -57,7 +62,7 @@ const StudentLayout = () => {
         </div>
       </header>
 
-      <main className="flex-1 relative">
+      <main className="relative flex-1">
         {/* Desktop Sidebar */}
         {!isMediumScreen && isSidebarOpen && (
           <SideBar isTutor={false} onLinkClick={closeSidebar} />
@@ -67,25 +72,27 @@ const StudentLayout = () => {
         {isMediumScreen && isSidebarOpen && (
           <>
             {/* Backdrop with blur */}
-            <div 
-              className="fixed inset-0 backdrop-blur-sm z-40"
+            <div
+              className="fixed inset-0 z-40 backdrop-blur-sm"
               onClick={closeSidebar}
             />
-            
+
             {/* Sliding Sidebar */}
-            <div className={`fixed left-0 top-0 bottom-0 w-[280px] bg-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
-              isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-            }`}>
+            <div
+              className={`fixed top-0 bottom-0 left-0 z-50 w-[280px] transform bg-white shadow-xl transition-transform duration-300 ease-in-out ${
+                isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+              }`}
+            >
               {/* Logo and Close button */}
-              <div className="flex justify-between items-center p-4">
+              <div className="flex items-center justify-between p-4">
                 <HomeLogo />
-                <FaTimes 
-                  size={20} 
-                  onClick={closeSidebar} 
-                  className="cursor-pointer h-6 w-6 rounded-full bg-purple-100 hover:bg-purple-200 focus:ring-2 focus:ring-purple-700 focus:outline-none"
+                <FaTimes
+                  size={20}
+                  onClick={closeSidebar}
+                  className="h-6 w-6 cursor-pointer rounded-full bg-purple-100 hover:bg-purple-200 focus:ring-2 focus:ring-purple-700 focus:outline-none"
                 />
               </div>
-              
+
               {/* Sidebar content */}
               <div className="h-full overflow-y-auto pt-4">
                 <SideBar isTutor={false} onLinkClick={closeSidebar} />
@@ -95,7 +102,9 @@ const StudentLayout = () => {
         )}
 
         {/* Main Content */}
-        <div className={`scroll-container ${!isMediumScreen && isSidebarOpen ? 'ml-[240px]' : ''}`}>
+        <div
+          className={`scroll-container ${!isMediumScreen && isSidebarOpen ? 'ml-[240px]' : ''}`}
+        >
           <Outlet />
         </div>
       </main>

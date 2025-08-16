@@ -26,6 +26,7 @@ const CoursePricing = () => {
           `${import.meta.env.VITE_GET_COURSE_BY_ID}/${courseId}`
         );
         const data = res.data.data;
+        console.log(data);
         setCourse(data);
         setSubscriptionType(data.subscription || 'free');
         setPrice(data.price || '');
@@ -56,6 +57,7 @@ const CoursePricing = () => {
     const updatedCourse = {
       ...course,
       status: 'DRAFT',
+      price,
     };
 
     try {
@@ -78,7 +80,9 @@ const CoursePricing = () => {
     const updatedCourse = {
       ...course,
       status: 'PUBLISHED',
+      price: +price,
     };
+    console.log(updatedCourse);
 
     try {
       setIsLoading(true);
@@ -90,13 +94,14 @@ const CoursePricing = () => {
       toast('course as been published');
       navigate(`/educator/my-courses`);
     } catch (err) {
+      console.log(err);
       toast.error('Failed to update course');
     } finally {
       setIsLoading(false);
     }
   };
   return (
-    <div className="flex h-[calc(100vh-80px)] flex-col bg-gray-50 px-6 py-2 overflow-y-auto">
+    <div className="flex h-[calc(100vh-80px)] flex-col overflow-y-auto bg-gray-50 px-6 py-2">
       <CreateCourseNav currentStep={4} />
       {isLoading ? (
         <Loader
@@ -207,7 +212,7 @@ const CoursePricing = () => {
               Save as Draft
             </button>
           </div>
-          <div className="mt-4 flex justify-between items-center gap-4">
+          <div className="mt-4 flex items-center justify-between gap-4">
             <button
               type="button"
               className="rounded-full bg-gray-600 px-8 py-3 font-medium text-white hover:bg-gray-700"

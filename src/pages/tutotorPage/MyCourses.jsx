@@ -60,7 +60,7 @@ const MyCourses = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-80px)] w-fit">
+    <div className="h-[calc(100vh-80px)] flex-1">
       <div className="flex items-center justify-between gap-4 p-4 md:p-6">
         <h1 className="mb-1.5 text-center text-xl font-bold md:text-2xl">
           My Courses
@@ -76,7 +76,7 @@ const MyCourses = () => {
           <Loader isLoading={isLoading} info={'Fetching your courses...'} />
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-between gap-12">
+        <div className="flex flex-col justify-between gap-12">
           <div className="scroll-container overflow-y-auto px-4 py-2">
             {data?.data && data?.data.length ? (
               <>
@@ -117,7 +117,11 @@ const MyCourses = () => {
                 </div>
               </>
             ) : (
-              <p className="text-heading text-sm">You have no courses yet</p>
+              <div className="flex h-full w-full items-center justify-center">
+                <p className="text-heading text-center text-sm">
+                  You have no courses yet
+                </p>
+              </div>
             )}
           </div>
         </div>

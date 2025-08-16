@@ -8,13 +8,15 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import Loader from '@/components/UI/Loader';
 import axios from 'axios';
 import { FaTimes } from 'react-icons/fa';
+import useAuthProvider from '@/hooks/useAuthProvider';
 
 const CourseInformation = () => {
   const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuthProvider();
 
   const navigate = useNavigate();
   const [charNumber, setCharNumber] = useState(0);
-  const [totalNum] = useState(2000);
+  const [totalNum] = useState(1000);
 
   const textareaRef = useRef(null);
   const [textArr, setTextArr] = useState([]);
@@ -56,6 +58,7 @@ const CourseInformation = () => {
           `${import.meta.env.VITE_GET_COURSE_BY_ID}/${courseId}`
         );
         const data = res.data.data;
+        console.log(data);
         setCourse(data);
         setTitle(data.title || '');
         setCategory(data.category || '');
@@ -94,8 +97,9 @@ const CourseInformation = () => {
     const payload = {
       fileName: imageToUpload.name,
       fileType: imageToUpload.type,
+      fileSize: imageToUpload.size,
     };
-
+    console.log();
     try {
       // 1) Get signed upload URL
       setIsLoading(true);
@@ -104,8 +108,7 @@ const CourseInformation = () => {
         payload
       );
 
-
-      const { uploadUrl, videoUrl: finalImageUrl } = response.data.data;
+      const { uploadUrl, fileUrl: finalImageUrl } = response.data.data;
 
       // 2) PUT file to S3
       try {
@@ -119,9 +122,11 @@ const CourseInformation = () => {
         setCourseImage(finalImageUrl);
         toast.success('Image uploaded successfully!');
       } catch (uploadErr) {
+        console.log(uploadErr);
         toast.error('Upload failed during file transfer');
       }
     } catch (error) {
+      console.log(error);
       toast.error('Failed to get upload URL');
     } finally {
       setIsLoading(false);
@@ -160,7 +165,7 @@ const CourseInformation = () => {
   };
 
   return (
-    <div className="flex flex-col bg-gray-50 px-6 py-2 h-[calc(100vh-80px)]">
+    <div className="flex h-[calc(100vh-80px)] flex-col bg-gray-50 px-6 py-2">
       <CreateCourseNav />
       {isLoading ? (
         <Loader isLoading={isLoading} info={'Loading course information...'} />
