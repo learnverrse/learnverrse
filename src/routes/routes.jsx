@@ -36,6 +36,7 @@ import PaymentSection from '@/sections/PaymentSection';
 import Payment from '@/pages/home/Payment';
 
 import CourseDetails from '@/pages/home/CourseDetails';
+import PaymentStatus from '@/pages/home/PaymentStatus';
 
 export const routes = [
   {
@@ -99,13 +100,17 @@ export const routes = [
     element: <ProtectedRoute role="learner" />,
     children: [{ element: <Payment /> }],
   },
+  {
+    path: '/payment-status',
+    element: <PaymentStatus />,
+  },
 
   // tests
 
   // {
   //   path: 'test',
 
-  //   element: <CertificateBG />,
+  //   element: <PaymentStatus />,
   // },
 
   // 👨‍🏫 Educator Routes
