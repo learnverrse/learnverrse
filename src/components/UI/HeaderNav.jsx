@@ -4,9 +4,11 @@ import HomeLogo from '@/components/UI/HomeLogo';
 import Button from '@/components/UI/Button';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { search, navLinks, radialGradient, heroImg } from '../details';
+import useAuthProvider from '@/hooks/useAuthProvider';
 
 const HeaderNav = ({ bgColor = 'bg-white' }) => {
   const navigate = useNavigate();
+  const { auth } = useAuthProvider();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -61,31 +63,57 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
           {/* buttons */}
           <div className="gap-4 md:flex">
             <div className="hidden items-center space-x-4 lg:flex">
-              <Button
-                active={false}
-                label={'login'}
-                fun={() => {
-                  navigate('/SignIn');
-                }}
-              />
+              {auth ? (
+                <Button
+                  active={true}
+                  label={'Dashboard'}
+                  fun={() =>
+                    navigate(
+                      `${auth.user?.role === 'LEARNER' ? '/learner-dashboard' : '/educator'}`
+                    )
+                  }
+                />
+              ) : (
+                <>
+                  <Button
+                    active={false}
+                    label={'login'}
+                    fun={() => {
+                      navigate('/SignIn');
+                    }}
+                  />
 
-              <Button
-                active={true}
-                label={'join us now'}
-                fun={() => {
-                  navigate('/role-selector');
-                }}
-              />
+                  <Button
+                    active={true}
+                    label={'join us now'}
+                    fun={() => {
+                      navigate('/role-selector');
+                    }}
+                  />
+                </>
+              )}
             </div>
 
             <div className="hidden md:block lg:hidden">
-              <Button
-                active={true}
-                label={'join us now'}
-                fun={() => {
-                  navigate('/role-selector');
-                }}
-              />
+              {auth ? (
+                <Button
+                  active={true}
+                  label={'Dashboard'}
+                  fun={() =>
+                    navigate(
+                      `${auth.user?.role === 'LEARNER' ? '/learner-dashboard' : '/educator'}`
+                    )
+                  }
+                />
+              ) : (
+                <Button
+                  active={true}
+                  label={'join us now'}
+                  fun={() => {
+                    navigate('/role-selector');
+                  }}
+                />
+              )}
             </div>
 
             <button
@@ -156,23 +184,37 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
 
           {/* Action Buttons */}
           <div className="space-y-4 pt-6">
-            <Button
-              active={false}
-              label={'login'}
-              fun={() => {
-                navigate('/SignIn');
-                closeMobileMenu();
-              }}
-            />
+            {auth ? (
+              <Button
+                active={true}
+                label={'Dashboard'}
+                fun={() =>
+                  navigate(
+                    `${auth.user?.role === 'LEARNER' ? '/learner-dashboard' : '/educator'}`
+                  )
+                }
+              />
+            ) : (
+              <>
+                <Button
+                  active={false}
+                  label={'login'}
+                  fun={() => {
+                    navigate('/SignIn');
+                    closeMobileMenu();
+                  }}
+                />
 
-            <Button
-              active={true}
-              label={'join us now'}
-              fun={() => {
-                navigate('/role-selector');
-                closeMobileMenu();
-              }}
-            />
+                <Button
+                  active={true}
+                  label={'join us now'}
+                  fun={() => {
+                    navigate('/role-selector');
+                    closeMobileMenu();
+                  }}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>

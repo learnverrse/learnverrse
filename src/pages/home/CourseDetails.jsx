@@ -14,31 +14,38 @@ import {
   Star,
 } from 'lucide-react';
 import { CourseHolder } from '@/components/details';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { axiosInstance } from '@/apis/axios';
 import { toast } from 'react-toastify';
 import Naira from '@/components/utils/Naira';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 
 const CourseDetailPage = () => {
-  const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
   const { courseId } = useParams();
 
   const [course, setCourse] = useState({});
   const [loading, setLoading] = useState(true);
   const [expandedSections, setExpandedSections] = useState({});
+  const [enrolling, setEnrolling] = useState(false);
 
   async function Enroll(courseId) {
+    const payload = {
+      courseId: courseId,
+    };
     try {
-      const res = await axiosPrivate.post('payments/initialize', courseId);
+      setEnrolling(true);
+      console.log('initializing payment');
+      const res = await axiosPrivate.post('payments/initialize', payload);
 
-      const { success, data } = res.data;
+      console.log(res.data);
 
-      if (success) window.location.href = data.authorizationUrl;
+      // if (success) window.location.href = data.authorizationUrl;
     } catch (error) {
-      toast.error('something went wrong');
-      console.log(error);
+      toast.error(error.message || 'something went wrong');
+      console.error(error);
+    } finally {
+      setEnrolling(false);
     }
   }
 
@@ -250,7 +257,8 @@ const CourseDetailPage = () => {
                   {/* Enroll Button */}
                   <button
                     onClick={() => Enroll(course._id)}
-                    className="mb-6 w-full transform rounded-xl bg-purple-600 px-6 py-4 font-bold text-white transition-all duration-200 hover:scale-105 hover:bg-purple-700"
+                    disabled={enrolling}
+                    className="mb-6 w-full transform rounded-xl bg-purple-600 px-6 py-4 font-bold text-white transition-all duration-200 hover:scale-105 hover:bg-purple-700 disabled:bg-purple-300"
                   >
                     Enroll Now
                   </button>
