@@ -49,7 +49,6 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
             <input
               type="search"
               placeholder="Discover Courses To Learn"
-              onChange={(e) => search(e)}
               className="w-full rounded-full border border-black px-4 py-2 pl-10 focus:ring-2 focus:ring-purple-700 focus:outline-none"
             />
 
@@ -63,7 +62,7 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
           {/* buttons */}
           <div className="gap-4 md:flex">
             <div className="hidden items-center space-x-4 lg:flex">
-              {auth ? (
+              {auth?.user ? (
                 <Button
                   active={true}
                   label={'Dashboard'}
@@ -77,7 +76,7 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
                 <>
                   <Button
                     active={false}
-                    label={'login'}
+                    label={'Sign In'}
                     fun={() => {
                       navigate('/SignIn');
                     }}
@@ -85,9 +84,9 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
 
                   <Button
                     active={true}
-                    label={'join us now'}
+                    label={'Sign Up'}
                     fun={() => {
-                      navigate('/role-selector');
+                      navigate('/Sign-up');
                     }}
                   />
                 </>
@@ -95,7 +94,7 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
             </div>
 
             <div className="hidden md:block lg:hidden">
-              {auth ? (
+              {auth?.user ? (
                 <Button
                   active={true}
                   label={'Dashboard'}
@@ -108,9 +107,9 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
               ) : (
                 <Button
                   active={true}
-                  label={'join us now'}
+                  label={'Sign Up'}
                   fun={() => {
-                    navigate('/role-selector');
+                    navigate('/Sign-up');
                   }}
                 />
               )}
