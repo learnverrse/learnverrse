@@ -111,7 +111,7 @@ export const routes = [
   // {
   //   path: 'test',
 
-  //   element: <PaymentStatus />,
+  //   element: <Quiz />,
   // },
 
   // 👨‍🏫 Educator Routes
