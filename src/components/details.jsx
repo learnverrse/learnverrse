@@ -57,6 +57,7 @@ export const CourseHolder = baseUrl + '/assets/productCourse.jpg';
 export const VerveCard = baseUrl + '/assets/VerveCard.png';
 export const VisaCard = baseUrl + '/assets/VisaCard.png';
 export const MasterCard = baseUrl + '/assets/Mastercard.png';
+export const BackgroundLogo = baseUrl + '/assets/Background-Logo.png';
 
 
 
@@ -111,12 +112,12 @@ export const dashboardAsideMenu = [
   },
   {
     name: 'message',
-    path: '/dashboard',
+    path: '/educator/chat',
     icon: <FiMessageCircle size={24} />,
   },
   {
     name: 'settings',
-    path: '/dashboard',
+    path: '/educator/settings',
     icon: <CiSettings size={24} />,
   },
   {
@@ -177,7 +178,7 @@ export const learnersSidebar = [
   },
   {
     name: 'message',
-    path: '/dashboard',
+    path: '/learner-dashboard/chat',
     icon: <FiMessageCircle size={24} />,
   },
   {
