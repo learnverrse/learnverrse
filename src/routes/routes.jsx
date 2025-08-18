@@ -37,6 +37,7 @@ import Payment from '@/pages/home/Payment';
 
 import CourseDetails from '@/pages/home/CourseDetails';
 import PaymentStatus from '@/pages/home/PaymentStatus';
+import Chatbox from '@/pages/learnerspage/Chatbox';
 
 export const routes = [
   {
@@ -151,6 +152,14 @@ export const routes = [
             path: 'pricing/:courseId',
             element: <CoursePricing />,
           },
+          {
+            path: 'chat',
+            element: <Chatbox />,
+          },
+          {
+            path: 'settings',
+            element: <Settings />,
+          },
 
           // course upload pages ends here 👆
         ],
@@ -190,6 +199,10 @@ export const routes = [
           {
             path: 'settings',
             element: <Settings />,
+          },
+          {
+            path: 'chat',
+            element: <Chatbox />,
           },
         ],
       },
