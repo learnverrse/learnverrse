@@ -108,11 +108,11 @@ export const routes = [
 
   // tests
 
-  // {
-  //   path: 'test',
+  {
+    path: 'test',
 
-  //   element: <Quiz />,
-  // },
+    element: <Quiz />,
+  },
 
   // 👨‍🏫 Educator Routes
   {

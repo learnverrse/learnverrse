@@ -5,38 +5,36 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
   const quizQuestions = [
     {
       question: 'What is the capital of France?',
+      type: 'multiple-choice',
       options: ['Beijing', 'London', 'Rome', 'Paris'],
       answer: 'Paris',
     },
     {
       question: 'What language is used for web apps?',
+      type: 'multiple-choice',
       options: ['JavaScript', 'PHP', 'Python', 'All'],
       answer: 'All',
     },
     {
-      question: 'What does JSX stand for?',
-      options: [
-        'JavaScript XML',
-        'Just a Simple Example',
-        'Java Syntax Extension',
-        'None of the above',
-      ],
-      answer: 'JavaScript XML',
+      question: 'JSX stands for JavaScript XML.',
+      type: 'true-false',
+      answer: 'True',
     },
     {
       question: 'Who is the CEO of Tesla?',
+      type: 'multiple-choice',
       options: ['Elon Musk', 'Jeff Bezos', 'Bill Gates', 'Bola Tinubu'],
       answer: 'Elon Musk',
     },
     {
-      question: 'What does HTML stand for?',
-      options: [
-        'HyperText Markup Language',
-        'HyperText Mockup Language',
-        'HyperText Makeup Language',
-        'HyperTetic Makeup Language',
-      ],
-      answer: 'HyperText Markup Language',
+      question: 'HTML stands for HyperText Markup Language.',
+      type: 'true-false',
+      answer: 'True',
+    },
+    {
+      question: 'React is a programming language.',
+      type: 'true-false',
+      answer: 'False',
     },
   ];
 
@@ -45,12 +43,13 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
   const [userAnswers, setUserAnswers] = useState(
     Array(quizQuestions.length).fill(null)
   );
-  const [timeRemaining, setTimeRemaining] = useState(5 * 60); // 15 minutes in seconds
+  const [timeRemaining, setTimeRemaining] = useState(5 * 60); // 5 minutes in seconds
   const [timerActive, setTimerActive] = useState(true);
   const [quizStartTime] = useState(Date.now());
   const [quizEndTime, setQuiZEndTime] = useState(null);
 
   const selectedAnswer = userAnswers[currentQuestion];
+  const currentQuestionData = quizQuestions[currentQuestion];
 
   useEffect(() => {
     let interval;
@@ -110,6 +109,15 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
     setQuiZEndTime(endTime);
   };
 
+  const handleTryAgain = () => {
+    setCurrentQuestion(0);
+    setUserAnswers(Array(quizQuestions.length).fill(null));
+    setTimeRemaining(5 * 60);
+    setTimerActive(true);
+    setQuizFinished(false);
+    setQuiZEndTime(null);
+  };
+
   const timeTaken = getTimeTaken();
 
   const radius = 60;
@@ -117,6 +125,49 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
   const circumference = 2 * Math.PI * radius;
   const progress = 1 - timeRemaining / (5 * 60);
   const dashOffset = circumference * (1 - progress);
+
+  // Render True/False options
+  const renderTrueFalseOptions = () => {
+    const trueFalseOptions = ['True', 'False'];
+    return (
+      <div className="mb-5 flex gap-4">
+        {trueFalseOptions.map((option) => (
+          <button
+            key={option}
+            onClick={() => handleAnswer(option)}
+            className={`hover:bg-primary-100 flex-1 cursor-pointer rounded-lg border px-6 py-3 text-center font-medium ${
+              selectedAnswer === option
+                ? 'border-primary-500 bg-primary-500 hover:bg-primary-500 text-white'
+                : 'border-gray-300'
+            }`}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    );
+  };
+
+  // Render Multiple Choice options
+  const renderMultipleChoiceOptions = () => {
+    return (
+      <div className="mb-5 space-y-3">
+        {currentQuestionData.options.map((option, index) => (
+          <button
+            key={index}
+            onClick={() => handleAnswer(option)}
+            className={`hover:bg-primary-100 block w-full cursor-pointer rounded-lg border px-3.5 py-2 text-start ${
+              selectedAnswer === option
+                ? 'border-primary-500 bg-primary-500 hover:bg-primary-500 text-white'
+                : 'border-gray-300'
+            }`}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    );
+  };
 
   if (isQuizFinished) {
     return (
@@ -126,6 +177,7 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
         onContinue={onQuizComplete}
         onReview={() => setQuizFinished(false)}
         onClose={onCloseQuiz}
+        onTryAgain={handleTryAgain}
         formatTimeTaken={formatTimeTaken}
         timeTaken={timeTaken}
       />
@@ -148,25 +200,23 @@ const QuizUI = ({ onQuizComplete, onCloseQuiz }) => {
           <p>
             Question {currentQuestion + 1} of {quizQuestions.length}
           </p>
+          
+          {/* Question Type Indicator */}
+          <div className="mb-2">
+            <span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">
+              {currentQuestionData.type === 'true-false' ? 'True/False' : 'Multiple Choice'}
+            </span>
+          </div>
 
           <h1 className="mb-6 text-xl font-semibold">
-            {quizQuestions[currentQuestion].question}
+            {currentQuestionData.question}
           </h1>
-          <div className="mb-5 space-y-3">
-            {quizQuestions[currentQuestion].options.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => handleAnswer(option)}
-                className={`hover:bg-primary-100 block w-full cursor-pointer rounded-lg border px-3.5 py-2 text-start ${
-                  selectedAnswer === option
-                    ? 'border-primary-500 bg-primary-500 hover:bg-primary-500 text-white'
-                    : 'border-gray-300'
-                }`}
-              >
-                {option}
-              </button>
-            ))}
-          </div>
+
+          {/* Render options based on question type */}
+          {currentQuestionData.type === 'true-false' 
+            ? renderTrueFalseOptions() 
+            : renderMultipleChoiceOptions()
+          }
 
           <div className="flex justify-between">
             <button
