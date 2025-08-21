@@ -24,8 +24,10 @@ const MyCourses = () => {
       const response = await axiosPrivate.get(
         `courses/educator?ownCoursesOnly=true`
       );
+      console.log(response.data);
       return response.data;
     } catch (error) {
+      console.log(error);
       const errorMessage =
         error.response?.data?.message || 'Something went wrong';
 

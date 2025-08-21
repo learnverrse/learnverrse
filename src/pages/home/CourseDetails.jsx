@@ -38,9 +38,13 @@ const CourseDetailPage = () => {
       console.log('initializing payment');
       const res = await axiosPrivate.post('payments/initialize', payload);
 
-      console.log(res.data);
-
-      // if (success) window.location.href = data.authorizationUrl;
+      if (res.data.success) {
+        console.log(res.data);
+        console.log('redirecting to payment gateway');
+        console.log(res.data.authorizationUrl);
+        // window.location.href = res.data.authorizationUrl;
+        toast.success('success');
+      }
     } catch (error) {
       toast.error(error.message || 'something went wrong');
       console.error(error);

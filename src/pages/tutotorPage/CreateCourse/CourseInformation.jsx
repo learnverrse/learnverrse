@@ -99,15 +99,16 @@ const CourseInformation = () => {
       fileType: imageToUpload.type,
       fileSize: imageToUpload.size,
     };
-    console.log();
+
     try {
       // 1) Get signed upload URL
       setIsLoading(true);
       const response = await axiosPrivate.post(
-        `courses/educator/${courseId}/sections/1/chapters/1/get-upload-url`,
+        `courses/educator/${courseId}/uploads`,
         payload
       );
 
+      console.log(response.data.data);
       const { uploadUrl, fileUrl: finalImageUrl } = response.data.data;
 
       // 2) PUT file to S3

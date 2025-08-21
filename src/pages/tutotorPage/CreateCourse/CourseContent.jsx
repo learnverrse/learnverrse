@@ -233,7 +233,6 @@ const CourseContent = () => {
       );
       const { uploadUrl, videoUrl } = res.data.data;
 
-
       try {
         await axios.put(uploadUrl, file, {
           headers: {
@@ -264,16 +263,17 @@ const CourseContent = () => {
       sections,
     };
 
-
     try {
       setLoading(true);
       const res = await axiosPrivate.put(
         `${import.meta.env.VITE_UPDATE_COURSE + '/' + courseId}`,
         updatedCourse
       );
+      console.log(res);
       toast.success(res.data?.message);
       navigate(`/educator/quiz/${courseId}`);
     } catch (err) {
+      console.log(err);
       toast.error('Failed to update course');
     } finally {
       setLoading(false);
@@ -576,7 +576,7 @@ const CourseContent = () => {
             </button>
           </div>
 
-          <div className="mt-12 flex justify-between items-center gap-4">
+          <div className="mt-12 flex items-center justify-between gap-4">
             <button
               type="button"
               className="rounded-full bg-gray-600 px-8 py-3 font-medium text-white hover:bg-gray-700"
