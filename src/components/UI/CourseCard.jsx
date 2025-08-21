@@ -30,7 +30,7 @@ const CourseCard = ({ course }) => {
             {course.title}
           </h3>
           <span className="self-start rounded-full bg-purple-400 px-4 py-1 text-xs font-medium text-white md:text-sm">
-            {course.badge || 'No badge from B.E'}
+            {course.subscription || 'No badge from B.E'}
           </span>
         </div>
       </div>
@@ -38,12 +38,12 @@ const CourseCard = ({ course }) => {
       <div className="mb-3 flex items-center gap-4 pl-5">
         <div className="flex items-center gap-2">
           <FaStar className="h-4 w-4 text-yellow-400" />
-          <span>{course?.averageRating || 'no rating'}</span>
+          <span>{course?.averageRating || 'No rating'}</span>
         </div>
         <div className="flex items-center gap-2">
           <FaRegClock className="h-4 w-4 text-gray-400" />
           <span className="text-sm text-gray-400">
-            {course?.duration || 'No duration'}
+            {course?.totalDuration || 'No duration'}
           </span>
         </div>
       </div>
