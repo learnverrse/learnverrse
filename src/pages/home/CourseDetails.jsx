@@ -15,39 +15,80 @@ import {
 } from 'lucide-react';
 import { CourseHolder } from '@/components/details';
 import { useParams } from 'react-router';
-import { axiosInstance } from '@/apis/axios';
+import { axiosInstance, axiosPrivate } from '@/apis/axios';
 import { toast } from 'react-toastify';
 import Naira from '@/components/utils/Naira';
-import useAxiosPrivate from '@/hooks/useAxiosPrivate';
+import useAuthProvider from '@/hooks/useAuthProvider'; // ✅ cleaned import
 
 const CourseDetailPage = () => {
-  const axiosPrivate = useAxiosPrivate();
   const { courseId } = useParams();
+  const {
+    auth: { user },
+  } = useAuthProvider();
 
   const [course, setCourse] = useState({});
   const [loading, setLoading] = useState(true);
   const [expandedSections, setExpandedSections] = useState({});
   const [enrolling, setEnrolling] = useState(false);
 
-  async function Enroll(courseId) {
-    const payload = {
-      courseId: courseId,
-    };
+  async function Enroll() {
+    const currentCourseId = courseId;
+    const userId = user._id;
+
+    if (!currentCourseId) {
+      toast.error('Course ID not found');
+      return;
+    }
+
+    if (!course?._id) {
+      toast.error('Course data not loaded');
+      return;
+    }
+
     try {
       setEnrolling(true);
-      console.log('initializing payment');
-      const res = await axiosPrivate.post('payments/initialize', payload);
 
-      if (res.data.success) {
-        console.log(res.data);
-        console.log('redirecting to payment gateway');
-        console.log(res.data.authorizationUrl);
-        // window.location.href = res.data.authorizationUrl;
-        toast.success('success');
+      if (course.subscription === 'paid') {
+        // ✅ Paid course → initialize payment
+        console.log('Initializing payment for course:', currentCourseId);
+
+        const res = await axiosPrivate.post('payments/initialize', {
+          courseId: currentCourseId,
+        });
+
+        const authUrl = res.data?.data?.authorizationUrl;
+
+        if (res.data?.success && authUrl) {
+          console.log('Redirecting to:', authUrl);
+
+          setTimeout(() => {
+            window.location.assign(authUrl);
+          }, 100);
+
+          toast.success('Redirecting to payment gateway...');
+        } else {
+          throw new Error('Invalid response from payment service');
+        }
+      } else {
+        // ✅ Free course → enroll directly
+        console.log('Enrolling in free course:', currentCourseId);
+
+        const response = await axiosPrivate.post(`enrollment/enrol`, {
+          userId,
+          courseId: currentCourseId,
+        });
+
+        console.log('Enrollment response:', response.data);
+        toast.success('Enrolled successfully!');
       }
     } catch (error) {
-      toast.error(error.message || 'something went wrong');
-      console.error(error);
+      console.error('Enrollment error:', error);
+
+      const message =
+        error.response?.data?.message ||
+        error.message ||
+        'Something went wrong';
+      toast.error(message);
     } finally {
       setEnrolling(false);
     }
@@ -70,7 +111,7 @@ const CourseDetailPage = () => {
     };
 
     if (courseId) fetchCourse();
-  }, [courseId]);
+  }, []);
 
   const includes = [
     { icon: Clock, text: '22 hours on-demand video' },
@@ -260,7 +301,7 @@ const CourseDetailPage = () => {
 
                   {/* Enroll Button */}
                   <button
-                    onClick={() => Enroll(course._id)}
+                    onClick={() => Enroll()}
                     disabled={enrolling}
                     className="mb-6 w-full transform rounded-xl bg-purple-600 px-6 py-4 font-bold text-white transition-all duration-200 hover:scale-105 hover:bg-purple-700 disabled:bg-purple-300"
                   >

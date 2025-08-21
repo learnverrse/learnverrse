@@ -228,10 +228,10 @@ const CourseContent = () => {
 
     try {
       const res = await axiosPrivate.post(
-        `/courses/educator/${courseId}/sections/${sectionId}/chapters/${chapterId}/get-upload-url`,
-        { fileName: file.name, fileType: file.type }
+        `/courses/educator/${courseId}/uploads`,
+        { fileName: file.name, fileType: file.type, fileSize: file.size }
       );
-      const { uploadUrl, videoUrl } = res.data.data;
+      const { uploadUrl, fileUrl: videoUrl } = res.data.data;
 
       try {
         await axios.put(uploadUrl, file, {
@@ -263,21 +263,22 @@ const CourseContent = () => {
       sections,
     };
 
-    try {
-      setLoading(true);
-      const res = await axiosPrivate.put(
-        `${import.meta.env.VITE_UPDATE_COURSE + '/' + courseId}`,
-        updatedCourse
-      );
-      console.log(res);
-      toast.success(res.data?.message);
-      navigate(`/educator/quiz/${courseId}`);
-    } catch (err) {
-      console.log(err);
-      toast.error('Failed to update course');
-    } finally {
-      setLoading(false);
-    }
+    console.log('Updated Course:', updatedCourse.sections);
+    // try {
+    //   setLoading(true);
+    //   const res = await axiosPrivate.put(
+    //     `${import.meta.env.VITE_UPDATE_COURSE + '/' + courseId}`,
+    //     updatedCourse
+    //   );
+    //   console.log(res.data);
+    //   toast.success(res.data?.message);
+    //   navigate(`/educator/quiz/${courseId}`);
+    // } catch (err) {
+    //   console.log(err);
+    //   toast.error('Failed to update course');
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   return (

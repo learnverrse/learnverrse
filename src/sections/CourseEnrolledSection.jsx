@@ -1,11 +1,15 @@
-import React from 'react'
-import  { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import CourseEnrolledCard from './../components/UI/CourseEnrolledCard';
 import image234 from '@/assets/student-courses-images/image234.png';
 import image176744 from '@/assets/student-courses-images/176744.jpg';
 import image2149 from '@/assets/student-courses-images/2149.jpg';
 import image2213 from '@/assets/student-courses-images/2213.jpg';
 import Loader from './../components/UI/Loader';
+import useAxiosPrivate from '@/hooks/useAxiosPrivate';
+import { axiosPrivate } from '@/apis/axios';
+import useAuthProvider from '@/hooks/useAuthProvider';
+import { toast } from 'react-toastify';
 
 const displayedCourses = [
   {
@@ -13,8 +17,8 @@ const displayedCourses = [
     title: 'Product Management Essentials',
     rating: 4.3,
     duration: '5 hr',
-     users: 1800,
-     chapters: 12,
+    users: 1800,
+    chapters: 12,
     description:
       'Our team would will work closely with you to understand your strengths and experiences.',
     category: 'Product Design',
@@ -22,7 +26,7 @@ const displayedCourses = [
     price: '#15,000.00',
     progress: 100,
   },
-  
+
   {
     id: 5,
     title: 'Frontend Development with React',
@@ -92,16 +96,40 @@ const displayedCourses = [
 ];
 
 const CourseEnrolledSection = () => {
+  //     if (isLoading) return <Loader isLoading={isLoading} />;
+  //   if (error)
+  //     return (
+  //       <div>
+  //         <p>Error loading courses.</p>
+  //         <button onClick={() => refetch()}>Refetch</button>
+  //       </div>
+  //     );
 
-//     if (isLoading) return <Loader isLoading={isLoading} />;
-//   if (error)
-//     return (
-//       <div>
-//         <p>Error loading courses.</p>
-//         <button onClick={() => refetch()}>Refetch</button>
-//       </div>
-//     );
+  const [loading, setLoading] = useState(true);
+  const [course, setCourse] = useState([]);
+  const axioxPrivate = useAxiosPrivate();
+  const {
+    auth: { user },
+  } = useAuthProvider();
 
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        setLoading(true);
+        const res = await axiosPrivate.get(`progress/user/${user._id}`);
+        const data = res.data.data;
+        console.log(data);
+        setCourse(data);
+      } catch (err) {
+        console.log(err);
+        toast.error('Failed to load course');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourse();
+  }, []);
 
   return (
     <div className="w-full">
@@ -109,12 +137,12 @@ const CourseEnrolledSection = () => {
       <div className="px-8 pb-8">
         <div className="grid gap-4 md:grid-cols-3">
           {displayedCourses.map((course) => (
-            <CourseEnrolledCard key={course._id} course={course} />
+            <CourseEnrolledCard key={course.id} course={course} />
           ))}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CourseEnrolledSection
+export default CourseEnrolledSection;
