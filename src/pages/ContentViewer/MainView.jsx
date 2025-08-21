@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import courseData from './CourseView';
+import { useLocation, useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 import Sidebar from './Sidebar';
 import VideoPlayer from './VideoPlayer';
 import PDFViewer from './PDFViewer';
 import MobileCourseViewer from './MobileView';
 import { FiFileText } from "react-icons/fi";
 import QuizUI from './QuizUI';
+import useAxiosPrivate from '@/hooks/useAxiosPrivate';
+import Loader from '@/components/UI/Loader';
+import { MdError } from "react-icons/md";
+
 
 const CourseContentViewer = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const axiosPrivate = useAxiosPrivate();
+  
   const [currentSection, setCurrentSection] = useState(0);
   const [currentLesson, setCurrentLesson] = useState(0);
   const [resourceType, setResourceType] = useState('video');
@@ -20,10 +29,12 @@ const CourseContentViewer = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
   const [uploadedPDFContent, setUploadedPDFContent] = useState(null);
+  const [courseData, setCourseData] = useState(null);
+  const [progressData, setProgressData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [courseNotFound, setCourseNotFound] = useState(false);
 
-  const currentSectionData = courseData.sections[currentSection];
-  const currentLessonData = currentSectionData.lessons[currentLesson];
-  const duration = currentLessonData.videoDuration;
+  const courseId = location.state?.courseId;
 
   useEffect(() => {
     const checkMobile = () => {
@@ -35,8 +46,89 @@ const CourseContentViewer = () => {
   }, []);
 
   useEffect(() => {
+    const fetchCourseData = async () => {
+      if (!courseId) {
+        toast.error('No course ID provided');
+        setLoading(false);
+        setCourseNotFound(true);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        
+        // Fetch course content and progress
+        const [courseResponse, progressResponse] = await Promise.all([
+          axiosPrivate.get(`courses/content/${courseId}`),
+          axiosPrivate.get(`progress/access/${localStorage.getItem('userId')}/${courseId}`)
+        ]);
+
+        if (courseResponse.data.success && progressResponse.data.success) {
+          setCourseData(courseResponse.data.data.course || courseResponse.data.data);
+          setProgressData(progressResponse.data.data);
+          setCourseNotFound(false);
+        } else {
+          throw new Error('Failed to fetch course data');
+        }
+        
+      } catch (err) {
+        console.error('Error fetching course data:', err);
+        toast.error('Failed to load course content');
+        setCourseNotFound(true);
+        
+        if (err.response?.status === 403 || err.response?.data?.hasAccess === false) {
+          navigate('/payment', { state: { courseId } });
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (courseId) {
+      fetchCourseData();
+    } else {
+      // If no courseId, immediately stop loading and show not found
+      setLoading(false);
+      setCourseNotFound(true);
+    }
+  }, [courseId, navigate, axiosPrivate]);
+
+  useEffect(() => {
+    if (progressData && courseData) {
+      // Set current section and lesson based on progress
+      const currentProgress = progressData.progress.currentSection;
+      if (currentProgress) {
+        const sectionIndex = courseData.sections.findIndex(
+          section => section.sectionId === currentProgress.sectionId
+        );
+        
+        if (sectionIndex !== -1) {
+          const lessonIndex = courseData.sections[sectionIndex].lessons?.findIndex(
+            lesson => lesson.chapterId === currentProgress.chapterId
+          ) || 0;
+          
+          setCurrentSection(sectionIndex);
+          setCurrentLesson(lessonIndex);
+        }
+      }
+
+      // Mark completed lessons
+      const completed = new Set();
+      progressData.progress.sections?.forEach(section => {
+        section.chapters?.forEach(chapter => {
+          if (chapter.isCompleted) {
+            completed.add(`${section.sectionId}-${chapter.chapterId}`);
+          }
+        });
+      });
+      setCompletedLessons(completed);
+    }
+  }, [progressData, courseData]);
+
+  useEffect(() => {
     let interval;
-    if (isPlaying) {
+    if (isPlaying && courseData) {
+      const duration = courseData.sections[currentSection]?.lessons[currentLesson]?.videoDuration || 0;
       interval = setInterval(() => {
         setCurrentTime(prev => {
           if (prev >= duration) {
@@ -48,7 +140,40 @@ const CourseContentViewer = () => {
       }, 1000);
     }
     return () => clearInterval(interval);
-  }, [isPlaying, duration]);
+  }, [isPlaying, courseData, currentSection, currentLesson]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (courseNotFound || !courseData) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
+        <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md items-center flex flex-col">
+          <div className=" mb-4"><MdError className='text-red-500 text-7xl' /></div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Course Not Found</h2>
+          <p className="text-gray-600 mb-6">
+            The course you're trying to access doesn't exist.
+          </p>
+          <button 
+            onClick={() => navigate('/learner-dashboard/my-courses')}
+            className="px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center mx-auto"
+          >
+            <FaArrowLeft className="mr-2" />
+            Back to My Courses
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const currentSectionData = courseData.sections[currentSection];
+  const currentLessonData = currentSectionData.lessons[currentLesson];
+  const duration = currentLessonData.videoDuration;
 
   const toggleSection = (sectionIndex) => {
     const newExpanded = new Set(expandedSections);
@@ -80,17 +205,33 @@ const CourseContentViewer = () => {
     setCurrentTime(newTime);
   };
 
+  const updateProgress = async (isCompleted = true) => {
+    try {
+      await axiosPrivate.patch(`progress/update`, {
+        courseId,
+        sectionId: currentSectionData.sectionId,
+        chapterId: currentLessonData.chapterId,
+        isCompleted,
+        timeSpent: currentTime
+      });
+    } catch (err) {
+      console.error('Error updating progress:', err);
+      toast.error('Failed to save progress');
+    }
+  };
+
   const handleNext = () => {
     const currentLessonKey = `${currentSection}-${currentLesson}`;
     setCompletedLessons(prev => new Set([...prev, currentLessonKey]));
 
+    // Update progress
+    updateProgress(true);
+
     if (currentLesson < currentSectionData.lessons.length - 1) {
       setCurrentLesson(currentLesson + 1);
     } else if (currentSection < courseData.sections.length - 1) {
-      // Show quiz at the end of each section except the last one
       setShowQuiz(true);
     } else {
-      // For the last section, just mark as completed
       setCurrentLesson(currentLesson + 1);
     }
     setCurrentTime(0);

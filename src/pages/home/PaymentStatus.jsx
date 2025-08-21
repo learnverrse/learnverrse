@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 import HeaderNav from "@/components/UI/HeaderNav";
 import Footer from "@/components/UI/footer";
 import Loader from "@/components/UI/Loader";
+import { useParams } from 'react-router';
 
 import React from 'react';
 
@@ -20,14 +21,28 @@ const PaymentStatus = ({
   transactionId = 'Tdfggsfs',
   errorCode = 'THghgjsjsb',
   errorMessage = ' Here is the error message',
-  onContinue = () => {() => navigate('/dashboard')},
-  onRetry = () => {},
-  onDownloadReceipt = () => {() => window.print()},
-  onChangePaymentMethod = () => {}
 
 }) => {
   const isSuccess = status === 'success';
-    const navigate = useNavigate();
+  const { courseId } = useParams();
+  const navigate = useNavigate();
+  const onContinue = () => {  
+    console.log("Navigating...");
+    navigate(`/learner-dashboard/learning-page`, { 
+      state: { courseId: courseId || course._id } 
+    });
+  };
+
+  const onRetry = () => {
+    // Logic to retry the payment
+  };
+
+  const onDownloadReceipt = () => { window.print(); };
+
+  const onChangePaymentMethod = () => {
+    // Logic to change the payment method
+  };
+
   return (
     <div className="flex flex-col min-h-screen items-center justify-center bg-gray-50 p-6">
       <HeaderNav />
