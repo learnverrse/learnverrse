@@ -34,6 +34,8 @@ import Certificate from '@/pages/learnerspage/Certificate';
 import Settings from '@/pages/learnerspage/Settings';
 import PaymentSection from '@/sections/PaymentSection';
 import Payment from '@/pages/home/Payment';
+import Earnings from '@/pages/tutotorPage/Earnings';
+import Analytics from '@/pages/tutotorPage/Analytics';
 
 import CourseDetails from '@/pages/home/CourseDetails';
 import PaymentStatus from '@/pages/home/PaymentStatus';
@@ -160,6 +162,18 @@ export const routes = [
             path: 'settings',
             element: <Settings />,
           },
+          {
+            path: 'earnings',
+            element: <Earnings />,
+          },
+          {
+            path: 'analytics',
+            element: <Analytics />,
+          },
+          {
+            path:  'student',
+            element: <Student />,
+          }
 
           // course upload pages ends here 👆
         ],

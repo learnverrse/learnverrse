@@ -1,17 +1,17 @@
 import React from 'react'
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router';
-import { PiStudentFill } from "react-icons/pi";
+import { SiGoogleanalytics } from "react-icons/si";
 
-
-const Student = () => {
+const Analytics = () => {
+      const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
                 <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md items-center flex flex-col">
-                  <div className=" mb-4"><PiStudentFill className='text-purple-500 text-7xl' /></div>
-                  <h2 className="text-2xl font-bold text-gray-800 mb-2"> Students  </h2>
+                  <div className=" mb-4"><SiGoogleanalytics className='text-green-500 text-7xl' /></div>
+                  <h2 className="text-2xl font-bold text-gray-800 mb-2"> Analytics</h2>
                   <p className="text-gray-600 mb-6">
-                    You have no students yet. Please check back later.
+                    No analytics data available. Please check back later.
                   </p>
                   <button 
                     onClick={() => navigate('/educator')}
@@ -25,4 +25,4 @@ const Student = () => {
   )
 }
 
-export default Student
+export default Analytics
