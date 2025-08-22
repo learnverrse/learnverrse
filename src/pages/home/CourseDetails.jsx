@@ -15,16 +15,19 @@ import {
 } from 'lucide-react';
 import { CourseHolder } from '@/components/details';
 import { useParams } from 'react-router';
-import { axiosInstance, axiosPrivate } from '@/apis/axios';
+import { axiosInstance } from '@/apis/axios';
+import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import { toast } from 'react-toastify';
 import Naira from '@/components/utils/Naira';
-import useAuthProvider from '@/hooks/useAuthProvider'; // ✅ cleaned import
+import useAuthProvider from '@/hooks/useAuthProvider';
 
 const CourseDetailPage = () => {
   const { courseId } = useParams();
   const {
     auth: { user },
   } = useAuthProvider();
+
+  const axiosPrivate = useAxiosPrivate(); 
 
   const [course, setCourse] = useState({});
   const [loading, setLoading] = useState(true);
@@ -33,10 +36,16 @@ const CourseDetailPage = () => {
 
   async function Enroll() {
     const currentCourseId = courseId;
-    const userId = user._id;
+    const userId = user?._id;
 
+    // Enhanced validation
     if (!currentCourseId) {
       toast.error('Course ID not found');
+      return;
+    }
+
+    if (!userId) {
+      toast.error('User not authenticated');
       return;
     }
 
@@ -45,16 +54,26 @@ const CourseDetailPage = () => {
       return;
     }
 
+    console.log('Enrollment attempt:', {
+      courseId: currentCourseId,
+      userId: userId,
+      coursePrice: course.price,
+      user: user
+    });
+
     try {
       setEnrolling(true);
 
-      if (course.subscription === 'paid') {
-        // ✅ Paid course → initialize payment
+      // Check if course is free or paid
+      if (course.price > 0) {
+        // Paid course → initialize payment
         console.log('Initializing payment for course:', currentCourseId);
 
         const res = await axiosPrivate.post('payments/initialize', {
           courseId: currentCourseId,
         });
+
+        console.log('Payment initialization response:', res);
 
         const authUrl = res.data?.data?.authorizationUrl;
 
@@ -70,24 +89,66 @@ const CourseDetailPage = () => {
           throw new Error('Invalid response from payment service');
         }
       } else {
-        // ✅ Free course → enroll directly
+        // Free course → enroll directly
         console.log('Enrolling in free course:', currentCourseId);
+        console.log('Request payload:', { userId, courseId: currentCourseId });
 
-        const response = await axiosPrivate.post(`enrollment/enrol`, {
-          userId,
-          courseId: currentCourseId,
-        });
+        try {
+          const response = await axiosPrivate.post(`enrollment/enrol`, {
+            userId,
+            courseId: currentCourseId,
+          });
 
-        console.log('Enrollment response:', response.data);
-        toast.success('Enrolled successfully!');
+          console.log('Enrollment response:', response);
+
+          if (response?.data) {
+            console.log('Enrollment successful:', response.data);
+            toast.success(response.data.message || 'Enrolled successfully!');
+          } else {
+            console.warn('Unexpected response structure:', response);
+            toast.success('Enrolled successfully!');
+          }
+        } catch (enrollmentError) {
+          console.error('Enrollment request failed:', enrollmentError);
+          
+          // Log more details about the error
+          if (enrollmentError.response) {
+            console.error('Error response:', enrollmentError.response.data);
+            console.error('Error status:', enrollmentError.response.status);
+          } else if (enrollmentError.request) {
+            console.error('No response received:', enrollmentError.request);
+          } else {
+            console.error('Error message:', enrollmentError.message);
+          }
+          
+          throw enrollmentError; // Re-throw to be caught by outer catch block
+        }
       }
     } catch (error) {
       console.error('Enrollment error:', error);
 
-      const message =
-        error.response?.data?.message ||
-        error.message ||
-        'Something went wrong';
+      let message = 'Something went wrong';
+      
+      if (error.response) {
+        // Server responded with error status
+        const errorData = error.response.data;
+        message = errorData?.message || errorData?.error || `Server error: ${error.response.status}`;
+        
+        // Log server error details
+        console.error('Server error details:', {
+          status: error.response.status,
+          data: errorData,
+          headers: error.response.headers
+        });
+      } else if (error.request) {
+        // Network error - no response received
+        message = 'Network error. Please check your connection.';
+        console.error('Network error - no response received');
+      } else if (error.message) {
+        // Other error
+        message = error.message;
+      }
+      
       toast.error(message);
     } finally {
       setEnrolling(false);
@@ -96,22 +157,35 @@ const CourseDetailPage = () => {
 
   useEffect(() => {
     const fetchCourse = async () => {
+      if (!courseId) return;
+      
       try {
         setLoading(true);
+        console.log('Fetching course with ID:', courseId);
+        
         const res = await axiosInstance.get(`courses/public/${courseId}`);
         const data = res.data.data;
-        console.log(data);
+        
+        console.log('Course data:', data);
         setCourse(data);
       } catch (err) {
-        console.log(err);
-        toast.error('Failed to load course');
+        console.error('Failed to load course:', err);
+        
+        let errorMessage = 'Failed to load course';
+        if (err.response?.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.message) {
+          errorMessage = err.message;
+        }
+        
+        toast.error(errorMessage);
       } finally {
         setLoading(false);
       }
     };
 
-    if (courseId) fetchCourse();
-  }, []);
+    fetchCourse();
+  }, [courseId]); // ✅ Added courseId to dependencies
 
   const includes = [
     { icon: Clock, text: '22 hours on-demand video' },
@@ -301,11 +375,11 @@ const CourseDetailPage = () => {
 
                   {/* Enroll Button */}
                   <button
-                    onClick={() => Enroll()}
-                    disabled={enrolling}
-                    className="mb-6 w-full transform rounded-xl bg-purple-600 px-6 py-4 font-bold text-white transition-all duration-200 hover:scale-105 hover:bg-purple-700 disabled:bg-purple-300"
+                    onClick={Enroll}
+                    disabled={enrolling || !user}
+                    className="mb-6 w-full transform rounded-xl bg-purple-600 px-6 py-4 font-bold text-white transition-all duration-200 hover:scale-105 hover:bg-purple-700 disabled:bg-purple-300 disabled:cursor-not-allowed"
                   >
-                    Enroll Now
+                    {enrolling ? 'Processing...' : !user ? 'Please Login' : 'Enroll Now'}
                   </button>
 
                   {/* Course Includes */}
