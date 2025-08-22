@@ -36,36 +36,39 @@ const SingleCourse = ({ course }) => {
     }
   };
   return (
-    <div className="flex w-full max-w-[349px] basis-full flex-col gap-4 sm:basis-[47%] lg:basis-[31%]">
-      <img
-        src={course.image === '' ? `${course.image}` : `${defaultCourse}`}
-        alt={course.title}
-        className="w-full object-cover"
-      />
+   <div className="flex w-full max-w-[349px] basis-full flex-col gap-4 sm:basis-[47%] lg:basis-[31%] bg-white rounded-lg shadow-md overflow-hidden">
+  <img
+    src={course.image === '' ? defaultCourse : course.image}
+    alt={course.title}
+    className="w-full h-48 object-cover"
+  />
 
-      <div className="flex w-full items-center gap-4">
-        <div className="w-4/5">
-          <small>{course.title} </small>
-          <h4>{course.description?.slice(0, 20) + ' ...'}</h4>
-        </div>
-        <div className="ga-2 flex flex-col">
-          <button
-            className="text-heading cursor-pointer bg-gray-300 p-1.5 font-medium"
-            onClick={() => {
-              handleEditCourse(course._id);
-            }}
-          >
-            Edit
-          </button>
-          <button
-            className="bg-red-600 text-white"
-            onClick={() => handleDeleteCourse(course._id)}
-          >
-            Delete
-          </button>
-        </div>
-      </div>
+  <div className="p-4">
+    <div className="mb-4">
+      <h3 className="text-gray-800 text-md font-bold">{course.title}</h3>
+      <p className="text-sm font-medium text-gray-600 mt-1">
+        {course.description?.slice(0, 20) + '...'}
+      </p>
     </div>
+    
+    <div className="flex gap-2">
+      <button
+        className="flex-1 px-4 py-2 bg-primary-500 hover:bg-primary-400 text-white font-medium rounded-md cursor-pointer"
+        onClick={() => {
+          handleEditCourse(course._id);
+        }}
+      >
+        Edit
+      </button>
+      <button
+        className="flex-1 px-4 py-2 bg-red-600 hover:bg-red-800 text-white font-medium rounded-md cursor-pointer"
+        onClick={() => handleDeleteCourse(course._id)}
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
   );
 };
 

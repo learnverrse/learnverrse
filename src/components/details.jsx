@@ -102,12 +102,12 @@ export const dashboardAsideMenu = [
   },
   {
     name: 'analytics ',
-    path: '/dashboard',
+    path: '/educator/analytics',
     icon: <SiSimpleanalytics size={24} />,
   },
   {
     name: 'earnings',
-    path: '/dashboard',
+    path: '/educator/earnings',
     icon: <GiReceiveMoney size={24} />,
   },
   {
