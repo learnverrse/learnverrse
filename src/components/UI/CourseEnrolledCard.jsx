@@ -12,6 +12,24 @@ const CourseEnrolledCard = ({ course }) => {
   // Move normalizedProgress calculation to main component
   const normalizedProgress = Math.min(Math.max(course?.progress || 0, 0), 100);
 
+  const handleCardClick = () => {
+    // Make sure we have a course ID before navigating
+    if (!course?.id && !course?._id && !course?.courseId) {
+      console.error('No course ID available:', course);
+      return;
+    }
+
+    // Try different possible ID field names
+    const courseId = course.id || course._id || course.courseId;
+    
+    navigate('/learner-dashboard/learning-page', {
+      state: { 
+        courseId: courseId,
+        course: course // Optional: pass entire course object for additional context
+      }
+    });
+  };
+
   const ProgressBar = ({ progress = 0, className = '' }) => {
     const progressValue = Math.min(Math.max(progress, 0), 100);
     
@@ -33,8 +51,8 @@ const CourseEnrolledCard = ({ course }) => {
 
   return (
     <div
-      onClick={() => navigate('/learner-dashboard/learning-page')}
-      className="w-full items-center overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-lg md:w-auto"
+      onClick={handleCardClick}
+      className="w-full items-center overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-lg md:w-auto cursor-pointer"
     >
       {/* course images */}
       <div className="h-48">
@@ -91,7 +109,13 @@ const CourseEnrolledCard = ({ course }) => {
 
       
          <div className='flex p-6'>
-            <button className="bg-primary-500 rounded-xl p-2 w-full text-md font-medium text-white transition-colors hover:bg-purple-700">
+            <button 
+              className="bg-primary-500 rounded-xl p-2 w-full text-md font-medium text-white transition-colors hover:bg-purple-700"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent double-click if button is clicked
+                handleCardClick();
+              }}
+            >
          {normalizedProgress === 100 ? 'Course Completed' : normalizedProgress === 0 ? 'Start Learning' : 'Continue Learning'}
         </button>
         </div>

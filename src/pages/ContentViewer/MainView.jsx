@@ -9,14 +9,19 @@ import MobileCourseViewer from './MobileView';
 import { FiFileText } from "react-icons/fi";
 import QuizUI from './QuizUI';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
+import useAuthProvider from '@/hooks/useAuthProvider'; // Add this import
 import Loader from '@/components/UI/Loader';
 import { MdError } from "react-icons/md";
-
 
 const CourseContentViewer = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
+  
+  // Get user from auth context (same as CourseEnrolledSection)
+  const {
+    auth: { user },
+  } = useAuthProvider();
   
   const [currentSection, setCurrentSection] = useState(0);
   const [currentLesson, setCurrentLesson] = useState(0);
@@ -45,10 +50,48 @@ const CourseContentViewer = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Transform backend data to match frontend expectations
+  const transformCourseData = (backendData) => {
+    console.log('Transforming course data:', backendData); // Debug log
+    
+    if (!backendData?.course) {
+      console.error('No course data found in backend response');
+      return null;
+    }
+    
+    const course = backendData.course;
+    
+    return {
+      ...course,
+      sections: course.sections.map(section => ({
+        ...section,
+        lessons: section.chapters?.map(chapter => ({
+          chapterId: chapter.chapterId,
+          title: chapter.title || 'Untitled Lesson',
+          description: chapter.content || 'No description available',
+          videoUrl: chapter.video || null,
+          videoDuration: 0, // You may need to calculate this or get from backend
+          pdfContent: null, // Add PDF content if available
+          ...chapter
+        })) || []
+      }))
+    };
+  };
+
   useEffect(() => {
     const fetchCourseData = async () => {
+      // Check for required data
       if (!courseId) {
+        console.error('No course ID provided');
         toast.error('No course ID provided');
+        setLoading(false);
+        setCourseNotFound(true);
+        return;
+      }
+
+      if (!user?._id) {
+        console.error('No user ID available');
+        toast.error('User not authenticated');
         setLoading(false);
         setCourseNotFound(true);
         return;
@@ -56,27 +99,50 @@ const CourseContentViewer = () => {
 
       try {
         setLoading(true);
+        console.log('Fetching course data for:', { courseId, userId: user._id }); // Debug log
         
-        // Fetch course content and progress
+        // Use the same user ID approach as CourseEnrolledSection
         const [courseResponse, progressResponse] = await Promise.all([
           axiosPrivate.get(`courses/content/${courseId}`),
-          axiosPrivate.get(`progress/access/${localStorage.getItem('userId')}/${courseId}`)
+          axiosPrivate.get(`progress/access/${user._id}/${courseId}`) // Use user._id instead of localStorage
         ]);
 
+        console.log('Course response:', courseResponse.data); // Debug log
+        console.log('Progress response:', progressResponse.data); // Debug log
+
         if (courseResponse.data.success && progressResponse.data.success) {
-          setCourseData(courseResponse.data.data.course || courseResponse.data.data);
-          setProgressData(progressResponse.data.data);
+          const transformedCourse = transformCourseData(courseResponse.data.data);
+          
+          if (!transformedCourse) {
+            throw new Error('Failed to transform course data');
+          }
+          
+          setCourseData(transformedCourse);
+          setProgressData(courseResponse.data.data.progress);
           setCourseNotFound(false);
+          
+          console.log('Course data set successfully:', transformedCourse); // Debug log
         } else {
+          console.error('API responses indicate failure:', {
+            courseSuccess: courseResponse.data.success,
+            progressSuccess: progressResponse.data.success
+          });
           throw new Error('Failed to fetch course data');
         }
         
       } catch (err) {
         console.error('Error fetching course data:', err);
+        console.error('Error details:', {
+          message: err.message,
+          response: err.response?.data,
+          status: err.response?.status
+        });
+        
         toast.error('Failed to load course content');
         setCourseNotFound(true);
         
         if (err.response?.status === 403 || err.response?.data?.hasAccess === false) {
+          console.log('Access denied, redirecting to payment');
           navigate('/payment', { state: { courseId } });
         }
       } finally {
@@ -84,19 +150,22 @@ const CourseContentViewer = () => {
       }
     };
 
-    if (courseId) {
+    // Only fetch if we have both courseId and user
+    if (courseId && user?._id) {
       fetchCourseData();
     } else {
-      // If no courseId, immediately stop loading and show not found
+      console.log('Missing required data:', { courseId, userId: user?._id });
       setLoading(false);
       setCourseNotFound(true);
     }
-  }, [courseId, navigate, axiosPrivate]);
+  }, [courseId, user?._id, navigate, axiosPrivate]); // Add user._id to dependencies
 
   useEffect(() => {
     if (progressData && courseData) {
+      console.log('Setting up progress data:', { progressData, courseData }); // Debug log
+      
       // Set current section and lesson based on progress
-      const currentProgress = progressData.progress.currentSection;
+      const currentProgress = progressData.currentSection;
       if (currentProgress) {
         const sectionIndex = courseData.sections.findIndex(
           section => section.sectionId === currentProgress.sectionId
@@ -107,6 +176,7 @@ const CourseContentViewer = () => {
             lesson => lesson.chapterId === currentProgress.chapterId
           ) || 0;
           
+          console.log('Setting current section/lesson:', { sectionIndex, lessonIndex });
           setCurrentSection(sectionIndex);
           setCurrentLesson(lessonIndex);
         }
@@ -114,7 +184,7 @@ const CourseContentViewer = () => {
 
       // Mark completed lessons
       const completed = new Set();
-      progressData.progress.sections?.forEach(section => {
+      progressData.sections?.forEach(section => {
         section.chapters?.forEach(chapter => {
           if (chapter.isCompleted) {
             completed.add(`${section.sectionId}-${chapter.chapterId}`);
@@ -122,6 +192,7 @@ const CourseContentViewer = () => {
         });
       });
       setCompletedLessons(completed);
+      console.log('Completed lessons:', completed); // Debug log
     }
   }, [progressData, courseData]);
 
@@ -142,6 +213,15 @@ const CourseContentViewer = () => {
     return () => clearInterval(interval);
   }, [isPlaying, courseData, currentSection, currentLesson]);
 
+  // Show loading while waiting for user data
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader />
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -157,7 +237,29 @@ const CourseContentViewer = () => {
           <div className=" mb-4"><MdError className='text-red-500 text-7xl' /></div>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Course Not Found</h2>
           <p className="text-gray-600 mb-6">
-            The course you're trying to access doesn't exist.
+            The course you're trying to access doesn't exist or you don't have access.
+          </p>
+          <button 
+            onClick={() => navigate('/learner-dashboard/my-courses')}
+            className="px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center mx-auto"
+          >
+            <FaArrowLeft className="mr-2" />
+            Back to My Courses
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Safety check for sections and lessons
+  if (!courseData.sections || courseData.sections.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
+        <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md items-center flex flex-col">
+          <div className=" mb-4"><MdError className='text-red-500 text-7xl' /></div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">No Content Available</h2>
+          <p className="text-gray-600 mb-6">
+            This course doesn't have any content yet.
           </p>
           <button 
             onClick={() => navigate('/learner-dashboard/my-courses')}
@@ -172,8 +274,31 @@ const CourseContentViewer = () => {
   }
 
   const currentSectionData = courseData.sections[currentSection];
+  
+  // Safety check for current section
+  if (!currentSectionData || !currentSectionData.lessons || currentSectionData.lessons.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
+        <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md items-center flex flex-col">
+          <div className=" mb-4"><MdError className='text-red-500 text-7xl' /></div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">No Lessons Available</h2>
+          <p className="text-gray-600 mb-6">
+            This section doesn't have any lessons yet.
+          </p>
+          <button 
+            onClick={() => navigate('/learner-dashboard/my-courses')}
+            className="px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center mx-auto"
+          >
+            <FaArrowLeft className="mr-2" />
+            Back to My Courses
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const currentLessonData = currentSectionData.lessons[currentLesson];
-  const duration = currentLessonData.videoDuration;
+  const duration = currentLessonData?.videoDuration || 0;
 
   const toggleSection = (sectionIndex) => {
     const newExpanded = new Set(expandedSections);
@@ -221,7 +346,7 @@ const CourseContentViewer = () => {
   };
 
   const handleNext = () => {
-    const currentLessonKey = `${currentSection}-${currentLesson}`;
+    const currentLessonKey = `${currentSectionData.sectionId}-${currentLessonData.chapterId}`;
     setCompletedLessons(prev => new Set([...prev, currentLessonKey]));
 
     // Update progress
@@ -270,7 +395,7 @@ const CourseContentViewer = () => {
     if (uploadedPDFContent) {
       return uploadedPDFContent;
     }
-    return currentLessonData.pdfContent || null;
+    return currentLessonData?.pdfContent || null;
   };
 
   if (isMobile) {
@@ -337,7 +462,7 @@ const CourseContentViewer = () => {
 
       <div className="flex-1 overflow-y-auto">
         <div className="p-8">
-          <h1 className="text-3xl font-bold mb-6">{currentLessonData.title}</h1>
+          <h1 className="text-3xl font-bold mb-6">{currentLessonData?.title || 'Untitled Lesson'}</h1>
           
           {resourceType === 'video' ? (
             <VideoPlayer 
@@ -363,7 +488,7 @@ const CourseContentViewer = () => {
           )}
 
           <div className="mb-8">
-            <p className="text-gray-600 text-lg pt-3">{currentLessonData.description}</p>
+            <p className="text-gray-600 text-lg pt-3">{currentLessonData?.description || 'No description available'}</p>
           </div>
 
           <div className="flex justify-between items-center">
