@@ -12,9 +12,10 @@ import {
   Download,
   Infinity,
   Star,
+  CheckCircle,
 } from 'lucide-react';
 import { CourseHolder } from '@/components/details';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import { axiosInstance } from '@/apis/axios';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import { toast } from 'react-toastify';
@@ -23,6 +24,7 @@ import useAuthProvider from '@/hooks/useAuthProvider';
 
 const CourseDetailPage = () => {
   const { courseId } = useParams();
+  const navigate = useNavigate();
   const {
     auth: { user },
   } = useAuthProvider();
@@ -33,6 +35,40 @@ const CourseDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [expandedSections, setExpandedSections] = useState({});
   const [enrolling, setEnrolling] = useState(false);
+  const [isEnrolled, setIsEnrolled] = useState(false);
+  const [checkingEnrollment, setCheckingEnrollment] = useState(true);
+
+  // Check enrollment status when component loads
+  useEffect(() => {
+    const checkEnrollment = async () => {
+      if (!user || !courseId) {
+        setCheckingEnrollment(false);
+        return;
+      }
+      
+      try {
+        const res = await axiosPrivate.get(`/progress/${user._id}/${courseId}`);
+        setIsEnrolled(res.data?.success && res.data?.data ? true : false);
+      } catch (error) {
+        console.error('Error checking enrollment:', error);
+        setIsEnrolled(false);
+      } finally {
+        setCheckingEnrollment(false);
+      }
+    };
+
+    checkEnrollment();
+  }, [user, courseId, axiosPrivate]);
+
+  async function handleCourseAction() {
+    if (isEnrolled) {
+      // Redirect to learning page if already enrolled
+      navigate('/learner-dashboard/learning-page');
+      return;
+    }
+
+    await Enroll();
+  }
 
   async function Enroll() {
     const currentCourseId = courseId;
@@ -75,6 +111,11 @@ const CourseDetailPage = () => {
 
         console.log('Payment initialization response:', res);
 
+        // Handle undefined response
+        if (!res) {
+          throw new Error('No response received from payment service');
+        }
+
         const authUrl = res.data?.data?.authorizationUrl;
 
         if (res.data?.success && authUrl) {
@@ -100,13 +141,65 @@ const CourseDetailPage = () => {
           });
 
           console.log('Enrollment response:', response);
+          console.log('Response data:', response?.data);
+          console.log('Response status:', response?.status);
 
-          if (response?.data) {
+          // Handle case where response is undefined or null
+          if (!response) {
+            console.warn('No response received from enrollment endpoint');
+            // Try to verify enrollment directly since request might have succeeded
+            try {
+              const verify = await axiosPrivate.get(`/progress/${userId}/${currentCourseId}`);
+              if (verify.data?.success && verify.data?.data) {
+                console.log('Enrollment verified despite undefined response:', verify.data);
+                setIsEnrolled(true);
+                toast.success('Enrolled successfully!');
+              } else {
+                toast.error('Enrollment failed. Please try again.');
+              }
+            } catch (verifyError) {
+              console.error('Failed to verify enrollment after undefined response:', verifyError);
+              toast.error('Enrollment status unclear. Please refresh and try again.');
+            }
+            return;
+          }
+
+          // Handle normal response cases
+          if (response?.data?.success) {
             console.log('Enrollment successful:', response.data);
             toast.success(response.data.message || 'Enrolled successfully!');
+            
+            // Immediately re-check enrollment from backend (same as paid courses)
+            try {
+              const verify = await axiosPrivate.get(`/progress/${userId}/${currentCourseId}`);
+              setIsEnrolled(verify.data?.success && verify.data?.data ? true : false);
+              console.log('Enrollment verification:', verify.data);
+            } catch (verifyError) {
+              console.error('Failed to verify enrollment:', verifyError);
+              // Still set to enrolled if enrollment was successful but verification failed
+              setIsEnrolled(true);
+            }
+          } else if (response?.status === 200 || response?.status === 201) {
+            // Handle cases where status is success but data structure is different
+            console.log('Enrollment likely successful based on status code:', response.status);
+            
+            // Verify enrollment from backend
+            try {
+              const verify = await axiosPrivate.get(`/progress/${userId}/${currentCourseId}`);
+              if (verify.data?.success && verify.data?.data) {
+                console.log('Enrollment verified:', verify.data);
+                setIsEnrolled(true);
+                toast.success('Enrolled successfully!');
+              } else {
+                toast.error('Enrollment failed. Please try again.');
+              }
+            } catch (verifyError) {
+              console.error('Failed to verify enrollment:', verifyError);
+              toast.error('Enrollment status unclear. Please refresh and try again.');
+            }
           } else {
             console.warn('Unexpected response structure:', response);
-            toast.success('Enrolled successfully!');
+            toast.error('Enrollment failed. Please try again.');
           }
         } catch (enrollmentError) {
           console.error('Enrollment request failed:', enrollmentError);
@@ -185,7 +278,7 @@ const CourseDetailPage = () => {
     };
 
     fetchCourse();
-  }, [courseId]); // ✅ Added courseId to dependencies
+  }, [courseId]);
 
   const includes = [
     { icon: Clock, text: '22 hours on-demand video' },
@@ -212,12 +305,12 @@ const CourseDetailPage = () => {
         {[...Array(5)].map((_, index) => (
           <Star
             key={index}
-            className={`h-5 w-5 ${
+            className={`h-7 w-7  ${
               index < fullStars
-                ? 'fill-yellow-400 text-yellow-400'
+                ? 'fill-yellow-700 text-yellow-600'
                 : index === fullStars && hasHalfStar
-                  ? 'fill-yellow-400/50 text-yellow-400'
-                  : 'text-gray-300'
+                  ? 'fill-yellow-700/50 text-yellow-600'
+                  : 'text-yellow-700'
             }`}
           />
         ))}
@@ -286,12 +379,6 @@ const CourseDetailPage = () => {
               </div>
             </div>
 
-            {/* What You'll Learn */}
-            <div className="rounded-2xl border border-purple-100 bg-white p-8">
-              <h2 className="mb-6 text-2xl font-bold text-gray-900">
-                What you'll learn
-              </h2>
-            </div>
 
             {/* Course Outline */}
             <div className="overflow-hidden rounded-2xl">
@@ -375,11 +462,28 @@ const CourseDetailPage = () => {
 
                   {/* Enroll Button */}
                   <button
-                    onClick={Enroll}
-                    disabled={enrolling || !user}
-                    className="mb-6 w-full transform rounded-xl bg-purple-600 px-6 py-4 font-bold text-white transition-all duration-200 hover:scale-105 hover:bg-purple-700 disabled:bg-purple-300 disabled:cursor-not-allowed"
+                    onClick={handleCourseAction}
+                    disabled={enrolling || checkingEnrollment || !user}
+                    className={`mb-6 w-full transform rounded-xl px-6 py-4 font-bold text-white transition-all duration-200 hover:scale-105 disabled:cursor-not-allowed ${
+                      isEnrolled
+                        ? 'bg-green-600 hover:bg-green-700 disabled:bg-green-300'
+                        : 'bg-purple-600 hover:bg-purple-700 disabled:bg-purple-300'
+                    }`}
                   >
-                    {enrolling ? 'Processing...' : !user ? 'Please Login' : 'Enroll Now'}
+                    {checkingEnrollment ? (
+                      'Checking...'
+                    ) : enrolling ? (
+                      'Processing...'
+                    ) : !user ? (
+                      'Please Login'
+                    ) : isEnrolled ? (
+                      <div className="flex items-center justify-center">
+                        <CheckCircle className="mr-2 h-5 w-5" />
+                        Go to Course
+                      </div>
+                    ) : (
+                      'Enroll Now'
+                    )}
                   </button>
 
                   {/* Course Includes */}
