@@ -10,104 +10,20 @@ import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import { axiosPrivate } from '@/apis/axios';
 import useAuthProvider from '@/hooks/useAuthProvider';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
+import { FaBookOpen } from "react-icons/fa";
+import { FaArrowLeft } from 'react-icons/fa';
 
-const displayedCourses = [
-  {
-    id: 2,
-    title: 'Product Management Essentials',
-    rating: 4.3,
-    duration: '5 hr',
-    users: 1800,
-    chapters: 12,
-    description:
-      'Our team would will work closely with you to understand your strengths and experiences.',
-    category: 'Product Design',
-    src: image176744,
-    price: '#15,000.00',
-    progress: 100,
-  },
 
-  {
-    id: 5,
-    title: 'Frontend Development with React',
-    rating: 4.6,
-    duration: '6 hr',
-    users: 1300,
-    chapters: 24,
-    description:
-      'Master React and build interactive UIs with reusable components and state management.',
-    category: 'Web Development',
-    src: image234,
-    price: '#15,000.00',
-    progress: 80,
-  },
-  {
-    id: 6,
-    title: 'Backend Development with Node.js',
-    rating: 4.5,
-    duration: '5.5 hr',
-    users: 2500,
-    chapters: 32,
-    description:
-      'Build scalable APIs and backend systems using Node.js and Express.',
-    category: 'Web Developement',
-    src: image2213,
-    price: '#15,000.00',
-    progress: 0,
-  },
-  {
-    id: 8,
-    title: 'Introduction to Cybersecurity',
-    rating: 4.2,
-    duration: '3.5 hr',
-    users: 6300,
-    chapters: 23,
-    description:
-      'Learn the fundamentals of cybersecurity, threats, and how to secure systems.',
-    category: 'Web Devlopement',
-    src: image2149,
-  },
-  {
-    id: 9,
-    title: 'UI/UX Design Principles',
-    rating: 4.5,
-    duration: '4 hr',
-    users: 6300,
-    chapters: 25,
-    description:
-      'Learn the core principles of user interface and user experience design.',
-    category: 'Product Design',
-    src: image2213,
-    progress: 50,
-  },
-  {
-    id: 11,
-    title: 'Version Control with Git & GitHub',
-    rating: 4.7,
-    duration: '2.5 hr',
-    users: 300,
-    chapters: 15,
-    description:
-      'Track changes, collaborate with teams, and manage projects using Git and GitHub.',
-    category: 'Web Developement',
-    src: image234,
-    progress: 70,
-  },
-];
+// Default images array for fallback
+const defaultImages = [image234, image176744, image2149, image2213];
 
 const CourseEnrolledSection = () => {
-  //     if (isLoading) return <Loader isLoading={isLoading} />;
-  //   if (error)
-  //     return (
-  //       <div>
-  //         <p>Error loading courses.</p>
-  //         <button onClick={() => refetch()}>Refetch</button>
-  //       </div>
-  //     );
-
   const [loading, setLoading] = useState(true);
-  const [course, setCourse] = useState([]);
-  const axioxPrivate = useAxiosPrivate();
+  const [courses, setCourses] = useState([]);
+  const axiosPrivate = useAxiosPrivate();
+
+  const navigate = useNavigate();
   const {
     auth: { user },
   } = useAuthProvider();
@@ -119,27 +35,77 @@ const CourseEnrolledSection = () => {
         const res = await axiosPrivate.get(`progress/user/${user._id}`);
         const data = res.data.data;
         console.log(data);
-        setCourse(data);
+        
+        // Transform the backend data to match the expected format
+        const transformedCourses = data.courses.map((courseProgress, index) => {
+          const course = courseProgress.courseId;
+          return {
+            id: course._id,
+            title: course.title,
+            description: course.description,
+            category: course.category,
+            educatorName: course.educatorName,
+            // Use course image if available, otherwise fallback to default images
+            src: course.image || defaultImages[index % defaultImages.length],
+            progress: courseProgress.completionPercentage,
+            isCompleted: courseProgress.isCompleted,
+            enrolledAt: courseProgress.enrolledAt,
+            lastAccessedAt: courseProgress.lastAccessedAt,
+            // Add other fields as needed by your CourseEnrolledCard component
+            rating: 4.0, // Default rating since it's not in backend data
+            duration: '4 hr', // Default duration since it's not in backend data
+            users: 1000, // Default users since it's not in backend data
+            chapters: courseProgress.sections.length,
+            price: '#15,000.00', // Default price since it's not in backend data
+          };
+        });
+        
+        setCourses(transformedCourses);
       } catch (err) {
         console.log(err);
-        toast.error('Failed to load course');
+        toast.error('Failed to load enrolled courses');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCourse();
-  }, []);
+    if (user?._id) {
+      fetchCourse();
+    }
+  }, [user?._id, axiosPrivate]);
+
+  if (loading) return <Loader isLoading={loading} />;
 
   return (
     <div className="w-full">
       {/* Courses Grid */}
       <div className="px-8 pb-8">
-        <div className="grid gap-4 md:grid-cols-3">
-          {displayedCourses.map((course) => (
-            <CourseEnrolledCard key={course.id} course={course} />
-          ))}
-        </div>
+        {courses.length === 0 ? (
+          <div className="flex justify-center items-center min-h-[60vh]">
+            <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md flex flex-col items-center">
+              <div className="mb-4">
+              <FaBookOpen className='text-primary-500 text-7xl'/>
+              </div>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">No Enrolled Courses Found</h2>
+              <p className="text-gray-600 mb-6">
+                You haven't enrolled in any courses yet. Start learning today!
+              </p>
+              <button 
+                onClick={() => navigate('/courses')}
+                className="px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center"
+              >
+                <FaArrowLeft className="mr-2" />
+                Start Learning
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="grid gap-4 md:grid-cols-3">
+            {courses.map((course) => (
+              <CourseEnrolledCard key={course.id} course={course} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

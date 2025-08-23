@@ -420,9 +420,6 @@ const CourseDetailPage = () => {
                                 <span className="font-medium">
                                   {chapter.title}
                                 </span>
-                                <span className="ml-2 text-sm text-gray-500">
-                                  ({chapter.type})
-                                </span>
                               </li>
                             ))}
                           </ul>
