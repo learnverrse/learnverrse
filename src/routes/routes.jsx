@@ -203,7 +203,7 @@ export const routes = [
             element: <Certificate />,
           },
           {
-            path: 'learning-page',
+            path: 'learning-page/:courseId',
             element: <MainView />,
           },
           {

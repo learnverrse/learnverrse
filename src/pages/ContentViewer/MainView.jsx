@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import Sidebar from './Sidebar';
 import VideoPlayer from './VideoPlayer';
@@ -16,9 +16,10 @@ import { MdError } from "react-icons/md";
 const CourseContentViewer = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { courseId } = useParams(); // Get courseId from URL params
   const axiosPrivate = useAxiosPrivate();
   
-  // Get user from auth context (same as CourseEnrolledSection)
+  // Get user from auth context
   const {
     auth: { user },
   } = useAuthProvider();
@@ -39,7 +40,14 @@ const CourseContentViewer = () => {
   const [loading, setLoading] = useState(true);
   const [courseNotFound, setCourseNotFound] = useState(false);
 
-  const courseId = location.state?.courseId;
+  // Get courseId from URL params first, then fallback to state
+  const currentCourseId = courseId || location.state?.courseId;
+
+  console.log('CourseId sources:', {
+    fromParams: courseId,
+    fromState: location.state?.courseId,
+    final: currentCourseId
+  });
 
   useEffect(() => {
     const checkMobile = () => {
@@ -81,7 +89,7 @@ const CourseContentViewer = () => {
   useEffect(() => {
     const fetchCourseData = async () => {
       // Check for required data
-      if (!courseId) {
+      if (!currentCourseId) {
         console.error('No course ID provided');
         toast.error('No course ID provided');
         setLoading(false);
@@ -99,12 +107,20 @@ const CourseContentViewer = () => {
 
       try {
         setLoading(true);
-        console.log('Fetching course data for:', { courseId, userId: user._id }); // Debug log
+        console.log('Fetching course data for:', { courseId: currentCourseId, userId: user._id }); // Debug log
         
-        // Use the same user ID approach as CourseEnrolledSection
+        // Validate parameters before making API calls
+        console.log('API call parameters:', {
+          userId: user._id,
+          courseId: currentCourseId,
+          userIdType: typeof user._id,
+          courseIdType: typeof currentCourseId
+        });
+
+        // Use the courseId from URL params - matches backend: progress/access/{userId}/{courseId}
         const [courseResponse, progressResponse] = await Promise.all([
-          axiosPrivate.get(`courses/content/${courseId}`),
-          axiosPrivate.get(`progress/access/${user._id}/${courseId}`) // Use user._id instead of localStorage
+          axiosPrivate.get(`courses/content/${currentCourseId}`),
+          axiosPrivate.get(`progress/access/${user._id}/${currentCourseId}`)
         ]);
 
         console.log('Course response:', courseResponse.data); // Debug log
@@ -143,7 +159,7 @@ const CourseContentViewer = () => {
         
         if (err.response?.status === 403 || err.response?.data?.hasAccess === false) {
           console.log('Access denied, redirecting to payment');
-          navigate('/payment', { state: { courseId } });
+          navigate('/payment', { state: { courseId: currentCourseId } });
         }
       } finally {
         setLoading(false);
@@ -151,14 +167,14 @@ const CourseContentViewer = () => {
     };
 
     // Only fetch if we have both courseId and user
-    if (courseId && user?._id) {
+    if (currentCourseId && user?._id) {
       fetchCourseData();
     } else {
-      console.log('Missing required data:', { courseId, userId: user?._id });
+      console.log('Missing required data:', { courseId: currentCourseId, userId: user?._id });
       setLoading(false);
       setCourseNotFound(true);
     }
-  }, [courseId, user?._id, navigate, axiosPrivate]); // Add user._id to dependencies
+  }, [currentCourseId, user?._id, navigate, axiosPrivate]); // Use currentCourseId in dependencies
 
   useEffect(() => {
     if (progressData && courseData) {
@@ -333,7 +349,7 @@ const CourseContentViewer = () => {
   const updateProgress = async (isCompleted = true) => {
     try {
       await axiosPrivate.patch(`progress/update`, {
-        courseId,
+        courseId: currentCourseId, // Use currentCourseId
         sectionId: currentSectionData.sectionId,
         chapterId: currentLessonData.chapterId,
         isCompleted,

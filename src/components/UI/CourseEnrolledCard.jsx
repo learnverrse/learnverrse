@@ -22,10 +22,11 @@ const CourseEnrolledCard = ({ course }) => {
     // Try different possible ID field names
     const courseId = course.id || course._id || course.courseId;
     
-    navigate('/learner-dashboard/learning-page', {
+    // Navigate to the learning page with courseId in URL params
+    navigate(`/learner-dashboard/learning-page/${courseId}`, {
       state: { 
-        courseId: courseId,
-        course: course // Optional: pass entire course object for additional context
+        course,
+        courseId // Also pass courseId in state as backup
       }
     });
   };

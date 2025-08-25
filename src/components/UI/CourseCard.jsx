@@ -12,7 +12,7 @@ const CourseCard = ({ course }) => {
   return (
     <div
       onClick={() => navigate(`/coursedetails/${course._id}`)}
-      className="w-full overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-lg md:w-auto"
+      className="w-full flex flex-col h-full overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-lg md:w-auto"
     >
       {/* course images */}
       <div className="h-48">
@@ -24,12 +24,12 @@ const CourseCard = ({ course }) => {
       </div>
 
       {/* content */}
-      <div className="p-5">
+      <div className="p-5 ">
         <div className="flex flex-col justify-between md:flex-row">
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className="text-lg font-semibold text-gray-900 mr-2">
             {course.title}
           </h3>
-          <span className="self-start rounded-full bg-purple-400 px-4 py-1 text-xs font-medium text-white md:text-sm">
+          <span className="self-start rounded-full bg-purple-400 px-4 py-1 mt-2 md:mt-0 text-xs font-medium text-white md:text-sm">
             {course.subscription || 'No badge from B.E'}
           </span>
         </div>
@@ -38,19 +38,19 @@ const CourseCard = ({ course }) => {
       <div className="mb-3 flex items-center gap-4 pl-5">
         <div className="flex items-center gap-2">
           <FaStar className="h-4 w-4 text-yellow-400" />
-          <span>{course?.averageRating || 'No rating'}</span>
+          <span>{course?.averageRating || '4'}</span>
         </div>
         <div className="flex items-center gap-2">
           <FaRegClock className="h-4 w-4 text-gray-400" />
           <span className="text-sm text-gray-400">
-            {course?.totalDuration || 'No duration'}
+            {course?.totalDuration || '3hrs'}
           </span>
         </div>
       </div>
 
       <p className="p-5">{course.description}</p>
 
-      <div className="flex items-center justify-between p-5 max-sm:flex-wrap">
+      <div className="flex items-center justify-between p-5 max-sm:flex-wrap mt-auto">
         <button className="bg-primary-300 flex gap-2 rounded-full p-2 px-10 text-sm font-medium text-black transition-colors hover:text-purple-700">
           Enroll Now
         </button>
