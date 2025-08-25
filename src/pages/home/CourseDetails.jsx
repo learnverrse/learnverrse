@@ -61,11 +61,24 @@ const CourseDetailPage = () => {
   }, [user, courseId, axiosPrivate]);
 
   async function handleCourseAction() {
+
+    if (!user) {
+    navigate("/signin"); 
+    return;
+  }
+
     if (isEnrolled) {
-      // Redirect to learning page if already enrolled
-      navigate('/learner-dashboard/learning-page');
-      return;
-    }
+    const currentCourseId = courseId;
+
+    // Navigate to learning page with courseId in URL params
+    navigate(`/learner-dashboard/learning-page/${currentCourseId}`, {
+      state: { 
+        course,
+        courseId: currentCourseId // Also pass courseId in state as backup
+      }
+    });
+    return;
+  }
 
     await Enroll();
   }
@@ -460,7 +473,7 @@ const CourseDetailPage = () => {
                   {/* Enroll Button */}
                   <button
                     onClick={handleCourseAction}
-                    disabled={enrolling || checkingEnrollment || !user}
+                    disabled={enrolling || checkingEnrollment}
                     className={`mb-6 w-full transform rounded-xl px-6 py-4 font-bold text-white transition-all duration-200 hover:scale-105 disabled:cursor-not-allowed ${
                       isEnrolled
                         ? 'bg-green-600 hover:bg-green-700 disabled:bg-green-300'
