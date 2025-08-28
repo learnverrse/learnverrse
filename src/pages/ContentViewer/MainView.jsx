@@ -6,24 +6,24 @@ import Sidebar from './Sidebar';
 import VideoPlayer from './VideoPlayer';
 import PDFViewer from './PDFViewer';
 import MobileCourseViewer from './MobileView';
-import { FiFileText } from "react-icons/fi";
+import { FiFileText } from 'react-icons/fi';
 import QuizUI from './QuizUI';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import useAuthProvider from '@/hooks/useAuthProvider'; // Add this import
 import Loader from '@/components/UI/Loader';
-import { MdError } from "react-icons/md";
+import { MdError } from 'react-icons/md';
 
 const CourseContentViewer = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { courseId } = useParams(); // Get courseId from URL params
   const axiosPrivate = useAxiosPrivate();
-  
+
   // Get user from auth context
   const {
     auth: { user },
   } = useAuthProvider();
-  
+
   const [currentSection, setCurrentSection] = useState(0);
   const [currentLesson, setCurrentLesson] = useState(0);
   const [resourceType, setResourceType] = useState('video');
@@ -46,7 +46,7 @@ const CourseContentViewer = () => {
   console.log('CourseId sources:', {
     fromParams: courseId,
     fromState: location.state?.courseId,
-    final: currentCourseId
+    final: currentCourseId,
   });
 
   useEffect(() => {
@@ -61,29 +61,47 @@ const CourseContentViewer = () => {
   // Transform backend data to match frontend expectations
   const transformCourseData = (backendData) => {
     console.log('Transforming course data:', backendData); // Debug log
-    
-    if (!backendData?.course) {
-      console.error('No course data found in backend response');
-      return null;
-    }
-    
-    const course = backendData.course;
-    
+
+    // if (!backendData?.course) {
+    //   console.error('No course data found in backend response');
+    //   return null;
+    // }
+
+    // const course = backendData.course;
+
+    // you were using wrong endpoints in promise.all(fixed now), and also for this section backenddata does not return a course object directly
     return {
-      ...course,
-      sections: course.sections.map(section => ({
+      ...backendData,
+      sections: backendData.sections.map((section) => ({
         ...section,
-        lessons: section.chapters?.map(chapter => ({
-          chapterId: chapter.chapterId,
-          title: chapter.title || 'Untitled Lesson',
-          description: chapter.content || 'No description available',
-          videoUrl: chapter.video || null,
-          videoDuration: 0, // You may need to calculate this or get from backend
-          pdfContent: null, // Add PDF content if available
-          ...chapter
-        })) || []
-      }))
+        lessons:
+          section.chapters?.map((chapter) => ({
+            chapterId: chapter.chapterId,
+            title: chapter.title || 'Untitled Lesson',
+            description: chapter.content || 'No description available',
+            videoUrl: chapter.video || null,
+            videoDuration: 0, // You may need to calculate this or get from backend
+            pdfContent: null, // Add PDF content if available
+            ...chapter,
+          })) || [],
+      })),
     };
+    // return {
+    //   ...course,
+    //   sections: course.sections.map((section) => ({
+    //     ...section,
+    //     lessons:
+    //       section.chapters?.map((chapter) => ({
+    //         chapterId: chapter.chapterId,
+    //         title: chapter.title || 'Untitled Lesson',
+    //         description: chapter.content || 'No description available',
+    //         videoUrl: chapter.video || null,
+    //         videoDuration: 0, // You may need to calculate this or get from backend
+    //         pdfContent: null, // Add PDF content if available
+    //         ...chapter,
+    //       })) || [],
+    //   })),
+    // };
   };
 
   useEffect(() => {
@@ -107,57 +125,64 @@ const CourseContentViewer = () => {
 
       try {
         setLoading(true);
-        console.log('Fetching course data for:', { courseId: currentCourseId, userId: user._id }); // Debug log
-        
+        console.log('Fetching course data for:', {
+          courseId: currentCourseId,
+          userId: user._id,
+        }); // Debug log
+
         // Validate parameters before making API calls
         console.log('API call parameters:', {
           userId: user._id,
           courseId: currentCourseId,
           userIdType: typeof user._id,
-          courseIdType: typeof currentCourseId
+          courseIdType: typeof currentCourseId,
         });
 
         // Use the courseId from URL params - matches backend: progress/access/{userId}/{courseId}
         const [courseResponse, progressResponse] = await Promise.all([
-          axiosPrivate.get(`courses/content/${currentCourseId}`),
-          axiosPrivate.get(`progress/access/${user._id}/${currentCourseId}`)
+          axiosPrivate.get(`progress/${user._id}/${currentCourseId}`),
+          axiosPrivate.get(`progress/access/${user._id}/${currentCourseId}`),
         ]);
 
-        console.log('Course response:', courseResponse.data); // Debug log
-        console.log('Progress response:', progressResponse.data); // Debug log
+        console.log('Course response:', courseResponse?.data); // Debug log
+        console.log('Progress response:', progressResponse?.data); // Debug log
 
         if (courseResponse.data.success && progressResponse.data.success) {
-          const transformedCourse = transformCourseData(courseResponse.data.data);
-          
+          const transformedCourse = transformCourseData(
+            courseResponse.data.data
+          );
+
           if (!transformedCourse) {
             throw new Error('Failed to transform course data');
           }
-          
+
           setCourseData(transformedCourse);
           setProgressData(courseResponse.data.data.progress);
           setCourseNotFound(false);
-          
+
           console.log('Course data set successfully:', transformedCourse); // Debug log
         } else {
           console.error('API responses indicate failure:', {
             courseSuccess: courseResponse.data.success,
-            progressSuccess: progressResponse.data.success
+            progressSuccess: progressResponse.data.success,
           });
           throw new Error('Failed to fetch course data');
         }
-        
       } catch (err) {
         console.error('Error fetching course data:', err);
         console.error('Error details:', {
           message: err.message,
           response: err.response?.data,
-          status: err.response?.status
+          status: err.response?.status,
         });
-        
+
         toast.error('Failed to load course content');
         setCourseNotFound(true);
-        
-        if (err.response?.status === 403 || err.response?.data?.hasAccess === false) {
+
+        if (
+          err.response?.status === 403 ||
+          err.response?.data?.hasAccess === false
+        ) {
           console.log('Access denied, redirecting to payment');
           navigate('/payment', { state: { courseId: currentCourseId } });
         }
@@ -170,7 +195,10 @@ const CourseContentViewer = () => {
     if (currentCourseId && user?._id) {
       fetchCourseData();
     } else {
-      console.log('Missing required data:', { courseId: currentCourseId, userId: user?._id });
+      console.log('Missing required data:', {
+        courseId: currentCourseId,
+        userId: user?._id,
+      });
       setLoading(false);
       setCourseNotFound(true);
     }
@@ -179,20 +207,24 @@ const CourseContentViewer = () => {
   useEffect(() => {
     if (progressData && courseData) {
       console.log('Setting up progress data:', { progressData, courseData }); // Debug log
-      
+
       // Set current section and lesson based on progress
       const currentProgress = progressData.currentSection;
       if (currentProgress) {
         const sectionIndex = courseData.sections.findIndex(
-          section => section.sectionId === currentProgress.sectionId
+          (section) => section.sectionId === currentProgress.sectionId
         );
-        
+
         if (sectionIndex !== -1) {
-          const lessonIndex = courseData.sections[sectionIndex].lessons?.findIndex(
-            lesson => lesson.chapterId === currentProgress.chapterId
-          ) || 0;
-          
-          console.log('Setting current section/lesson:', { sectionIndex, lessonIndex });
+          const lessonIndex =
+            courseData.sections[sectionIndex].lessons?.findIndex(
+              (lesson) => lesson.chapterId === currentProgress.chapterId
+            ) || 0;
+
+          console.log('Setting current section/lesson:', {
+            sectionIndex,
+            lessonIndex,
+          });
           setCurrentSection(sectionIndex);
           setCurrentLesson(lessonIndex);
         }
@@ -200,8 +232,8 @@ const CourseContentViewer = () => {
 
       // Mark completed lessons
       const completed = new Set();
-      progressData.sections?.forEach(section => {
-        section.chapters?.forEach(chapter => {
+      progressData.sections?.forEach((section) => {
+        section.chapters?.forEach((chapter) => {
           if (chapter.isCompleted) {
             completed.add(`${section.sectionId}-${chapter.chapterId}`);
           }
@@ -215,9 +247,11 @@ const CourseContentViewer = () => {
   useEffect(() => {
     let interval;
     if (isPlaying && courseData) {
-      const duration = courseData.sections[currentSection]?.lessons[currentLesson]?.videoDuration || 0;
+      const duration =
+        courseData.sections[currentSection]?.lessons[currentLesson]
+          ?.videoDuration || 0;
       interval = setInterval(() => {
-        setCurrentTime(prev => {
+        setCurrentTime((prev) => {
           if (prev >= duration) {
             setIsPlaying(false);
             return duration;
@@ -232,7 +266,7 @@ const CourseContentViewer = () => {
   // Show loading while waiting for user data
   if (!user) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex min-h-screen items-center justify-center">
         <Loader />
       </div>
     );
@@ -240,7 +274,7 @@ const CourseContentViewer = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex min-h-screen items-center justify-center">
         <Loader />
       </div>
     );
@@ -248,16 +282,21 @@ const CourseContentViewer = () => {
 
   if (courseNotFound || !courseData) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
-        <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md items-center flex flex-col">
-          <div className=" mb-4"><MdError className='text-red-500 text-7xl' /></div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Course Not Found</h2>
-          <p className="text-gray-600 mb-6">
-            The course you're trying to access doesn't exist or you don't have access.
+      <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4">
+        <div className="flex max-w-md flex-col items-center rounded-lg bg-white p-8 text-center shadow-md">
+          <div className="mb-4">
+            <MdError className="text-7xl text-red-500" />
+          </div>
+          <h2 className="mb-2 text-2xl font-bold text-gray-800">
+            Course Not Found
+          </h2>
+          <p className="mb-6 text-gray-600">
+            The course you're trying to access doesn't exist or you don't have
+            access.
           </p>
-          <button 
+          <button
             onClick={() => navigate('/learner-dashboard/my-courses')}
-            className="px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center mx-auto"
+            className="mx-auto flex items-center justify-center rounded-lg bg-purple-600 px-6 py-3 font-medium text-white transition-colors hover:bg-purple-700"
           >
             <FaArrowLeft className="mr-2" />
             Back to My Courses
@@ -270,16 +309,20 @@ const CourseContentViewer = () => {
   // Safety check for sections and lessons
   if (!courseData.sections || courseData.sections.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
-        <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md items-center flex flex-col">
-          <div className=" mb-4"><MdError className='text-red-500 text-7xl' /></div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">No Content Available</h2>
-          <p className="text-gray-600 mb-6">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4">
+        <div className="flex max-w-md flex-col items-center rounded-lg bg-white p-8 text-center shadow-md">
+          <div className="mb-4">
+            <MdError className="text-7xl text-red-500" />
+          </div>
+          <h2 className="mb-2 text-2xl font-bold text-gray-800">
+            No Content Available
+          </h2>
+          <p className="mb-6 text-gray-600">
             This course doesn't have any content yet.
           </p>
-          <button 
+          <button
             onClick={() => navigate('/learner-dashboard/my-courses')}
-            className="px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center mx-auto"
+            className="mx-auto flex items-center justify-center rounded-lg bg-purple-600 px-6 py-3 font-medium text-white transition-colors hover:bg-purple-700"
           >
             <FaArrowLeft className="mr-2" />
             Back to My Courses
@@ -290,20 +333,28 @@ const CourseContentViewer = () => {
   }
 
   const currentSectionData = courseData.sections[currentSection];
-  
+
   // Safety check for current section
-  if (!currentSectionData || !currentSectionData.lessons || currentSectionData.lessons.length === 0) {
+  if (
+    !currentSectionData ||
+    !currentSectionData.lessons ||
+    currentSectionData.lessons.length === 0
+  ) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
-        <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md items-center flex flex-col">
-          <div className=" mb-4"><MdError className='text-red-500 text-7xl' /></div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">No Lessons Available</h2>
-          <p className="text-gray-600 mb-6">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4">
+        <div className="flex max-w-md flex-col items-center rounded-lg bg-white p-8 text-center shadow-md">
+          <div className="mb-4">
+            <MdError className="text-7xl text-red-500" />
+          </div>
+          <h2 className="mb-2 text-2xl font-bold text-gray-800">
+            No Lessons Available
+          </h2>
+          <p className="mb-6 text-gray-600">
             This section doesn't have any lessons yet.
           </p>
-          <button 
+          <button
             onClick={() => navigate('/learner-dashboard/my-courses')}
-            className="px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center mx-auto"
+            className="mx-auto flex items-center justify-center rounded-lg bg-purple-600 px-6 py-3 font-medium text-white transition-colors hover:bg-purple-700"
           >
             <FaArrowLeft className="mr-2" />
             Back to My Courses
@@ -353,7 +404,7 @@ const CourseContentViewer = () => {
         sectionId: currentSectionData.sectionId,
         chapterId: currentLessonData.chapterId,
         isCompleted,
-        timeSpent: currentTime
+        timeSpent: currentTime,
       });
     } catch (err) {
       console.error('Error updating progress:', err);
@@ -363,7 +414,7 @@ const CourseContentViewer = () => {
 
   const handleNext = () => {
     const currentLessonKey = `${currentSectionData.sectionId}-${currentLessonData.chapterId}`;
-    setCompletedLessons(prev => new Set([...prev, currentLessonKey]));
+    setCompletedLessons((prev) => new Set([...prev, currentLessonKey]));
 
     // Update progress
     updateProgress(true);
@@ -384,7 +435,9 @@ const CourseContentViewer = () => {
       setCurrentLesson(currentLesson - 1);
     } else if (currentSection > 0) {
       setCurrentSection(currentSection - 1);
-      setCurrentLesson(courseData.sections[currentSection - 1].lessons.length - 1);
+      setCurrentLesson(
+        courseData.sections[currentSection - 1].lessons.length - 1
+      );
     }
     setCurrentTime(0);
     setIsPlaying(false);
@@ -403,8 +456,9 @@ const CourseContentViewer = () => {
     setShowQuiz(false);
   };
 
-  const isLastLesson = currentSection === courseData.sections.length - 1 && 
-                     currentLesson === currentSectionData.lessons.length - 1;
+  const isLastLesson =
+    currentSection === courseData.sections.length - 1 &&
+    currentLesson === currentSectionData.lessons.length - 1;
   const isFirstLesson = currentSection === 0 && currentLesson === 0;
 
   const getPDFContent = () => {
@@ -418,12 +472,12 @@ const CourseContentViewer = () => {
     return (
       <>
         {showQuiz ? (
-          <QuizUI 
-            onQuizComplete={handleQuizComplete} 
-            onCloseQuiz={handleCloseQuiz} 
+          <QuizUI
+            onQuizComplete={handleQuizComplete}
+            onCloseQuiz={handleCloseQuiz}
           />
         ) : (
-          <MobileCourseViewer 
+          <MobileCourseViewer
             courseData={courseData}
             currentSection={currentSection}
             currentLesson={currentLesson}
@@ -443,7 +497,7 @@ const CourseContentViewer = () => {
           />
         )}
         {showPDF && getPDFContent() && (
-          <PDFViewer 
+          <PDFViewer
             pdfContent={getPDFContent()}
             onClose={() => setShowPDF(false)}
           />
@@ -454,16 +508,16 @@ const CourseContentViewer = () => {
 
   if (showQuiz) {
     return (
-      <QuizUI 
-        onQuizComplete={handleQuizComplete} 
-        onCloseQuiz={handleCloseQuiz} 
+      <QuizUI
+        onQuizComplete={handleQuizComplete}
+        onCloseQuiz={handleCloseQuiz}
       />
     );
   }
 
   return (
-    <div className="h-[calc(100vh-80px)] bg-gray-50 flex">
-      <Sidebar 
+    <div className="flex h-[calc(100vh-80px)] bg-gray-50">
+      <Sidebar
         courseData={courseData}
         currentSection={currentSection}
         currentLesson={currentLesson}
@@ -478,10 +532,12 @@ const CourseContentViewer = () => {
 
       <div className="flex-1 overflow-y-auto">
         <div className="p-8">
-          <h1 className="text-3xl font-bold mb-6">{currentLessonData?.title || 'Untitled Lesson'}</h1>
-          
+          <h1 className="mb-6 text-3xl font-bold">
+            {currentLessonData?.title || 'Untitled Lesson'}
+          </h1>
+
           {resourceType === 'video' ? (
-            <VideoPlayer 
+            <VideoPlayer
               lesson={currentLessonData}
               isPlaying={isPlaying}
               currentTime={currentTime}
@@ -490,13 +546,17 @@ const CourseContentViewer = () => {
               onSeek={handleVideoSeek}
             />
           ) : (
-            <div className="bg-white rounded-lg border-2 border-dashed border-gray-300 p-8 text-center mb-6">
-              <FiFileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-700 mb-2">PDF Slides Available</h3>
-              <p className="text-gray-500 mb-4">Click "View PDF" in the sidebar to open the study materials</p>
-              <button 
+            <div className="mb-6 rounded-lg border-2 border-dashed border-gray-300 bg-white p-8 text-center">
+              <FiFileText className="mx-auto mb-4 h-16 w-16 text-gray-400" />
+              <h3 className="mb-2 text-lg font-medium text-gray-700">
+                PDF Slides Available
+              </h3>
+              <p className="mb-4 text-gray-500">
+                Click "View PDF" in the sidebar to open the study materials
+              </p>
+              <button
                 onClick={() => setShowPDF(true)}
-                className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                className="rounded-lg bg-purple-600 px-6 py-2 text-white transition-colors hover:bg-purple-700"
               >
                 Open PDF Viewer
               </button>
@@ -504,43 +564,45 @@ const CourseContentViewer = () => {
           )}
 
           <div className="mb-8">
-            <p className="text-gray-600 text-lg pt-3">{currentLessonData?.description || 'No description available'}</p>
+            <p className="pt-3 text-lg text-gray-600">
+              {currentLessonData?.description || 'No description available'}
+            </p>
           </div>
 
-          <div className="flex justify-between items-center">
-            <button 
+          <div className="flex items-center justify-between">
+            <button
               onClick={handlePrevious}
               disabled={isFirstLesson}
-              className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium ${
-                isFirstLesson 
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+              className={`flex items-center space-x-2 rounded-lg px-6 py-3 font-medium ${
+                isFirstLesson
+                  ? 'cursor-not-allowed bg-gray-100 text-gray-400'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              <FaArrowLeft className="w-4 h-4" />
+              <FaArrowLeft className="h-4 w-4" />
               <span>Previous</span>
             </button>
-            
-            <button 
+
+            <button
               onClick={handleNext}
-              className="flex items-center space-x-2 px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700"
+              className="flex items-center space-x-2 rounded-lg bg-purple-600 px-6 py-3 font-medium text-white hover:bg-purple-700"
             >
               <span>
-                {currentLesson === currentSectionData.lessons.length - 1 && 
-                 currentSection !== courseData.sections.length - 1 
-                  ? 'Take Quiz' 
-                  : isLastLesson 
-                    ? 'Finish Course' 
+                {currentLesson === currentSectionData.lessons.length - 1 &&
+                currentSection !== courseData.sections.length - 1
+                  ? 'Take Quiz'
+                  : isLastLesson
+                    ? 'Finish Course'
                     : 'Next'}
               </span>
-              <FaArrowRight className="w-4 h-4" />
+              <FaArrowRight className="h-4 w-4" />
             </button>
           </div>
         </div>
       </div>
 
       {showPDF && getPDFContent() && (
-        <PDFViewer 
+        <PDFViewer
           pdfContent={getPDFContent()}
           onClose={() => setShowPDF(false)}
         />
