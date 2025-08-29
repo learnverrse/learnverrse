@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PiCertificateFill } from 'react-icons/pi';
 import { FaBookBookmark } from 'react-icons/fa6';
 import { FaBookOpen } from 'react-icons/fa';
@@ -6,13 +6,103 @@ import Handwave from './../../assets/learners-page-image/handwavee.png';
 import CalenderSection from '@/sections/CalenderSection';
 import useAuthProvider from '@/hooks/useAuthProvider';
 import { useNavigate } from 'react-router';
+import useAxiosPrivate from '@/hooks/useAxiosPrivate';
+import Loader from '@/components/UI/Loader';
+import { toast } from 'react-toastify';
 
 const LearnersDashboard = () => {
+  const [loading, setLoading] = useState(true);
+  const [currentCourse, setCurrentCourse] = useState(null);
+  const [courses, setCourses] = useState([]);
+  const axiosPrivate = useAxiosPrivate();
+  
   const {
     auth: { user },
   } = useAuthProvider();
 
   const navigate = useNavigate(); 
+
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        setLoading(true);
+        const res = await axiosPrivate.get(`progress/user/${user._id}`);
+        const data = res.data.data;
+        
+        // Transform the backend data to match the expected format
+        const transformedCourses = data.courses.map((courseProgress) => {
+          const course = courseProgress.courseId;
+          return {
+            id: course._id,
+            title: course.title,
+            description: course.description,
+            category: course.category,
+            educatorName: course.educatorName,
+            progress: courseProgress.completionPercentage,
+            isCompleted: courseProgress.isCompleted,
+            enrolledAt: courseProgress.enrolledAt,
+            lastAccessedAt: courseProgress.lastAccessedAt,
+          };
+        });
+        
+        setCourses(transformedCourses);
+        
+        // Determine current course based on different criteria
+        let current = null;
+        
+        if (transformedCourses.length > 0) {
+          // Strategy 1: Find the most recently accessed course that's not completed
+          const activeIncompleteCourses = transformedCourses.filter(course => 
+            !course.isCompleted && course.lastAccessedAt
+          );
+          
+          if (activeIncompleteCourses.length > 0) {
+            current = activeIncompleteCourses.sort((a, b) => 
+              new Date(b.lastAccessedAt) - new Date(a.lastAccessedAt)
+            )[0];
+          } else {
+            // Strategy 2: Find any incomplete course
+            const incompleteCourses = transformedCourses.filter(course => !course.isCompleted);
+            if (incompleteCourses.length > 0) {
+              current = incompleteCourses[0];
+            } else {
+              // Strategy 3: If all completed, show the most recently completed
+              current = transformedCourses.sort((a, b) => 
+                new Date(b.lastAccessedAt || b.enrolledAt) - new Date(a.lastAccessedAt || a.enrolledAt)
+              )[0];
+            }
+          }
+        }
+        
+        setCurrentCourse(current);
+      } catch (err) {
+        console.log(err);
+        toast.error('Failed to load enrolled courses');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (user?._id) {
+      fetchCourse();
+    }
+  }, [user?._id, axiosPrivate]);
+
+ const handleCardClick = () => {
+  if (!currentCourse?.id && !currentCourse?._id && !currentCourse?.courseId) {
+    console.error('No course ID available:', currentCourse);
+    return;
+  }
+
+  const courseId = currentCourse.id || currentCourse._id || currentCourse.courseId;
+
+  navigate(`/learner-dashboard/learning-page/${courseId}`, {
+    state: { 
+      course: currentCourse,
+      courseId
+    }
+  });
+};
 
   // Sample tasks data
   const tasks = [
@@ -48,6 +138,8 @@ const LearnersDashboard = () => {
     },
   ];
 
+  if (loading) return <Loader isLoading={loading} />;
+
   return (
     <div className="grid w-full grid-cols-1 md:grid-cols-12">
       <div className="scroll-container col-span-1 h-screen flex-1 overflow-y-auto bg-gray-50 p-6 md:col-span-9 lg:col-span-9">
@@ -81,29 +173,68 @@ const LearnersDashboard = () => {
             </h2>
           </div>
 
-          <div className="mb-4 flex justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                Cybersecurity Fundamentals: Protecting Digital Frontiers
-              </h3>
-              <p className="flex items-center font-bold text-gray-600">
-                Tutor: David Banner
-              </p>
-            </div>
-          </div>
-
-          <div className="mb-4">
-            
-            <div className="flex items-center gap-2">
-              <div className="h-1.5 flex-1 rounded-full bg-gray-200">
-                <div
-                  className="h-1.5 rounded-full bg-green-600"
-                  style={{ width: '50%' }}
-                ></div>
+          {currentCourse ? (
+            <>
+              <div className="mb-4 flex justify-between">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                    {currentCourse.title}
+                  </h3>
+                  <p className="flex items-center font-bold text-gray-600">
+                    Tutor: {currentCourse.educatorName}
+                  </p>
+                </div>
               </div>
-              <h2 className="text-sm font-bold text-black">50%</h2>
+
+              <div className="mb-4">
+                <div className="flex items-center gap-2">
+                  <div className="h-1.5 flex-1 rounded-full bg-gray-200">
+                    <div
+                      className="h-1.5 rounded-full bg-green-600"
+                      style={{ width: `${currentCourse.progress}%` }}
+                    ></div>
+                  </div>
+                  <h2 className="text-sm font-bold text-black">{currentCourse.progress}%</h2>
+                </div>
+              </div>
+
+              {/* Course actions */}
+              <div className="flex gap-2">
+                <button 
+                  onClick={handleCardClick}
+                  className="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm hover:bg-purple-700 transition-colors"
+                >
+                  Continue Learning
+                </button>
+                {currentCourse.isCompleted && (
+                  <button 
+                    onClick={() => navigate(`/certificate/${currentCourse.id}`)}
+                    className="px-4 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 transition-colors"
+                  >
+                    View Certificate
+                  </button>
+                )}
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-8">
+              <div className="mb-4">
+                <FaBookOpen className="text-gray-400 text-4xl mx-auto" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                No Active Course
+              </h3>
+              <p className="text-gray-600 mb-4">
+                You haven't enrolled in any courses yet. Start your learning journey today!
+              </p>
+              <button 
+                onClick={() => navigate('/courses')}
+                className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+              >
+                Browse Courses
+              </button>
             </div>
-          </div>
+          )}
         </section>
 
         {/* Stats Cards */}
@@ -115,7 +246,7 @@ const LearnersDashboard = () => {
               </div>
               <div className="flex h-full flex-col justify-between">
                 <h2 className="text-xl font-bold text-gray-800 sm:text-2xl md:text-3xl lg:text-4xl">
-                  1
+                  {courses.length}
                 </h2>
                 <p className="mt-auto text-xs text-gray-500 sm:text-sm md:text-base">
                   Courses Enrolled
@@ -131,7 +262,7 @@ const LearnersDashboard = () => {
               </div>
               <div className="flex h-full flex-col justify-between">
                 <h2 className="text-xl font-bold text-gray-800 sm:text-2xl md:text-3xl lg:text-4xl">
-                  0
+                  {courses.filter(course => course.isCompleted).length}
                 </h2>
                 <p className="mt-auto text-xs text-gray-500 sm:text-sm md:text-base">
                   Courses Completed
@@ -147,7 +278,7 @@ const LearnersDashboard = () => {
               </div>
               <div className="flex h-full flex-col justify-between">
                 <h2 className="text-xl font-bold text-gray-800 sm:text-2xl md:text-3xl lg:text-4xl">
-                  0
+                  {courses.filter(course => course.isCompleted).length}
                 </h2>
                 <p className="mt-auto text-xs text-gray-500 sm:text-sm md:text-base">
                   Certificates

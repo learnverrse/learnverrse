@@ -93,7 +93,7 @@ const CourseContent = () => {
     const newSection = {
       sectionId,
       sectionTitle: 'input section title',
-      SectionDescription: '',
+      sectionDescription: '',
       chapters: [],
     };
     setSections([...sections, newSection]);
@@ -264,40 +264,40 @@ const CourseContent = () => {
     };
 
     console.log('Updated Course:', updatedCourse.sections);
-    // try {
-    //   setLoading(true);
-    //   const res = await axiosPrivate.put(
-    //     `${import.meta.env.VITE_UPDATE_COURSE + '/' + courseId}`,
-    //     updatedCourse
-    //   );
-    //   console.log(res.data);
-    //   toast.success(res.data?.message);
-    //   navigate(`/educator/quiz/${courseId}`);
-    // } catch (err) {
-    //   console.log(err);
-    //   toast.error('Failed to update course');
-    // } finally {
-    //   setLoading(false);
-    // }
+    try {
+      setLoading(true);
+      const res = await axiosPrivate.put(
+        `${import.meta.env.VITE_UPDATE_COURSE + '/' + courseId}`,
+        updatedCourse
+      );
+      console.log(res.data);
+      toast.success(res.data?.message);
+      navigate(`/educator/quiz/${courseId}`);
+    } catch (err) {
+      console.log(err);
+      toast.error('Failed to update course');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="flex h-[calc(100vh-80px)] flex-col bg-gray-50 px-6 py-2">
+    <div className="flex h-[calc(100vh-80px)] flex-col bg-gray-50 px-3 sm:px-6 py-2">
       <CreateCourseNav currentStep={2} />
 
       {loading ? (
         <Loader isLoading={loading} info={'Loading course content...'} />
       ) : (
         <>
-          <div className="p-6">
+          <div className="p-3 sm:p-6">
             {sections?.map((section, sectionIndex) => (
-              <div key={section.sectionId} className="mb-8">
+              <div key={section.sectionId} className="mb-6 sm:mb-8">
                 {/* Section Header */}
-                <div className="mb-4 flex items-center justify-between rounded-lg border border-gray-600 p-4">
-                  <div className="flex items-center space-x-3">
+                <div className="mb-4 flex items-center justify-between rounded-lg border border-gray-600 p-3 sm:p-4">
+                  <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
                     <button
                       onClick={() => toggleSection(section.sectionId)}
-                      className="flex items-center text-gray-600 hover:text-gray-800"
+                      className="flex items-center text-gray-600 hover:text-gray-800 flex-shrink-0"
                     >
                       {expandedSections[section.sectionId] ? (
                         <FiChevronUp size={20} />
@@ -305,7 +305,7 @@ const CourseContent = () => {
                         <FiChevronDown size={20} />
                       )}
                     </button>
-                    <span className="font-medium text-black">
+                    <span className="font-medium text-black text-sm sm:text-base flex-shrink-0">
                       Section {sectionIndex + 1}:
                     </span>
                     <input
@@ -314,16 +314,16 @@ const CourseContent = () => {
                       onChange={(e) =>
                         updateSectionTitle(section.sectionId, e.target.value)
                       }
-                      className="border-none bg-transparent text-gray-700 placeholder-gray-700 outline-none"
+                      className="border-none bg-transparent text-gray-700 placeholder-gray-700 outline-none flex-1 min-w-0 text-sm sm:text-base font-medium"
                       placeholder="input section title"
                     />
                   </div>
                   <button
-                    className="flex cursor-pointer items-center text-gray-400 hover:text-gray-600"
+                    className="flex cursor-pointer items-center text-gray-400 hover:text-gray-600 flex-shrink-0 ml-2"
                     onClick={() => DeleteSection(section.sectionId)}
                   >
                     <FiTrash size={16} />
-                    <span className="ml-1 text-sm">delete</span>
+                    <span className="ml-1 text-sm hidden sm:inline">delete</span>
                   </button>
                 </div>
 
@@ -331,7 +331,7 @@ const CourseContent = () => {
                 {expandedSections[section.sectionId] && (
                   <>
                     {/* Section Description */}
-                    <div className="mb-6 ml-4">
+                    <div className="mb-4 sm:mb-6 ml-2 sm:ml-4">
                       <label className="mb-2 block text-sm font-medium text-gray-700">
                         Section Description
                       </label>
@@ -343,7 +343,7 @@ const CourseContent = () => {
                             e.target.value
                           )
                         }
-                        className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-transparent focus:ring-2 focus:ring-purple-500"
+                        className="w-full resize-none rounded-lg border border-gray-300 px-3 sm:px-4 py-2 sm:py-3 outline-none focus:border-transparent focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
                         rows={3}
                         placeholder="Enter section description..."
                       />
@@ -351,13 +351,13 @@ const CourseContent = () => {
 
                     {/* Chapters */}
                     {section?.chapters?.map((chapter, chapterIndex) => (
-                      <div key={chapter.chapterId} className="mb-6 ml-8">
+                      <div key={chapter.chapterId} className="mb-4 sm:mb-6 ml-4 sm:ml-8">
                         {/* Chapter Header */}
-                        <div className="mb-4 flex items-center justify-between rounded-lg border border-gray-400 p-4">
-                          <div className="flex items-center space-x-3">
+                        <div className="mb-4 flex items-center justify-between rounded-lg border border-gray-400 p-3 sm:p-4">
+                          <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
                             <button
                               onClick={() => toggleChapter(chapter.chapterId)}
-                              className="flex items-center text-gray-600 hover:text-gray-800"
+                              className="flex items-center text-gray-600 hover:text-gray-800 flex-shrink-0"
                             >
                               {expandedChapters[chapter.chapterId] ? (
                                 <FiChevronDown size={18} />
@@ -365,7 +365,7 @@ const CourseContent = () => {
                                 <FiChevronUp size={18} />
                               )}
                             </button>
-                            <span className="font-medium text-black">
+                            <span className="font-medium text-black text-sm sm:text-base flex-shrink-0">
                               Chapter {chapterIndex + 1}:
                             </span>
                             <input
@@ -378,12 +378,12 @@ const CourseContent = () => {
                                   e.target.value
                                 )
                               }
-                              className="border-none bg-transparent text-gray-700 placeholder-gray-700 outline-none"
+                              className="border-none bg-transparent text-gray-700 placeholder-gray-700 outline-none flex-1 min-w-0 text-sm sm:text-base font-medium"
                               placeholder="input chapter title"
                             />
                           </div>
                           <button
-                            className="flex cursor-pointer items-center text-gray-400 hover:text-gray-600"
+                            className="flex cursor-pointer items-center text-gray-400 hover:text-gray-600 flex-shrink-0 ml-2"
                             onClick={() =>
                               deleteChapter(
                                 section.sectionId,
@@ -392,39 +392,14 @@ const CourseContent = () => {
                             }
                           >
                             <FiTrash2 size={16} />
-
-                            <span className="ml-1 text-sm">delete</span>
+                            <span className="ml-1 text-sm hidden sm:inline">delete</span>
                           </button>
                         </div>
 
                         {/* Chapter Form - Collapsible */}
                         {expandedChapters[chapter.chapterId] && (
-                          <div className="rounded-lg border border-gray-200 bg-white p-6">
-                            <form className="space-y-6">
-                              {/*   <div>
-                            <label
-                              htmlFor={`subtitle-${chapter.chapterId}`}
-                              className="mb-2 block text-sm font-medium text-gray-700"
-                            >
-                              Chapter Subtitle
-                            </label>
-                            <input
-                              type="text"
-                              id={`subtitle-${chapter.chapterId}`}
-                              value={chapter.subtitle}
-                              onChange={(e) =>
-                                updateChapterField(
-                                  section.sectionId,
-                                  chapter.chapterId,
-                                  'subtitle',
-                                  e.target.value
-                                )
-                              }
-                              className="mt-2 w-full rounded-full border border-gray-400 px-4 py-3 outline-none focus:border-transparent focus:ring-2 focus:ring-purple-500"
-                              placeholder="Enter chapter subtitle..."
-                            />
-                          </div> */}
-
+                          <div className="rounded-lg border border-gray-200 bg-white p-4 sm:p-6">
+                            <form className="space-y-4 sm:space-y-6">
                               <div>
                                 <label
                                   htmlFor={`description-${chapter.chapterId}`}
@@ -443,11 +418,11 @@ const CourseContent = () => {
                                       e.target.value
                                     )
                                   }
-                                  rows={12}
-                                  className="mt-2 w-full resize-none rounded-lg border border-gray-300 px-6 py-3 outline-none focus:border-transparent focus:ring-2 focus:ring-purple-500"
+                                  rows={8}
+                                  className="mt-2 w-full resize-none rounded-lg border border-gray-300 px-3 sm:px-6 py-2 sm:py-3 outline-none focus:border-transparent focus:ring-2 focus:ring-purple-500 text-sm sm:text-base min-h-[200px] sm:min-h-[300px]"
                                   placeholder="Enter chapter description..."
                                 />
-                                <p className="mt-2 ml-4 text-sm text-gray-400">
+                                <p className="mt-2 ml-2 sm:ml-4 text-xs sm:text-sm text-gray-400">
                                   {chapter.content?.length}/2000 Characters
                                 </p>
                               </div>
@@ -469,7 +444,7 @@ const CourseContent = () => {
                                 />
                                 <label
                                   htmlFor={`file-${chapter.chapterId}`}
-                                  className="w-full cursor-pointer rounded-full border border-gray-400 px-4 py-2 text-gray-700 hover:bg-gray-50"
+                                  className="w-full cursor-pointer rounded-full border border-gray-400 px-4 py-3 text-gray-700 hover:bg-gray-50 text-center text-sm sm:text-base"
                                 >
                                   {chapter.video instanceof File
                                     ? chapter.video.name
@@ -487,7 +462,7 @@ const CourseContent = () => {
                                       className="w-full object-cover"
                                     />
                                     <FaTimes
-                                      className="absolute top-2 right-2 cursor-pointer text-2xl text-red-500"
+                                      className="absolute top-2 right-2 cursor-pointer text-xl sm:text-2xl text-red-500 bg-white bg-opacity-80 rounded-full p-1"
                                       onClick={() => {
                                         updateChapterField(
                                           section.sectionId,
@@ -506,7 +481,7 @@ const CourseContent = () => {
 
                                 {/* Upload Button + Progress */}
                                 {chapter.video instanceof File && (
-                                  <>
+                                  <div className="flex flex-col gap-2">
                                     <button
                                       type="button"
                                       onClick={() =>
@@ -516,23 +491,20 @@ const CourseContent = () => {
                                           chapter
                                         )
                                       }
-                                      className="bg-primary-600 hover:bg-primary-700 mt-2 rounded px-4 py-2 text-white"
+                                      className="bg-primary-600 hover:bg-primary-700 rounded px-4 py-2 text-white text-sm sm:text-base w-full sm:w-auto"
                                     >
                                       Upload Video
                                     </button>
-                                    {uploadProgress[chapter.chapterId] !=
-                                      null && (
+                                    {uploadProgress[chapter.chapterId] != null && (
                                       <progress
-                                        value={
-                                          uploadProgress[chapter.chapterId]
-                                        }
+                                        value={uploadProgress[chapter.chapterId]}
                                         max="100"
-                                        className="w-full"
+                                        className="w-full h-2 sm:h-auto"
                                       >
                                         {uploadProgress[chapter.chapterId]}%
                                       </progress>
                                     )}
-                                  </>
+                                  </div>
                                 )}
 
                                 {/* Already uploaded? Show link */}
@@ -542,7 +514,7 @@ const CourseContent = () => {
                                       href={chapter.video}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="text-sm text-blue-600 underline"
+                                      className="text-xs sm:text-sm text-blue-600 underline break-all"
                                     >
                                       View Uploaded Video
                                     </a>
@@ -557,9 +529,9 @@ const CourseContent = () => {
                     {/* Add Chapter Button */}
                     <button
                       onClick={() => addChapter(section.sectionId)}
-                      className="ml-8 flex cursor-pointer items-center space-x-2 font-medium text-purple-600 hover:text-purple-700"
+                      className="ml-4 sm:ml-8 flex cursor-pointer items-center space-x-2 font-medium text-purple-600 hover:text-purple-700 text-sm sm:text-base"
                     >
-                      <FaPlus size={16} />
+                      <FaPlus size={14} className="sm:size-4" />
                       <span>Chapter</span>
                     </button>
                   </>
@@ -570,27 +542,29 @@ const CourseContent = () => {
             {/* Add Section Button */}
             <button
               onClick={addSection}
-              className="flex cursor-pointer items-center space-x-2 font-medium text-purple-600 hover:text-purple-700"
+              className="flex cursor-pointer items-center space-x-2 font-medium text-purple-600 hover:text-purple-700 text-sm sm:text-base"
             >
-              <FaPlus size={16} />
+              <FaPlus size={14} className="sm:size-4" />
               <span>Section</span>
             </button>
           </div>
 
-          <div className="mt-12 flex items-center justify-between gap-4">
+          <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
             <button
               type="button"
-              className="rounded-full bg-gray-600 px-8 py-3 font-medium text-white hover:bg-gray-700"
+              className="order-2 sm:order-1 rounded-full bg-gray-600 px-6 sm:px-8 py-3 font-medium text-white hover:bg-gray-700 text-sm sm:text-base w-full sm:w-auto"
               onClick={goBack}
             >
               Back
             </button>
 
-            <Button
-              label={'Save & Continue'}
-              active={true}
-              fun={(e) => SaveAndContinue(e)}
-            />
+            <div className="order-1 sm:order-2 w-full sm:w-auto">
+              <Button
+                label={'Save & Continue'}
+                active={true}
+                fun={(e) => SaveAndContinue(e)}
+              />
+            </div>
           </div>
         </>
       )}
