@@ -10,6 +10,7 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
   const navigate = useNavigate();
   const { auth } = useAuthProvider();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -19,10 +20,25 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
     setIsMobileMenuOpen(false);
   };
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/courses?search=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery(''); // Clear search after navigation
+    }
+  };
 
-  const searchBar = async (e) => {
+  const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
+  };
+
+  const handleMobileSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/courses?search=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery(''); // Clear search after navigation
+      closeMobileMenu(); // Close mobile menu after search
+    }
   };
 
   return (
@@ -44,20 +60,27 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
             </div>
           </div>
 
-          {/* search input */}
-          <div className="relative mx-4 hidden w-full max-w-md md:block md:max-w-3xs lg:max-w-xs">
+          {/* search input - Desktop */}
+          <form onSubmit={handleSearchSubmit} className="relative mx-4 hidden w-full max-w-md md:block md:max-w-3xs lg:max-w-xs">
             <input
               type="search"
               placeholder="Discover Courses To Learn"
+              value={searchQuery}
+              onChange={handleSearchChange}
               className="w-full rounded-full border border-black px-4 py-2 pl-10 focus:ring-2 focus:ring-purple-700 focus:outline-none"
             />
 
-            <img
-              src={search}
-              alt="Search icon"
-              className="absolute top-1/2 left-3 -translate-y-1/2 transform cursor-pointer"
-            />
-          </div>
+            <button
+              type="submit"
+              className="absolute top-1/2 left-3 -translate-y-1/2 transform cursor-pointer border-none bg-transparent"
+            >
+              <img
+                src={search}
+                alt="Search icon"
+                className="cursor-pointer"
+              />
+            </button>
+          </form>
 
           {/* buttons */}
           <div className="gap-4 md:flex">
@@ -153,19 +176,26 @@ const HeaderNav = ({ bgColor = 'bg-white' }) => {
 
         {/* Menu Content */}
         <div className="space-y-6 p-6">
-          {/* Search Input */}
-          <div className="relative">
+          {/* Search Input - Mobile */}
+          <form onSubmit={handleMobileSearchSubmit} className="relative">
             <input
               type="text"
               placeholder="Discover Courses To Learn"
+              value={searchQuery}
+              onChange={handleSearchChange}
               className="w-full rounded-full border border-black px-4 py-2 pl-10 focus:ring-2 focus:ring-purple-700 focus:outline-none"
             />
-            <img
-              src={search}
-              alt="Search icon"
-              className="absolute top-1/2 left-3 -translate-y-1/2 transform cursor-pointer"
-            />
-          </div>
+            <button
+              type="submit"
+              className="absolute top-1/2 left-3 -translate-y-1/2 transform cursor-pointer border-none bg-transparent"
+            >
+              <img
+                src={search}
+                alt="Search icon"
+                className="cursor-pointer"
+              />
+            </button>
+          </form>
 
           {/* Navigation Links */}
           <div className="space-y-4">
