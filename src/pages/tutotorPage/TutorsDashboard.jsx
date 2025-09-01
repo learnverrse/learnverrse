@@ -5,7 +5,10 @@ import { FaBook } from 'react-icons/fa';
 import Handwave from './../../assets/learners-page-image/handwavee.png';
 import CalenderSection from '@/sections/CalenderSection';
 import useAuthProvider from '@/hooks/useAuthProvider';
+import useAxiosPrivate from '@/hooks/useAxiosPrivate';
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
+import Loader from '@/components/UI/Loader';
 
 const TutorsDashboard = () => {
   const {
@@ -13,36 +16,44 @@ const TutorsDashboard = () => {
   } = useAuthProvider();
 
   const navigate = useNavigate();
+  const axiosPrivate = useAxiosPrivate();
 
-  // Course data objects
-  const courses = [
-    {
-      id: 1,
-      title: 'Data Analytics: Transforming Data into Actionable Insights',
-      status: 'Active',
-      rating: 4.6,
-      maxRating: 5.0,
-      enrolledLearners: 500,
-    },
-    {
-      id: 2,
-      title: 'Cybersecurity Fundamentals: Protecting Digital Frontiers',
-      status: 'Active',
-      rating: 4.0,
-      maxRating: 5.0,
-      enrolledLearners: 300,
-    },
-    {
-      id: 3,
-      title: 'UI/UX Design Masterclass: Design with Users in Mind',
-      status: 'Active',
-      rating: 4.3,
-      maxRating: 5.0,
-      enrolledLearners: 500,
-    },
-  ];
+  // Fetch courses data for dashboard statistics
+  const fetchCoursesData = async () => {
+    try {
+      const response = await axiosPrivate.get(
+        `courses/educator?ownCoursesOnly=true`
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return { data: [], totalCourses: 0 };
+    }
+  };
 
-  // Tasks data
+  const { data: coursesData, isLoading } = useQuery(
+    ['dashboardCourses'],
+    fetchCoursesData
+  );
+
+  // Calculate dynamic statistics
+  const totalCourses = coursesData?.totalCourses || 0;
+  const totalStudents = coursesData?.data?.reduce((sum, course) => {
+    return sum + (course.enrolledStudents || course.studentsEnrolled || 0);
+  }, 0) || 0;
+  
+  // Get recent enrollments (you might need to adjust this based on your data structure)
+  const recentEnrollment = coursesData?.data?.reduce((sum, course) => {
+    // Assuming you have a recentEnrollments field or calculate based on recent data
+    return sum + (course.recentEnrollments || 0);
+  }, 0) || 0;
+
+  // Filter published/active courses for display
+  const activeCourses = coursesData?.data?.filter(course => 
+    course.status === 'published' || course.status === 'active'
+  ) || [];
+
+  // Tasks data (you might want to fetch this dynamically too)
   const tasks = [
     {
       id: 1,
@@ -76,6 +87,14 @@ const TutorsDashboard = () => {
     },
   ];
 
+  if (isLoading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Loader isLoading={isLoading} info={'Loading dashboard...'} />
+      </div>
+    );
+  }
+
   return (
     <div className="grid w-full grid-cols-1 md:grid-cols-12">
       <div className="scroll-container col-span-1 h-screen flex-1 overflow-y-auto bg-gray-50 p-6 md:col-span-9 lg:col-span-9">
@@ -107,7 +126,7 @@ const TutorsDashboard = () => {
               </div>
               <div className="flex h-full flex-col justify-between">
                 <h2 className="text-xl font-bold text-gray-800 sm:text-2xl md:text-3xl lg:text-4xl">
-                  1300
+                  {totalStudents}
                 </h2>
                 <p className="mt-auto text-xs text-gray-500 sm:text-sm md:text-base">
                   Total Students
@@ -123,11 +142,10 @@ const TutorsDashboard = () => {
               </div>
               <div className="flex h-full flex-col justify-between">
                 <h2 className="text-xl font-bold text-gray-800 sm:text-2xl md:text-3xl lg:text-4xl">
-                  3
+                  {totalCourses}
                 </h2>
                 <p className="mt-auto text-xs text-gray-500 sm:text-sm md:text-base">
-                  {' '}
-                  Total Courses{' '}
+                  Total Courses
                 </p>
               </div>
             </div>
@@ -140,7 +158,7 @@ const TutorsDashboard = () => {
               </div>
               <div className="flex h-full flex-col justify-between">
                 <h2 className="text-xl font-bold text-gray-800 sm:text-2xl md:text-3xl lg:text-4xl">
-                  30
+                  {recentEnrollment}
                 </h2>
                 <p className="mt-auto text-xs text-gray-500 sm:text-sm md:text-base">
                   Recent Enrollment
@@ -149,8 +167,8 @@ const TutorsDashboard = () => {
             </div>
           </div>
         </div>
-        {/* Start Course */}
 
+        {/* Start Course */}
         <div className="mb-8">
           <button
             className="w-full rounded-md bg-purple-700 px-6 py-2 text-white hover:bg-purple-600 md:w-auto"
@@ -166,38 +184,44 @@ const TutorsDashboard = () => {
             <h2 className="text-xl font-bold text-gray-800">My Courses</h2>
           </div>
 
-          <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto md:grid md:grid-cols-2 md:overflow-visible lg:grid-cols-3">
-            {courses.map((course) => (
-              <div
-                key={course.id}
-                className="w-full shrink-0 snap-center rounded-lg border border-gray-200 p-4 transition-shadow hover:shadow-md sm:min-w-[300px] md:min-w-0"
-              >
-                <h3 className="mb-3 text-sm leading-tight font-semibold text-gray-800 md:text-base">
-                  {course.title}
-                </h3>
-                <div className="space-y-2 text-xs text-gray-600 md:text-sm">
-                  <div className="flex items-center justify-between">
-                    <span>Status:</span>
-                    <span className="font-medium text-green-600">
-                      {course.status}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Course Rating:</span>
-                    <span className="font-medium">
-                      {course.rating}/{course.maxRating}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Enrolled Learners:</span>
-                    <span className="font-medium">
-                      {course.enrolledLearners}
-                    </span>
+          {activeCourses.length > 0 ? (
+            <div className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto md:grid md:grid-cols-2 md:overflow-visible lg:grid-cols-3">
+              {activeCourses.slice(0, 6).map((course) => (
+                <div
+                  key={course._id}
+                  className="w-full shrink-0 snap-center rounded-lg border border-gray-200 p-4 transition-shadow hover:shadow-md sm:min-w-[300px] md:min-w-0"
+                >
+                  <h3 className="mb-3 text-sm leading-tight font-semibold text-gray-800 md:text-base">
+                    {course.title || course.name}
+                  </h3>
+                  <div className="space-y-2 text-xs text-gray-600 md:text-sm">
+                    <div className="flex items-center justify-between">
+                      <span>Status:</span>
+                      <span className="font-medium text-green-600 capitalize">
+                        {course.status === 'published' ? 'Active' : course.status}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Course Rating:</span>
+                      <span className="font-medium">
+                        {course.rating || course.averageRating || 'N/A'}/5.0
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Enrolled Learners:</span>
+                      <span className="font-medium">
+                        {course.enrolledStudents || course.studentsEnrolled || 0}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex h-32 items-center justify-center">
+              <p className="text-gray-500">No active courses yet</p>
+            </div>
+          )}
         </section>
 
         {/* Weekly Interaction And Task Section */}
