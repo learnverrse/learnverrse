@@ -37,11 +37,31 @@ const SingleCourse = ({ course }) => {
   };
   return (
    <div className="flex w-full max-w-[349px] basis-full flex-col gap-4 sm:basis-[47%] lg:basis-[31%] bg-white rounded-lg shadow-md overflow-hidden">
-  <img
-    src={course.image === '' ? defaultCourse : course.image}
-    alt={course.title}
-    className="w-full h-48 object-cover"
-  />
+  <div className="relative">
+    <img
+      src={course.image === '' ? defaultCourse : course.image}
+      alt={course.title}
+      className="w-full h-48 object-cover"
+    />
+    
+    {/* Overlay for draft courses */}
+    {course.status !== 'PUBLISHED' && (
+      <div className="absolute inset-0 bg-gray-900/75 bg-opacity-50"></div>
+    )}
+    
+    {/* Status badge positioned on top right of image */}
+    <div className="absolute top-3 right-3 z-10">
+      <span 
+        className={`px-2 py-1 text-sm font-semibold rounded ${
+          course.status === 'PUBLISHED' 
+            ? 'bg-green-500 text-white' 
+            : 'bg-red-500 text-white'
+        }`}
+      >
+        {course.status === 'PUBLISHED' ? 'PUBLISHED' : 'DRAFT'}
+      </span>
+    </div>
+  </div>
 
   <div className="p-4">
     <div className="mb-4">
